@@ -2027,8 +2027,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "explorerURL",
         value: function explorerURL(hash) {
-          var baseURL = this.CONSTANTS.NET.NETWORK === 'mainnet' ? 'https://tzkt.io/' : 'https://carthage.tzkt.io/';
-          return baseURL + hash;
+          var baseURL = this.CONSTANTS.NET.BLOCK_EXPLORER_URL;
+          return "".concat(baseURL, "/").concat(hash);
         }
       }]);
 
@@ -4467,19 +4467,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var big_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! big.js */
+    "./node_modules/big.js/big.js");
+    /* harmony import */
+
+
+    var big_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(big_js__WEBPACK_IMPORTED_MODULE_12__);
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var _pipes_delegator_name_pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var _pipes_delegator_name_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
     /*! ../../pipes/delegator-name.pipe */
     "./src/app/pipes/delegator-name.pipe.ts");
 
@@ -4945,10 +4955,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.messageService = messageService;
         this.modalOpen = false;
         this.activeView = 0;
-        this.recommendedFee = 0.0013;
+        this.recommendedFee = 0.0004;
         this.revealFee = 0;
-        this.pkhFee = 0.0013;
-        this.ktFee = 0.003;
+        this.pkhFee = 0.0004;
+        this.ktFee = 0.0008;
         this.CONSTANTS = new _constants__WEBPACK_IMPORTED_MODULE_9__["Constants"]();
         this.formInvalid = '';
         this.ledgerError = '';
@@ -5357,7 +5367,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           console.log('check reveal ' + this.activeAccount.pkh);
           this.operationService.isRevealed(this.activeAccount.pkh).subscribe(function (revealed) {
             if (!revealed) {
-              _this6.revealFee = 0.0013;
+              _this6.revealFee = 0.0002;
             } else {
               _this6.revealFee = 0;
             }
@@ -5369,9 +5379,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "checkSource",
         value: function checkSource() {
           if (this.activeAccount instanceof _services_wallet_wallet__WEBPACK_IMPORTED_MODULE_10__["ImplicitAccount"]) {
-            this.recommendedFee = this.revealFee + this.pkhFee;
+            this.recommendedFee = Number(new big_js__WEBPACK_IMPORTED_MODULE_12___default.a(this.revealFee).plus(this.pkhFee));
           } else if (this.activeAccount instanceof _services_wallet_wallet__WEBPACK_IMPORTED_MODULE_10__["OriginatedAccount"]) {
-            this.recommendedFee = this.revealFee + this.ktFee;
+            this.recommendedFee = Number(new big_js__WEBPACK_IMPORTED_MODULE_12___default.a(this.revealFee).plus(this.ktFee));
           }
         }
       }, {
@@ -5475,8 +5485,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.modalOpen);
         }
       },
-      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgModel"]],
-      pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_12__["DecimalPipe"], _pipes_delegator_name_pipe__WEBPACK_IMPORTED_MODULE_14__["DelegatorNamePipe"]],
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgModel"]],
+      pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["DecimalPipe"], _pipes_delegator_name_pipe__WEBPACK_IMPORTED_MODULE_15__["DelegatorNamePipe"]],
       styles: ["div.kukai-modal[_ngcontent-%COMP%] {\n  position: fixed;\n  z-index: 100;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: black;\n  background-color: rgba(0, 0, 0, 0.4);\n}\n\ndiv.kukai-modal[_ngcontent-%COMP%]    > div.km-content[_ngcontent-%COMP%] {\n  position: relative;\n  background-color: #fcfcfc;\n  margin: 5rem auto;\n  border: 1px solid #ffffff;\n  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.06);\n  border-radius: 0.75rem;\n  width: 25rem;\n  -webkit-animation-name: animatetop;\n  -webkit-animation-duration: 0.5s;\n  animation-name: animatetop;\n  animation-duration: 0.5s;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    top: 20rem;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n@keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0;\n  }\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\ndiv.kukai-modal[_ngcontent-%COMP%]    > div.km-content[_ngcontent-%COMP%]    > div.km-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  flex-direction: row;\n  border-bottom: 1px solid black;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.04);\n}\ndiv.km-header[_ngcontent-%COMP%]    > H1[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: bold;\n  font-size: 1.25rem;\n  line-height: 1.5rem;\n  display: flex;\n  align-items: center;\n  color: #2c323a;\n  margin: 1rem;\n}\ndiv.km-header[_ngcontent-%COMP%]    > span.close[_ngcontent-%COMP%] {\n  margin: 0.25rem 0.5rem;\n  color: #aaa;\n  font-size: 28px;\n  font-weight: bold;\n}\ndiv.km-header[_ngcontent-%COMP%]    > span.close[_ngcontent-%COMP%]:hover, div.km-header[_ngcontent-%COMP%]    > span.close[_ngcontent-%COMP%]:focus {\n  color: #2c323a;\n  text-decoration: none;\n  cursor: pointer;\n}\ndiv.km-body[_ngcontent-%COMP%] {\n  margin: 1rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.amount[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-direction: row;\n  height: 5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.custom-large[_ngcontent-%COMP%] {\n  width: auto;\n  font-style: normal;\n  font-weight: normal;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 5rem;\n  line-height: 5rem;\n  color: #2C323A;\n  background: #fcfcfc;\n  opacity: 0.4;\n  padding: 0;\n  text-align: center;\n  border: 0;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.custom-large[_ngcontent-%COMP%]:disabled {\n  background-color: rgba(0, 0, 0, 0);\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus, div.kukai-modal[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%]:focus {\n  outline: none;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   span.tez[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: 500;\n  font-size: 1rem;\n  line-height: 1rem;\n  color: #2C323A;\n  opacity: 0.4;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   p.fee[_ngcontent-%COMP%] {\n  margin-top: 0.375rem;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 0.75rem;\n  line-height: 1rem;\n  color: #2C323A;\n  opacity: 0.4;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   p.preview[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 0.875rem;\n  line-height: 1rem;\n  display: flex;\n  align-items: flex-end;\n  color: #000000;\n  opacity: 0.6;\n  margin-bottom: 0.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   td[_ngcontent-%COMP%], th[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 0.75rem;\n  line-height: 1rem;\n  color: #000000;\n  opacity: 0.6;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\ndiv.km-content[_ngcontent-%COMP%]   label[_ngcontent-%COMP%]:not(.switch) {\n  margin-bottom: 0.5rem;\n  font-style: normal;\n  font-weight: 500;\n  font-size: 1rem;\n  line-height: 1.125rem;\n  display: flex;\n  align-items: center;\n  color: #2C323A;\n  opacity: 0.4;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   p[_ngcontent-%COMP%], span.danger[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 0.875rem;\n  line-height: 1rem;\n  display: flex;\n  align-items: flex-end;\n  color: #000000;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   span.no-margin[_ngcontent-%COMP%], div.kukai-modal[_ngcontent-%COMP%]   span.margin[_ngcontent-%COMP%] {\n  color: #FF0000;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   span.no-margin[_ngcontent-%COMP%] {\n  margin-top: 0.75rem;\n  margin-bottom: -1.75rem;\n  color: #FF0000;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.group[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.text[_ngcontent-%COMP%], div.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%] {\n  width: 100%;\n  background: #E1E1E1;\n  border-radius: 0.75rem;\n  height: 3rem;\n  font-style: normal;\n  font-weight: normal;\n  font-size: 1rem;\n  line-height: 3rem;\n  letter-spacing: 0.16px;\n  color: #000000;\n  padding-left: 1rem;\n  padding-right: 1rem;\n  border: 0;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.text.password[_ngcontent-%COMP%] {\n  width: 200%;\n  margin-right: 1rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%] {\n  padding-top: 0.5rem;\n  height: 7rem;\n  line-height: 1.25rem;\n  resize: none;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.text[_ngcontent-%COMP%]::-moz-placeholder, div.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%]::-moz-placeholder {\n  color: #808080;\n  opacity: 1;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   input.text[_ngcontent-%COMP%]::placeholder, div.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%]::placeholder {\n  color: #808080;\n  opacity: 1;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%]::placeholder, div.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%]::-webkit-input-placeholder, div.kukai-modal[_ngcontent-%COMP%]   textarea.text[_ngcontent-%COMP%]:-ms-input-placeholder {\n  padding-top: 0.5rem;\n  line-height: 1.25rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.row-group[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.row-group[_ngcontent-%COMP%]    > div.group[_ngcontent-%COMP%]:first-child {\n  margin-right: 1rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.advanced[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.blue[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: bold;\n  font-size: 1rem;\n  line-height: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  color: white;\n  background: #5963FF;\n  box-shadow: 0px 0px 1px rgba(89, 99, 255, 0.04), 0px 2px 6px rgba(89, 99, 255, 0.04), 0px 16px 24px rgba(89, 99, 255, 0.24);\n  width: 100%;\n  height: 3rem;\n  border-radius: 0.75rem;\n  border: 0;\n  margin-top: 2.5rem;\n  margin-bottom: 1.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.blue.confirm[_ngcontent-%COMP%], div.kukai-modal[_ngcontent-%COMP%]   button.retry[_ngcontent-%COMP%] {\n  height: 3rem;\n  margin: 0;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.retry[_ngcontent-%COMP%] {\n  width: 100%;\n  font-size: 1rem;\n  background-color: #d3d3d3;\n  color: #212529;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button[_ngcontent-%COMP%]:focus {\n  outline: none;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.switch-container[_ngcontent-%COMP%] {\n  width: auto !important;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.small[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: 500;\n  font-size: 0.75rem;\n  line-height: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  width: auto;\n  height: 1.5rem;\n  color: #000000;\n  opacity: 0.6;\n  background: rgba(214, 214, 214, 0.4);\n  border-radius: 0.3125rem;\n  border: 0;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.small.max[_ngcontent-%COMP%] {\n  background: #d5f2dc;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   button.small.multiple-destinations[_ngcontent-%COMP%] {\n  color: #5963FF;\n  opacity: 1;\n  margin: 1rem 1.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.advanced[_ngcontent-%COMP%]    > div.row-group[_ngcontent-%COMP%] {\n  height: 1.5rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]   div.x[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1rem;\n  right: -1rem;\n  width: 2rem;\n  height: 2rem;\n  z-index: 120;\n  background: #FCFCFC;\n  border: 1px solid #FFFFFF;\n  border-radius: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n@media screen and (max-width: 27rem) {\n  div.kukai-modal[_ngcontent-%COMP%]   div.x[_ngcontent-%COMP%] {\n    right: -1px;\n    border-bottom-right-radius: 0;\n  }\n\n  div.kukai-modal[_ngcontent-%COMP%]   button.small.multiple-destinations[_ngcontent-%COMP%] {\n    margin-right: 2.5rem;\n  }\n}\n@media screen and (max-width: 25rem) {\n  div.kukai-modal[_ngcontent-%COMP%]    > div.km-content[_ngcontent-%COMP%] {\n    width: 23rem;\n  }\n\n  div.kukai-modal[_ngcontent-%COMP%]   input.text.password[_ngcontent-%COMP%] {\n    width: 11rem;\n  }\n}\n.modal-footer[_ngcontent-%COMP%] {\n  padding-bottom: 0rem;\n}\ndiv.outside-container[_ngcontent-%COMP%] {\n  padding: 0.5rem 0;\n}\ndiv.outside-container[_ngcontent-%COMP%]    > span[_ngcontent-%COMP%] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 0.8125rem;\n  line-height: 1rem;\n  color: #2C323A;\n}\ndiv.outside-container[_ngcontent-%COMP%]    > span[_ngcontent-%COMP%]    > span[_ngcontent-%COMP%] {\n  color: #5963FF;\n  cursor: pointer;\n}\n.fa-check-circle[_ngcontent-%COMP%] {\n  color: #28a745;\n  font-size: 96px;\n}\nbutton[_ngcontent-%COMP%] {\n  border-radius: 0.75rem;\n  height: 3rem;\n  width: 8rem;\n  font-style: normal;\n  font-weight: bold;\n  font-size: 0.875rem;\n  line-height: 1rem;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-appearance: none !important;\n  transition: margin-top 0.1s ease-in, margin-bottom 0.1s ease-in;\n}\nbutton.blue[_ngcontent-%COMP%]:hover {\n  margin-top: -0.125rem;\n}\nbutton[_ngcontent-%COMP%]:focus {\n  outline: none;\n}\nbutton.blue[_ngcontent-%COMP%] {\n  color: #5963ff;\n  background: #a4a8ec;\n  box-shadow: 0px 0px 1px rgba(164, 168, 236, 0.04), 0px 2px 6px rgba(164, 168, 236, 0.04), 0px 16px 24px rgba(164, 168, 236, 0.24);\n  transition: margin-top 0.1s ease-in, margin-bottom 0.1s ease-in;\n}\ninput.custom-textbox[_ngcontent-%COMP%] {\n  padding-left: 0.75rem;\n}\ndiv.kukai-modal[_ngcontent-%COMP%]    > div.km-content[_ngcontent-%COMP%]    > div.km-body[_ngcontent-%COMP%]    > div.group[_ngcontent-%COMP%]    > input.text[_ngcontent-%COMP%] {\n  font-size: 0.8125rem;\n}\n@supports (-webkit-touch-callout: none) {\n  div.kukai-modal[_ngcontent-%COMP%]    > div.km-content[_ngcontent-%COMP%]    > div.km-body[_ngcontent-%COMP%]    > div.group[_ngcontent-%COMP%]    > input.text[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n}\n@media screen and (max-width: 25rem) {\n  input#toAddress[_ngcontent-%COMP%], input.custom-textbox[_ngcontent-%COMP%] {\n    font-size: 0.8125rem;\n  }\n}\n@media screen and (max-width: 22rem) {\n  input#toAddress[_ngcontent-%COMP%], input.custom-textbox[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kZWxlZ2F0ZS9DOlxcVXNlcnNcXGtsYXNfXFxHaXRcXGt1a2FpL3NyY1xcc2Nzc1xcbW9kYWwuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9kZWxlZ2F0ZS9kZWxlZ2F0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9kZWxlZ2F0ZS9DOlxcVXNlcnNcXGtsYXNfXFxHaXRcXGt1a2FpL3NyY1xcYXBwXFxjb21wb25lbnRzXFxkZWxlZ2F0ZVxcZGVsZWdhdGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsVUFBQTtBQUNBO0VBQ0UsZUFBQTtFQUNBLFlBQUE7RUFDQSxPQUFBO0VBQ0EsTUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsY0FBQTtFQUNBLHVCQUFBO0VBQ0Esb0NBQUE7QUNDRjtBRENBLHNCQUFBO0FBQ0E7RUFDRSxrQkFBQTtFQUNBLHlCQUFBO0VBQ0EsaUJBQUE7RUFDQSx5QkFBQTtFQUNBLCtHQUFBO0VBRUEsc0JBQUE7RUFDQSxZQUFBO0VBQ0Esa0NBQUE7RUFDQSxnQ0FBQTtFQUNBLDBCQUFBO0VBQ0Esd0JBQUE7QUNDRjtBRENBLGtCQUFBO0FBQ0E7RUFDRTtJQUNFLFVBQUE7SUFDQSxVQUFBO0VDRUY7RURBQTtJQUNFLE1BQUE7SUFDQSxVQUFBO0VDRUY7QUFDRjtBREFBO0VBQ0U7SUFDRSxXQUFBO0lBQ0EsVUFBQTtFQ0VGO0VEQUE7SUFDRSxNQUFBO0lBQ0EsVUFBQTtFQ0VGO0FBQ0Y7QURBQTtFQUNFLGFBQUE7RUFDQSw4QkFBQTtFQUNBLG1CQUFBO0VBQ0EsOEJBQUE7RUFDQSw0Q0FBQTtBQ0VGO0FEQUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FDR0Y7QUREQTtFQUNFLHNCQUFBO0VBQ0EsV0FBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtBQ0lGO0FERkE7O0VBRUUsY0FBQTtFQUNBLHFCQUFBO0VBQ0EsZUFBQTtBQ0tGO0FESEE7RUFDRSxZQUFBO0FDTUY7QURKQTtFQUNFLGFBQUE7RUFDQSx1QkFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtBQ09GO0FETEE7RUFDRSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLHlDQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxrQkFBQTtFQUNBLFNBQUE7QUNRRjtBRE5BO0VBQ0Usa0NBQUE7QUNTRjtBRFBBOztFQUVFLGFBQUE7QUNVRjtBRFJBO0VBQ0Usa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FDV0Y7QURUQTtFQUNFLG9CQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtBQ1lGO0FEVkE7RUFDRSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0VBQ0EscUJBQUE7QUNhRjtBRFhBO0VBQ0Usa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtBQ2NGO0FEWkE7RUFDRSxpQkFBQTtBQ2VGO0FEYkE7RUFDRSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EscUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtBQ2dCRjtBRGRBO0VBQ0Usa0JBQUE7RUFDQSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EscUJBQUE7RUFDQSxjQUFBO0FDaUJGO0FEZkE7O0VBRUUsY0FBQTtBQ2tCRjtBRGhCQTtFQUNFLG1CQUFBO0VBQ0EsdUJBQUE7RUFDQSxjQUFBO0FDbUJGO0FEakJBO0VBQ0Usa0JBQUE7QUNvQkY7QURsQkE7O0VBRUUsV0FBQTtFQUNBLG1CQUFBO0VBQ0Esc0JBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLHNCQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0VBQ0EsbUJBQUE7RUFDQSxTQUFBO0FDcUJGO0FEbkJBO0VBQ0UsV0FBQTtFQUNBLGtCQUFBO0FDc0JGO0FEcEJBO0VBQ0UsbUJBQUE7RUFDQSxZQUFBO0VBQ0Esb0JBQUE7RUFDQSxZQUFBO0FDdUJGO0FEckJBO0VBRUUsY0FBQTtFQUNBLFVBQUE7QUN3QkY7QUQzQkE7O0VBRUUsY0FBQTtFQUNBLFVBQUE7QUN3QkY7QURoQkE7OztFQUdFLG1CQUFBO0VBQ0Esb0JBQUE7QUMwQkY7QUR4QkE7RUFDRSxhQUFBO0VBQ0EsOEJBQUE7QUMyQkY7QUR6QkE7RUFDRSxrQkFBQTtBQzRCRjtBRDFCQTtFQUNFLGtCQUFBO0FDNkJGO0FEM0JBO0VBQ0Usa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxZQUFBO0VBQ0EsbUJBQUE7RUFDQSwySEFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxTQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtBQzhCRjtBRDVCQTs7RUFFRSxZQUFBO0VBQ0EsU0FBQTtBQytCRjtBRDdCQTtFQUNFLFdBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxjQUFBO0FDZ0NGO0FEOUJBO0VBQ0UsYUFBQTtBQ2lDRjtBRC9CQTtFQUNFLHNCQUFBO0FDa0NGO0FEaENBO0VBQ0Usa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtFQUNBLG9DQUFBO0VBQ0Esd0JBQUE7RUFDQSxTQUFBO0FDbUNGO0FEakNBO0VBQ0UsbUJBQUE7QUNvQ0Y7QURsQ0E7RUFDRSxjQUFBO0VBQ0EsVUFBQTtFQUNBLG1CQUFBO0FDcUNGO0FEbkNBO0VBQ0UsY0FBQTtBQ3NDRjtBRHBDQTtFQUNFLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLHlCQUFBO0VBQ0EsbUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSx1QkFBQTtFQUNBLGVBQUE7QUN1Q0Y7QURyQ0E7RUFDRTtJQUNFLFdBQUE7SUFDQSw2QkFBQTtFQ3dDRjs7RUR0Q0E7SUFDRSxvQkFBQTtFQ3lDRjtBQUNGO0FEdkNBO0VBQ0U7SUFDRSxZQUFBO0VDeUNGOztFRHZDQTtJQUNFLFlBQUE7RUMwQ0Y7QUFDRjtBQzlXQTtFQUNFLG9CQUFBO0FEZ1hGO0FDOVdBO0VBQ0UsaUJBQUE7QURpWEY7QUMvV0E7RUFDRSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFDQSxpQkFBQTtFQUNBLGNBQUE7QURrWEY7QUNoWEE7RUFDRSxjQUFBO0VBQ0EsZUFBQTtBRG1YRjtBQ2pYQTtFQUNFLGNBQUE7RUFDQSxlQUFBO0FEb1hGO0FDbFhBO0VBQ0Usc0JBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxtQkFBQTtFQUNBLGlCQUFBO0VBQ0EsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSx1QkFBQTtFQUNBLGVBQUE7RUFDQSxtQ0FBQTtFQUNBLCtEQUFBO0FEcVhGO0FDblhBO0VBQ0UscUJBQUE7QURzWEY7QUNwWEE7RUFDRSxhQUFBO0FEdVhGO0FDclhBO0VBQ0UsY0FBQTtFQUNBLG1CQUFBO0VBQ0EsaUlBQUE7RUFHQSwrREFBQTtBRHNYRjtBQ3BYQTtFQUNFLHFCQUFBO0FEdVhGO0FDclhBO0VBQ0Usb0JBQUE7QUR3WEY7QUN0WEE7RUFDRTtJQUNFLGVBQUE7RUR5WEY7QUFDRjtBQ3ZYQTtFQUNFOztJQUVFLG9CQUFBO0VEeVhGO0FBQ0Y7QUN2WEE7RUFDRTs7SUFFRSxrQkFBQTtFRHlYRjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kZWxlZ2F0ZS9kZWxlZ2F0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIE1vZGFsICovXHJcbmRpdi5rdWthaS1tb2RhbCB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHotaW5kZXg6IDEwMDtcclxuICBsZWZ0OiAwO1xyXG4gIHRvcDogMDtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgb3ZlcmZsb3c6IGF1dG87XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDAsIDAsIDApOyAvL2ZhbGxiYWNrXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjQpO1xyXG59XHJcbi8qIE1vZGFsIENvbnRlbnQvQm94ICovXHJcbmRpdi5rdWthaS1tb2RhbCA+IGRpdi5rbS1jb250ZW50IHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZjZmNmYztcclxuICBtYXJnaW46IDVyZW0gYXV0bztcclxuICBib3JkZXI6IDFweCBzb2xpZCAjZmZmZmZmO1xyXG4gIGJveC1zaGFkb3c6IDBweCAwcHggMXB4IHJnYmEoMCwgMCwgMCwgMC4wNCksIDBweCAycHggNnB4IHJnYmEoMCwgMCwgMCwgMC4wNCksXHJcbiAgICAwcHggMTZweCAyNHB4IHJnYmEoMCwgMCwgMCwgMC4wNik7XHJcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcclxuICB3aWR0aDogMjVyZW07XHJcbiAgLXdlYmtpdC1hbmltYXRpb24tbmFtZTogYW5pbWF0ZXRvcDtcclxuICAtd2Via2l0LWFuaW1hdGlvbi1kdXJhdGlvbjogMC41cztcclxuICBhbmltYXRpb24tbmFtZTogYW5pbWF0ZXRvcDtcclxuICBhbmltYXRpb24tZHVyYXRpb246IDAuNXM7XHJcbn1cclxuLyogQWRkIEFuaW1hdGlvbiAqL1xyXG5ALXdlYmtpdC1rZXlmcmFtZXMgYW5pbWF0ZXRvcCB7XHJcbiAgZnJvbSB7XHJcbiAgICB0b3A6IDIwcmVtO1xyXG4gICAgb3BhY2l0eTogMDtcclxuICB9XHJcbiAgdG8ge1xyXG4gICAgdG9wOiAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuQGtleWZyYW1lcyBhbmltYXRldG9wIHtcclxuICBmcm9tIHtcclxuICAgIHRvcDogLTMwMHB4O1xyXG4gICAgb3BhY2l0eTogMDtcclxuICB9XHJcbiAgdG8ge1xyXG4gICAgdG9wOiAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsID4gZGl2LmttLWNvbnRlbnQgPiBkaXYua20taGVhZGVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCByZ2JhKDAsIDAsIDApO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCByZ2JhKDAsIDAsIDAsIDAuMDQpO1xyXG59XHJcbmRpdi5rbS1oZWFkZXIgPiBIMSB7XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMS4yNXJlbTtcclxuICBsaW5lLWhlaWdodDogMS41cmVtO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBjb2xvcjogIzJjMzIzYTtcclxuICBtYXJnaW46IDFyZW07XHJcbn1cclxuZGl2LmttLWhlYWRlciA+IHNwYW4uY2xvc2Uge1xyXG4gIG1hcmdpbjogMC4yNXJlbSAwLjVyZW07XHJcbiAgY29sb3I6ICNhYWE7XHJcbiAgZm9udC1zaXplOiAyOHB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbmRpdi5rbS1oZWFkZXIgPiBzcGFuLmNsb3NlOmhvdmVyLFxyXG5kaXYua20taGVhZGVyID4gc3Bhbi5jbG9zZTpmb2N1cyB7XHJcbiAgY29sb3I6ICMyYzMyM2E7XHJcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5kaXYua20tYm9keSB7XHJcbiAgbWFyZ2luOiAxcmVtO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBkaXYuYW1vdW50IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgaGVpZ2h0OiA1cmVtO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBpbnB1dC5jdXN0b20tbGFyZ2Uge1xyXG4gIHdpZHRoOiBhdXRvO1xyXG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcclxuICBmb250LXdlaWdodDogbm9ybWFsO1xyXG4gIGZvbnQtZmFtaWx5OiBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xyXG4gIGZvbnQtc2l6ZTogNXJlbTtcclxuICBsaW5lLWhlaWdodDogNXJlbTtcclxuICBjb2xvcjogIzJDMzIzQTtcclxuICBiYWNrZ3JvdW5kOiAjZmNmY2ZjO1xyXG4gIG9wYWNpdHk6IDAuNDtcclxuICBwYWRkaW5nOiAwO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBib3JkZXI6IDA7XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0LmN1c3RvbS1sYXJnZTpkaXNhYmxlZCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwKTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgaW5wdXQ6Zm9jdXMsXHJcbmRpdi5rdWthaS1tb2RhbCB0ZXh0YXJlYTpmb2N1cyB7XHJcbiAgb3V0bGluZTogbm9uZTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgc3Bhbi50ZXoge1xyXG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcclxuICBmb250LXdlaWdodDogNTAwO1xyXG4gIGZvbnQtc2l6ZTogMXJlbTtcclxuICBsaW5lLWhlaWdodDogMXJlbTtcclxuICBjb2xvcjogIzJDMzIzQTtcclxuICBvcGFjaXR5OiAwLjQ7XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIHAuZmVlIHtcclxuICBtYXJnaW4tdG9wOiAwLjM3NXJlbTtcclxuICBmb250LXN0eWxlOiBub3JtYWw7XHJcbiAgZm9udC13ZWlnaHQ6IDUwMDtcclxuICBmb250LXNpemU6IDAuNzVyZW07XHJcbiAgbGluZS1oZWlnaHQ6IDFyZW07XHJcbiAgY29sb3I6ICMyQzMyM0E7XHJcbiAgb3BhY2l0eTogMC40O1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBwLnByZXZpZXcge1xyXG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcclxuICBmb250LXdlaWdodDogbm9ybWFsO1xyXG4gIGZvbnQtc2l6ZTogMC44NzVyZW07XHJcbiAgbGluZS1oZWlnaHQ6IDFyZW07XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBhbGlnbi1pdGVtczogZmxleC1lbmQ7XHJcbiAgY29sb3I6ICMwMDAwMDA7XHJcbiAgb3BhY2l0eTogMC42O1xyXG4gIG1hcmdpbi1ib3R0b206IDAuNXJlbTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgdGQsIHRoIHtcclxuICBmb250LXN0eWxlOiBub3JtYWw7XHJcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcclxuICBmb250LXNpemU6IDAuNzVyZW07XHJcbiAgbGluZS1oZWlnaHQ6IDFyZW07XHJcbiAgY29sb3I6ICMwMDAwMDA7XHJcbiAgb3BhY2l0eTogMC42O1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCB0aCB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbn1cclxuZGl2LmttLWNvbnRlbnQgbGFiZWw6bm90KC5zd2l0Y2gpIHtcclxuICBtYXJnaW4tYm90dG9tOiAwLjVyZW07XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiA1MDA7XHJcbiAgZm9udC1zaXplOiAxcmVtO1xyXG4gIGxpbmUtaGVpZ2h0OiAxLjEyNXJlbTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgY29sb3I6ICMyQzMyM0E7XHJcbiAgb3BhY2l0eTogMC40O1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBwLCBzcGFuLmRhbmdlciB7XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XHJcbiAgZm9udC1zaXplOiAwLjg3NXJlbTtcclxuICBsaW5lLWhlaWdodDogMXJlbTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcclxuICBjb2xvcjogIzAwMDAwMDtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgc3Bhbi5uby1tYXJnaW4sXHJcbmRpdi5rdWthaS1tb2RhbCBzcGFuLm1hcmdpbiB7XHJcbiAgY29sb3I6ICNGRjAwMDA7XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIHNwYW4ubm8tbWFyZ2luIHtcclxuICBtYXJnaW4tdG9wOiAwLjc1cmVtO1xyXG4gIG1hcmdpbi1ib3R0b206IC0xLjc1cmVtO1xyXG4gIGNvbG9yOiAjRkYwMDAwO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBkaXYuZ3JvdXAge1xyXG4gIG1hcmdpbi10b3A6IDEuNXJlbTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgaW5wdXQudGV4dCxcclxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJhY2tncm91bmQ6ICNFMUUxRTE7XHJcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcclxuICBoZWlnaHQ6IDNyZW07XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XHJcbiAgZm9udC1zaXplOiAxcmVtO1xyXG4gIGxpbmUtaGVpZ2h0OiAzcmVtO1xyXG4gIGxldHRlci1zcGFjaW5nOiAwLjE2cHg7XHJcbiAgY29sb3I6ICMwMDAwMDA7XHJcbiAgcGFkZGluZy1sZWZ0OiAxcmVtO1xyXG4gIHBhZGRpbmctcmlnaHQ6IDFyZW07XHJcbiAgYm9yZGVyOiAwO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBpbnB1dC50ZXh0LnBhc3N3b3JkIHtcclxuICB3aWR0aDogMjAwJTtcclxuICBtYXJnaW4tcmlnaHQ6IDFyZW07XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQge1xyXG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XHJcbiAgaGVpZ2h0OiA3cmVtO1xyXG4gIGxpbmUtaGVpZ2h0OiAxLjI1cmVtO1xyXG4gIHJlc2l6ZTogbm9uZTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgaW5wdXQudGV4dDo6cGxhY2Vob2xkZXIsXHJcbmRpdi5rdWthaS1tb2RhbCB0ZXh0YXJlYS50ZXh0OjpwbGFjZWhvbGRlciB7XHJcbiAgY29sb3I6ICM4MDgwODA7XHJcbiAgb3BhY2l0eTogMTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgaW5wdXQudGV4dDo6LXdlYmtpdC1pbnB1dC1wbGFjZWhvbGRlcixcclxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0LnRleHQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyLFxyXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dDo6LXdlYmtpdC1pbnB1dC1wbGFjZWhvbGRlcixcclxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyIHtcclxuICBjb2xvcjogIzgwODA4MDtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dDo6cGxhY2Vob2xkZXIsXHJcbmRpdi5rdWthaS1tb2RhbCB0ZXh0YXJlYS50ZXh0Ojotd2Via2l0LWlucHV0LXBsYWNlaG9sZGVyLFxyXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dDotbXMtaW5wdXQtcGxhY2Vob2xkZXIge1xyXG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XHJcbiAgbGluZS1oZWlnaHQ6IDEuMjVyZW07XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIGRpdi5yb3ctZ3JvdXAge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBkaXYucm93LWdyb3VwID4gZGl2Lmdyb3VwOmZpcnN0LWNoaWxkIHtcclxuICBtYXJnaW4tcmlnaHQ6IDFyZW07XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIGRpdi5hZHZhbmNlZCB7XHJcbiAgbWFyZ2luLXRvcDogMS41cmVtO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBidXR0b24uYmx1ZSB7XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMXJlbTtcclxuICBsaW5lLWhlaWdodDogMXJlbTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBiYWNrZ3JvdW5kOiAjNTk2M0ZGO1xyXG4gIGJveC1zaGFkb3c6IDBweCAwcHggMXB4IHJnYmEoODksIDk5LCAyNTUsIDAuMDQpLCAwcHggMnB4IDZweCByZ2JhKDg5LCA5OSwgMjU1LCAwLjA0KSwgMHB4IDE2cHggMjRweCByZ2JhKDg5LCA5OSwgMjU1LCAwLjI0KTtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDNyZW07XHJcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcclxuICBib3JkZXI6IDA7XHJcbiAgbWFyZ2luLXRvcDogMi41cmVtO1xyXG4gIG1hcmdpbi1ib3R0b206IDEuNXJlbTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLmJsdWUuY29uZmlybSxcclxuZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbi5yZXRyeSB7XHJcbiAgaGVpZ2h0OiAzcmVtO1xyXG4gIG1hcmdpbjogMDtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLnJldHJ5IHtcclxuICB3aWR0aDogMTAwJTtcclxuICBmb250LXNpemU6IDFyZW07XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2QzZDNkMztcclxuICBjb2xvcjogcmdiKDMzLCAzNywgNDEpO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBidXR0b246Zm9jdXMge1xyXG4gIG91dGxpbmU6IG5vbmU7XHJcbn1cclxuZGl2Lmt1a2FpLW1vZGFsIGRpdi5zd2l0Y2gtY29udGFpbmVyIHtcclxuICB3aWR0aDogYXV0byAhaW1wb3J0YW50O1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBidXR0b24uc21hbGwge1xyXG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcclxuICBmb250LXdlaWdodDogNTAwO1xyXG4gIGZvbnQtc2l6ZTogMC43NXJlbTtcclxuICBsaW5lLWhlaWdodDogMXJlbTtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIHdpZHRoOiBhdXRvO1xyXG4gIGhlaWdodDogMS41cmVtO1xyXG4gIGNvbG9yOiAjMDAwMDAwO1xyXG4gIG9wYWNpdHk6IDAuNjtcclxuICBiYWNrZ3JvdW5kOiByZ2JhKDIxNCwgMjE0LCAyMTQsIDAuNCk7XHJcbiAgYm9yZGVyLXJhZGl1czogMC4zMTI1cmVtO1xyXG4gIGJvcmRlcjogMDtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLnNtYWxsLm1heCB7XHJcbiAgYmFja2dyb3VuZDogI2Q1ZjJkYztcclxufVxyXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLnNtYWxsLm11bHRpcGxlLWRlc3RpbmF0aW9ucyB7XHJcbiAgY29sb3I6ICM1OTYzRkY7XHJcbiAgb3BhY2l0eTogMTtcclxuICBtYXJnaW46IDFyZW0gMS41cmVtO1xyXG59XHJcbmRpdi5rdWthaS1tb2RhbCBkaXYuYWR2YW5jZWQgPiBkaXYucm93LWdyb3VwIHtcclxuICBoZWlnaHQ6IDEuNXJlbTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgZGl2Lngge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICB0b3A6IC0xcmVtO1xyXG4gIHJpZ2h0OiAtMXJlbTtcclxuICB3aWR0aDogMnJlbTtcclxuICBoZWlnaHQ6IDJyZW07XHJcbiAgei1pbmRleDogMTIwO1xyXG4gIGJhY2tncm91bmQ6ICNGQ0ZDRkM7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgI0ZGRkZGRjtcclxuICBib3JkZXItcmFkaXVzOiAxcmVtO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMjdyZW0pIHtcclxuICBkaXYua3VrYWktbW9kYWwgZGl2Lngge1xyXG4gICAgcmlnaHQ6IC0xcHg7XHJcbiAgICBib3JkZXItYm90dG9tLXJpZ2h0LXJhZGl1czogMDtcclxuICB9XHJcbiAgZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbi5zbWFsbC5tdWx0aXBsZS1kZXN0aW5hdGlvbnMge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAyLjVyZW07XHJcbiAgfVxyXG59XHJcbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDI1cmVtKSB7XHJcbiAgZGl2Lmt1a2FpLW1vZGFsID4gZGl2LmttLWNvbnRlbnQge1xyXG4gICAgd2lkdGg6IDIzcmVtO1xyXG4gIH1cclxuICBkaXYua3VrYWktbW9kYWwgaW5wdXQudGV4dC5wYXNzd29yZCB7XHJcbiAgICB3aWR0aDogMTFyZW07XHJcbiAgfVxyXG59IiwiLyogTW9kYWwgKi9cbmRpdi5rdWthaS1tb2RhbCB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgei1pbmRleDogMTAwO1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIG92ZXJmbG93OiBhdXRvO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjQpO1xufVxuXG4vKiBNb2RhbCBDb250ZW50L0JveCAqL1xuZGl2Lmt1a2FpLW1vZGFsID4gZGl2LmttLWNvbnRlbnQge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmY2ZjZmM7XG4gIG1hcmdpbjogNXJlbSBhdXRvO1xuICBib3JkZXI6IDFweCBzb2xpZCAjZmZmZmZmO1xuICBib3gtc2hhZG93OiAwcHggMHB4IDFweCByZ2JhKDAsIDAsIDAsIDAuMDQpLCAwcHggMnB4IDZweCByZ2JhKDAsIDAsIDAsIDAuMDQpLCAwcHggMTZweCAyNHB4IHJnYmEoMCwgMCwgMCwgMC4wNik7XG4gIGJvcmRlci1yYWRpdXM6IDAuNzVyZW07XG4gIHdpZHRoOiAyNXJlbTtcbiAgLXdlYmtpdC1hbmltYXRpb24tbmFtZTogYW5pbWF0ZXRvcDtcbiAgLXdlYmtpdC1hbmltYXRpb24tZHVyYXRpb246IDAuNXM7XG4gIGFuaW1hdGlvbi1uYW1lOiBhbmltYXRldG9wO1xuICBhbmltYXRpb24tZHVyYXRpb246IDAuNXM7XG59XG5cbi8qIEFkZCBBbmltYXRpb24gKi9cbkAtd2Via2l0LWtleWZyYW1lcyBhbmltYXRldG9wIHtcbiAgZnJvbSB7XG4gICAgdG9wOiAyMHJlbTtcbiAgICBvcGFjaXR5OiAwO1xuICB9XG4gIHRvIHtcbiAgICB0b3A6IDA7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufVxuQGtleWZyYW1lcyBhbmltYXRldG9wIHtcbiAgZnJvbSB7XG4gICAgdG9wOiAtMzAwcHg7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuICB0byB7XG4gICAgdG9wOiAwO1xuICAgIG9wYWNpdHk6IDE7XG4gIH1cbn1cbmRpdi5rdWthaS1tb2RhbCA+IGRpdi5rbS1jb250ZW50ID4gZGl2LmttLWhlYWRlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgcmdiYSgwLCAwLCAwLCAwLjA0KTtcbn1cblxuZGl2LmttLWhlYWRlciA+IEgxIHtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgZm9udC1zaXplOiAxLjI1cmVtO1xuICBsaW5lLWhlaWdodDogMS41cmVtO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBjb2xvcjogIzJjMzIzYTtcbiAgbWFyZ2luOiAxcmVtO1xufVxuXG5kaXYua20taGVhZGVyID4gc3Bhbi5jbG9zZSB7XG4gIG1hcmdpbjogMC4yNXJlbSAwLjVyZW07XG4gIGNvbG9yOiAjYWFhO1xuICBmb250LXNpemU6IDI4cHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG5kaXYua20taGVhZGVyID4gc3Bhbi5jbG9zZTpob3ZlcixcbmRpdi5rbS1oZWFkZXIgPiBzcGFuLmNsb3NlOmZvY3VzIHtcbiAgY29sb3I6ICMyYzMyM2E7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG5kaXYua20tYm9keSB7XG4gIG1hcmdpbjogMXJlbTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGRpdi5hbW91bnQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgaGVpZ2h0OiA1cmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgaW5wdXQuY3VzdG9tLWxhcmdlIHtcbiAgd2lkdGg6IGF1dG87XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgZm9udC1mYW1pbHk6IEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7XG4gIGZvbnQtc2l6ZTogNXJlbTtcbiAgbGluZS1oZWlnaHQ6IDVyZW07XG4gIGNvbG9yOiAjMkMzMjNBO1xuICBiYWNrZ3JvdW5kOiAjZmNmY2ZjO1xuICBvcGFjaXR5OiAwLjQ7XG4gIHBhZGRpbmc6IDA7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyOiAwO1xufVxuXG5kaXYua3VrYWktbW9kYWwgaW5wdXQuY3VzdG9tLWxhcmdlOmRpc2FibGVkIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwKTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0OmZvY3VzLFxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhOmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIHNwYW4udGV6IHtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogNTAwO1xuICBmb250LXNpemU6IDFyZW07XG4gIGxpbmUtaGVpZ2h0OiAxcmVtO1xuICBjb2xvcjogIzJDMzIzQTtcbiAgb3BhY2l0eTogMC40O1xufVxuXG5kaXYua3VrYWktbW9kYWwgcC5mZWUge1xuICBtYXJnaW4tdG9wOiAwLjM3NXJlbTtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogNTAwO1xuICBmb250LXNpemU6IDAuNzVyZW07XG4gIGxpbmUtaGVpZ2h0OiAxcmVtO1xuICBjb2xvcjogIzJDMzIzQTtcbiAgb3BhY2l0eTogMC40O1xufVxuXG5kaXYua3VrYWktbW9kYWwgcC5wcmV2aWV3IHtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogbm9ybWFsO1xuICBmb250LXNpemU6IDAuODc1cmVtO1xuICBsaW5lLWhlaWdodDogMXJlbTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGZsZXgtZW5kO1xuICBjb2xvcjogIzAwMDAwMDtcbiAgb3BhY2l0eTogMC42O1xuICBtYXJnaW4tYm90dG9tOiAwLjVyZW07XG59XG5cbmRpdi5rdWthaS1tb2RhbCB0ZCwgdGgge1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGZvbnQtc2l6ZTogMC43NXJlbTtcbiAgbGluZS1oZWlnaHQ6IDFyZW07XG4gIGNvbG9yOiAjMDAwMDAwO1xuICBvcGFjaXR5OiAwLjY7XG59XG5cbmRpdi5rdWthaS1tb2RhbCB0aCB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG5kaXYua20tY29udGVudCBsYWJlbDpub3QoLnN3aXRjaCkge1xuICBtYXJnaW4tYm90dG9tOiAwLjVyZW07XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgZm9udC1zaXplOiAxcmVtO1xuICBsaW5lLWhlaWdodDogMS4xMjVyZW07XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGNvbG9yOiAjMkMzMjNBO1xuICBvcGFjaXR5OiAwLjQ7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBwLCBzcGFuLmRhbmdlciB7XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgZm9udC1zaXplOiAwLjg3NXJlbTtcbiAgbGluZS1oZWlnaHQ6IDFyZW07XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcbiAgY29sb3I6ICMwMDAwMDA7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBzcGFuLm5vLW1hcmdpbixcbmRpdi5rdWthaS1tb2RhbCBzcGFuLm1hcmdpbiB7XG4gIGNvbG9yOiAjRkYwMDAwO1xufVxuXG5kaXYua3VrYWktbW9kYWwgc3Bhbi5uby1tYXJnaW4ge1xuICBtYXJnaW4tdG9wOiAwLjc1cmVtO1xuICBtYXJnaW4tYm90dG9tOiAtMS43NXJlbTtcbiAgY29sb3I6ICNGRjAwMDA7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBkaXYuZ3JvdXAge1xuICBtYXJnaW4tdG9wOiAxLjVyZW07XG59XG5cbmRpdi5rdWthaS1tb2RhbCBpbnB1dC50ZXh0LFxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQge1xuICB3aWR0aDogMTAwJTtcbiAgYmFja2dyb3VuZDogI0UxRTFFMTtcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcbiAgaGVpZ2h0OiAzcmVtO1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbiAgbGluZS1oZWlnaHQ6IDNyZW07XG4gIGxldHRlci1zcGFjaW5nOiAwLjE2cHg7XG4gIGNvbG9yOiAjMDAwMDAwO1xuICBwYWRkaW5nLWxlZnQ6IDFyZW07XG4gIHBhZGRpbmctcmlnaHQ6IDFyZW07XG4gIGJvcmRlcjogMDtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0LnRleHQucGFzc3dvcmQge1xuICB3aWR0aDogMjAwJTtcbiAgbWFyZ2luLXJpZ2h0OiAxcmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dCB7XG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XG4gIGhlaWdodDogN3JlbTtcbiAgbGluZS1oZWlnaHQ6IDEuMjVyZW07XG4gIHJlc2l6ZTogbm9uZTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0LnRleHQ6OnBsYWNlaG9sZGVyLFxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQ6OnBsYWNlaG9sZGVyIHtcbiAgY29sb3I6ICM4MDgwODA7XG4gIG9wYWNpdHk6IDE7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBpbnB1dC50ZXh0Ojotd2Via2l0LWlucHV0LXBsYWNlaG9sZGVyLFxuZGl2Lmt1a2FpLW1vZGFsIGlucHV0LnRleHQ6LW1zLWlucHV0LXBsYWNlaG9sZGVyLFxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQ6Oi13ZWJraXQtaW5wdXQtcGxhY2Vob2xkZXIsXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dDotbXMtaW5wdXQtcGxhY2Vob2xkZXIge1xuICBjb2xvcjogIzgwODA4MDtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQ6OnBsYWNlaG9sZGVyLFxuZGl2Lmt1a2FpLW1vZGFsIHRleHRhcmVhLnRleHQ6Oi13ZWJraXQtaW5wdXQtcGxhY2Vob2xkZXIsXG5kaXYua3VrYWktbW9kYWwgdGV4dGFyZWEudGV4dDotbXMtaW5wdXQtcGxhY2Vob2xkZXIge1xuICBwYWRkaW5nLXRvcDogMC41cmVtO1xuICBsaW5lLWhlaWdodDogMS4yNXJlbTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGRpdi5yb3ctZ3JvdXAge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG59XG5cbmRpdi5rdWthaS1tb2RhbCBkaXYucm93LWdyb3VwID4gZGl2Lmdyb3VwOmZpcnN0LWNoaWxkIHtcbiAgbWFyZ2luLXJpZ2h0OiAxcmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgZGl2LmFkdmFuY2VkIHtcbiAgbWFyZ2luLXRvcDogMS41cmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLmJsdWUge1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBmb250LXNpemU6IDFyZW07XG4gIGxpbmUtaGVpZ2h0OiAxcmVtO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogd2hpdGU7XG4gIGJhY2tncm91bmQ6ICM1OTYzRkY7XG4gIGJveC1zaGFkb3c6IDBweCAwcHggMXB4IHJnYmEoODksIDk5LCAyNTUsIDAuMDQpLCAwcHggMnB4IDZweCByZ2JhKDg5LCA5OSwgMjU1LCAwLjA0KSwgMHB4IDE2cHggMjRweCByZ2JhKDg5LCA5OSwgMjU1LCAwLjI0KTtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogM3JlbTtcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcbiAgYm9yZGVyOiAwO1xuICBtYXJnaW4tdG9wOiAyLjVyZW07XG4gIG1hcmdpbi1ib3R0b206IDEuNXJlbTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbi5ibHVlLmNvbmZpcm0sXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLnJldHJ5IHtcbiAgaGVpZ2h0OiAzcmVtO1xuICBtYXJnaW46IDA7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBidXR0b24ucmV0cnkge1xuICB3aWR0aDogMTAwJTtcbiAgZm9udC1zaXplOiAxcmVtO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZDNkM2QzO1xuICBjb2xvcjogIzIxMjUyOTtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbjpmb2N1cyB7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBkaXYuc3dpdGNoLWNvbnRhaW5lciB7XG4gIHdpZHRoOiBhdXRvICFpbXBvcnRhbnQ7XG59XG5cbmRpdi5rdWthaS1tb2RhbCBidXR0b24uc21hbGwge1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIGZvbnQtc2l6ZTogMC43NXJlbTtcbiAgbGluZS1oZWlnaHQ6IDFyZW07XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiBhdXRvO1xuICBoZWlnaHQ6IDEuNXJlbTtcbiAgY29sb3I6ICMwMDAwMDA7XG4gIG9wYWNpdHk6IDAuNjtcbiAgYmFja2dyb3VuZDogcmdiYSgyMTQsIDIxNCwgMjE0LCAwLjQpO1xuICBib3JkZXItcmFkaXVzOiAwLjMxMjVyZW07XG4gIGJvcmRlcjogMDtcbn1cblxuZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbi5zbWFsbC5tYXgge1xuICBiYWNrZ3JvdW5kOiAjZDVmMmRjO1xufVxuXG5kaXYua3VrYWktbW9kYWwgYnV0dG9uLnNtYWxsLm11bHRpcGxlLWRlc3RpbmF0aW9ucyB7XG4gIGNvbG9yOiAjNTk2M0ZGO1xuICBvcGFjaXR5OiAxO1xuICBtYXJnaW46IDFyZW0gMS41cmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgZGl2LmFkdmFuY2VkID4gZGl2LnJvdy1ncm91cCB7XG4gIGhlaWdodDogMS41cmVtO1xufVxuXG5kaXYua3VrYWktbW9kYWwgZGl2Lngge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTFyZW07XG4gIHJpZ2h0OiAtMXJlbTtcbiAgd2lkdGg6IDJyZW07XG4gIGhlaWdodDogMnJlbTtcbiAgei1pbmRleDogMTIwO1xuICBiYWNrZ3JvdW5kOiAjRkNGQ0ZDO1xuICBib3JkZXI6IDFweCBzb2xpZCAjRkZGRkZGO1xuICBib3JkZXItcmFkaXVzOiAxcmVtO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAyN3JlbSkge1xuICBkaXYua3VrYWktbW9kYWwgZGl2Lngge1xuICAgIHJpZ2h0OiAtMXB4O1xuICAgIGJvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOiAwO1xuICB9XG5cbiAgZGl2Lmt1a2FpLW1vZGFsIGJ1dHRvbi5zbWFsbC5tdWx0aXBsZS1kZXN0aW5hdGlvbnMge1xuICAgIG1hcmdpbi1yaWdodDogMi41cmVtO1xuICB9XG59XG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAyNXJlbSkge1xuICBkaXYua3VrYWktbW9kYWwgPiBkaXYua20tY29udGVudCB7XG4gICAgd2lkdGg6IDIzcmVtO1xuICB9XG5cbiAgZGl2Lmt1a2FpLW1vZGFsIGlucHV0LnRleHQucGFzc3dvcmQge1xuICAgIHdpZHRoOiAxMXJlbTtcbiAgfVxufVxuLm1vZGFsLWZvb3RlciB7XG4gIHBhZGRpbmctYm90dG9tOiAwcmVtO1xufVxuXG5kaXYub3V0c2lkZS1jb250YWluZXIge1xuICBwYWRkaW5nOiAwLjVyZW0gMDtcbn1cblxuZGl2Lm91dHNpZGUtY29udGFpbmVyID4gc3BhbiB7XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgZm9udC1zaXplOiAwLjgxMjVyZW07XG4gIGxpbmUtaGVpZ2h0OiAxcmVtO1xuICBjb2xvcjogIzJDMzIzQTtcbn1cblxuZGl2Lm91dHNpZGUtY29udGFpbmVyID4gc3BhbiA+IHNwYW4ge1xuICBjb2xvcjogIzU5NjNGRjtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uZmEtY2hlY2stY2lyY2xlIHtcbiAgY29sb3I6ICMyOGE3NDU7XG4gIGZvbnQtc2l6ZTogOTZweDtcbn1cblxuYnV0dG9uIHtcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcbiAgaGVpZ2h0OiAzcmVtO1xuICB3aWR0aDogOHJlbTtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgZm9udC1zaXplOiAwLjg3NXJlbTtcbiAgbGluZS1oZWlnaHQ6IDFyZW07XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZSAhaW1wb3J0YW50O1xuICB0cmFuc2l0aW9uOiBtYXJnaW4tdG9wIDAuMXMgZWFzZS1pbiwgbWFyZ2luLWJvdHRvbSAwLjFzIGVhc2UtaW47XG59XG5cbmJ1dHRvbi5ibHVlOmhvdmVyIHtcbiAgbWFyZ2luLXRvcDogLTAuMTI1cmVtO1xufVxuXG5idXR0b246Zm9jdXMge1xuICBvdXRsaW5lOiBub25lO1xufVxuXG5idXR0b24uYmx1ZSB7XG4gIGNvbG9yOiAjNTk2M2ZmO1xuICBiYWNrZ3JvdW5kOiAjYTRhOGVjO1xuICBib3gtc2hhZG93OiAwcHggMHB4IDFweCByZ2JhKDE2NCwgMTY4LCAyMzYsIDAuMDQpLCAwcHggMnB4IDZweCByZ2JhKDE2NCwgMTY4LCAyMzYsIDAuMDQpLCAwcHggMTZweCAyNHB4IHJnYmEoMTY0LCAxNjgsIDIzNiwgMC4yNCk7XG4gIHRyYW5zaXRpb246IG1hcmdpbi10b3AgMC4xcyBlYXNlLWluLCBtYXJnaW4tYm90dG9tIDAuMXMgZWFzZS1pbjtcbn1cblxuaW5wdXQuY3VzdG9tLXRleHRib3gge1xuICBwYWRkaW5nLWxlZnQ6IDAuNzVyZW07XG59XG5cbmRpdi5rdWthaS1tb2RhbCA+IGRpdi5rbS1jb250ZW50ID4gZGl2LmttLWJvZHkgPiBkaXYuZ3JvdXAgPiBpbnB1dC50ZXh0IHtcbiAgZm9udC1zaXplOiAwLjgxMjVyZW07XG59XG5cbkBzdXBwb3J0cyAoLXdlYmtpdC10b3VjaC1jYWxsb3V0OiBub25lKSB7XG4gIGRpdi5rdWthaS1tb2RhbCA+IGRpdi5rbS1jb250ZW50ID4gZGl2LmttLWJvZHkgPiBkaXYuZ3JvdXAgPiBpbnB1dC50ZXh0IHtcbiAgICBmb250LXNpemU6IDFyZW07XG4gIH1cbn1cbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDI1cmVtKSB7XG4gIGlucHV0I3RvQWRkcmVzcyxcbmlucHV0LmN1c3RvbS10ZXh0Ym94IHtcbiAgICBmb250LXNpemU6IDAuODEyNXJlbTtcbiAgfVxufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMjJyZW0pIHtcbiAgaW5wdXQjdG9BZGRyZXNzLFxuaW5wdXQuY3VzdG9tLXRleHRib3gge1xuICAgIGZvbnQtc2l6ZTogMC43NXJlbTtcbiAgfVxufSIsIkBpbXBvcnQgXCIuLi8uLi8uLi9zY3NzL21vZGFsLnNjc3NcIjtcclxuLm1vZGFsLWZvb3RlciB7XHJcbiAgcGFkZGluZy1ib3R0b206IDByZW07XHJcbn1cclxuZGl2Lm91dHNpZGUtY29udGFpbmVyIHtcclxuICBwYWRkaW5nOiAwLjVyZW0gMDtcclxufVxyXG5kaXYub3V0c2lkZS1jb250YWluZXIgPiBzcGFuIHtcclxuICBmb250LXN0eWxlOiBub3JtYWw7XHJcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcclxuICBmb250LXNpemU6IDAuODEyNXJlbTtcclxuICBsaW5lLWhlaWdodDogMXJlbTtcclxuICBjb2xvcjogIzJDMzIzQTtcclxufVxyXG5kaXYub3V0c2lkZS1jb250YWluZXIgPiBzcGFuID4gc3BhbiB7XHJcbiAgY29sb3I6ICM1OTYzRkY7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcbi5mYS1jaGVjay1jaXJjbGUge1xyXG4gIGNvbG9yOiAjMjhhNzQ1OyAvLyM1Y2I4NWM7XHJcbiAgZm9udC1zaXplOiA5NnB4O1xyXG59XHJcbmJ1dHRvbiB7XHJcbiAgYm9yZGVyLXJhZGl1czogMC43NXJlbTtcclxuICBoZWlnaHQ6IDNyZW07XHJcbiAgd2lkdGg6IDhyZW07XHJcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGZvbnQtc2l6ZTogMC44NzVyZW07XHJcbiAgbGluZS1oZWlnaHQ6IDFyZW07XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZSAhaW1wb3J0YW50O1xyXG4gIHRyYW5zaXRpb246IG1hcmdpbi10b3AgMC4xcyBlYXNlLWluLCBtYXJnaW4tYm90dG9tIDAuMXMgZWFzZS1pbjtcclxufVxyXG5idXR0b24uYmx1ZTpob3ZlciB7XHJcbiAgbWFyZ2luLXRvcDogLTAuMTI1cmVtO1xyXG59XHJcbmJ1dHRvbjpmb2N1cyB7XHJcbiAgb3V0bGluZTogbm9uZTtcclxufVxyXG5idXR0b24uYmx1ZSB7XHJcbiAgY29sb3I6ICM1OTYzZmY7XHJcbiAgYmFja2dyb3VuZDogI2E0YThlYztcclxuICBib3gtc2hhZG93OiAwcHggMHB4IDFweCByZ2JhKDE2NCwgMTY4LCAyMzYsIDAuMDQpLFxyXG4gICAgMHB4IDJweCA2cHggcmdiYSgxNjQsIDE2OCwgMjM2LCAwLjA0KSxcclxuICAgIDBweCAxNnB4IDI0cHggcmdiYSgxNjQsIDE2OCwgMjM2LCAwLjI0KTtcclxuICB0cmFuc2l0aW9uOiBtYXJnaW4tdG9wIDAuMXMgZWFzZS1pbiwgbWFyZ2luLWJvdHRvbSAwLjFzIGVhc2UtaW47XHJcbn1cclxuaW5wdXQuY3VzdG9tLXRleHRib3gge1xyXG4gIHBhZGRpbmctbGVmdDogMC43NXJlbTtcclxufVxyXG5kaXYua3VrYWktbW9kYWwgPiBkaXYua20tY29udGVudCA+IGRpdi5rbS1ib2R5ID4gZGl2Lmdyb3VwID4gaW5wdXQudGV4dCB7XHJcbiAgZm9udC1zaXplOiAwLjgxMjVyZW07XHJcbn1cclxuQHN1cHBvcnRzICgtd2Via2l0LXRvdWNoLWNhbGxvdXQ6IG5vbmUpIHtcclxuICBkaXYua3VrYWktbW9kYWwgPiBkaXYua20tY29udGVudCA+IGRpdi5rbS1ib2R5ID4gZGl2Lmdyb3VwID4gaW5wdXQudGV4dCB7XHJcbiAgICBmb250LXNpemU6IDFyZW07XHJcbiAgfVxyXG59XHJcbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDI1cmVtKSB7XHJcbiAgaW5wdXQjdG9BZGRyZXNzLFxyXG4gIGlucHV0LmN1c3RvbS10ZXh0Ym94IHtcclxuICAgIGZvbnQtc2l6ZTogMC44MTI1cmVtO1xyXG4gIH1cclxufVxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAyMnJlbSkge1xyXG4gIGlucHV0I3RvQWRkcmVzcyxcclxuICBpbnB1dC5jdXN0b20tdGV4dGJveCB7XHJcbiAgICBmb250LXNpemU6IDAuNzVyZW07XHJcbiAgfVxyXG59XHJcbiJdfQ== */"]
     });
     /*@__PURE__*/
@@ -10988,7 +10998,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.estimateService = estimateService;
         this.messageService = messageService;
         this.torusService = torusService;
-        this.lookupService = lookupService; // torus
+        this.lookupService = lookupService;
+        this.costPerByte = this.estimateService.costPerByte; // torus
 
         this.torusVerifier = '';
         this.torusPendingLookup = false;
@@ -11326,7 +11337,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             accountBalance = accountBalance.minus(this.fee && Number(this.fee) ? Number(this.fee) : this.defaultTransactionParams.fee);
 
             if (!this.isMultipleDestinations) {
-              accountBalance = accountBalance.minus(this.storage && Number(this.storage) ? Number(this.storage) / 1000 : this.defaultTransactionParams.burn);
+              accountBalance = accountBalance.minus(this.storage && Number(this.storage) ? Number(big_js__WEBPACK_IMPORTED_MODULE_9___default()(this.storage).times(this.costPerByte).div('1000000')) : this.defaultTransactionParams.burn);
             } else {
               accountBalance = accountBalance.minus(this.defaultTransactionParams.burn);
             }
@@ -11627,7 +11638,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "burnAmount",
         value: function burnAmount() {
-          var burn = this.storage ? Number(this.storage) / 1000 : this.defaultTransactionParams.storage / 1000;
+          var burn = this.storage ? Number(big_js__WEBPACK_IMPORTED_MODULE_9___default()(this.storage).times(this.costPerByte).div(1000000)) : this.defaultTransactionParams.burn;
 
           if (burn) {
             return burn + ' tez';
@@ -12066,7 +12077,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getTotalBurn",
         value: function getTotalBurn() {
           if (this.storage !== '' && Number(this.storage)) {
-            return Number(big_js__WEBPACK_IMPORTED_MODULE_9___default()(this.storage).mul(this.transactions.length).div('1000').toString());
+            return Number(big_js__WEBPACK_IMPORTED_MODULE_9___default()(this.storage).mul(this.transactions.length).times(this.costPerByte).div(1000000).toString());
           }
 
           return Number(this.defaultTransactionParams.burn);
@@ -13272,7 +13283,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, Constants);
 
         // Select Testnet or Mainnet
-        this.NET = this.carthagenet();
+        this.NET = this.delphinet();
       }
 
       _createClass(Constants, [{
@@ -13301,6 +13312,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             },
             NODE_URL: 'https://testnet-tezos.giganode.io',
             BLOCK_EXPLORER_URL: 'https://carthage.tzkt.io'
+          };
+        }
+      }, {
+        key: "delphinet",
+        value: function delphinet() {
+          return {
+            NAME: 'Testnet / Delphi',
+            NETWORK: 'delphinet',
+            NODE_URL: 'https://delphinet-tezos.giganode.io/',
+            BLOCK_EXPLORER_URL: 'https://delphi.tzkt.io'
           };
         }
       }]);
@@ -14671,42 +14692,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../conseil/conseil.service */
-    "./src/app/services/conseil/conseil.service.ts");
-    /* harmony import */
-
-
-    var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
     /* harmony import */
 
 
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! rxjs/operators */
     "./node_modules/rxjs/_esm2015/operators/index.js");
     /* harmony import */
 
 
-    var _message_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _message_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../message/message.service */
     "./src/app/services/message/message.service.ts");
     /* harmony import */
 
 
-    var _lookup_lookup_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _lookup_lookup_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../lookup/lookup.service */
     "./src/app/services/lookup/lookup.service.ts");
+    /* harmony import */
+
+
+    var _indexer_indexer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../indexer/indexer.service */
+    "./src/app/services/indexer/indexer.service.ts");
 
     var ActivityService = /*#__PURE__*/function () {
-      function ActivityService(walletService, conseilService, messageService, lookupService) {
+      function ActivityService(walletService, messageService, lookupService, indexerService) {
         _classCallCheck(this, ActivityService);
 
         this.walletService = walletService;
-        this.conseilService = conseilService;
         this.messageService = messageService;
         this.lookupService = lookupService;
+        this.indexerService = indexerService;
         this.maxTransactions = 10;
       }
 
@@ -14715,8 +14736,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function updateTransactions(pkh) {
           try {
             var account = this.walletService.wallet.getAccount(pkh);
-            return this.getTransactonsCounter(account).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (ans) {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(ans);
+            return this.getTransactonsCounter(account).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["flatMap"])(function (ans) {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(ans);
             }));
           } catch (e) {
             console.log(e);
@@ -14727,11 +14748,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getTransactonsCounter(account) {
           var _this22 = this;
 
-          return this.conseilService.accountInfo(account.address).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (counter) {
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(this.indexerService.accountInfo(account.address)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["flatMap"])(function (counter) {
             if (account.activitiesCounter !== counter) {
               return _this22.getAllTransactions(account, counter);
             } else {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])({
                 upToDate: true
               });
             }
@@ -14742,7 +14763,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getAllTransactions(account, counter) {
           var _this23 = this;
 
-          return this.conseilService.getOperations(account.address).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (ans) {
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(this.indexerService.getOperations(account.address)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["flatMap"])(function (ans) {
             if (Array.isArray(ans)) {
               var oldActivities = account.activities;
               account.activities = ans;
@@ -14780,7 +14801,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               console.log(ans);
             }
 
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])({
               upToDate: false
             });
           }));
@@ -14868,7 +14889,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     ActivityService.ɵfac = function ActivityService_Factory(t) {
-      return new (t || ActivityService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_wallet_wallet_service__WEBPACK_IMPORTED_MODULE_1__["WalletService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_conseil_conseil_service__WEBPACK_IMPORTED_MODULE_2__["ConseilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_message_message_service__WEBPACK_IMPORTED_MODULE_5__["MessageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_lookup_lookup_service__WEBPACK_IMPORTED_MODULE_6__["LookupService"]));
+      return new (t || ActivityService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_wallet_wallet_service__WEBPACK_IMPORTED_MODULE_1__["WalletService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_message_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_lookup_lookup_service__WEBPACK_IMPORTED_MODULE_5__["LookupService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_indexer_indexer_service__WEBPACK_IMPORTED_MODULE_6__["IndexerService"]));
     };
 
     ActivityService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -14884,11 +14905,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return [{
           type: _wallet_wallet_service__WEBPACK_IMPORTED_MODULE_1__["WalletService"]
         }, {
-          type: _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_2__["ConseilService"]
+          type: _message_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"]
         }, {
-          type: _message_message_service__WEBPACK_IMPORTED_MODULE_5__["MessageService"]
+          type: _lookup_lookup_service__WEBPACK_IMPORTED_MODULE_5__["LookupService"]
         }, {
-          type: _lookup_lookup_service__WEBPACK_IMPORTED_MODULE_6__["LookupService"]
+          type: _indexer_indexer_service__WEBPACK_IMPORTED_MODULE_6__["IndexerService"]
         }];
       }, null);
     })();
@@ -15070,243 +15091,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/services/conseil/conseil.service.ts":
-  /*!*****************************************************!*\
-    !*** ./src/app/services/conseil/conseil.service.ts ***!
-    \*****************************************************/
-
-  /*! exports provided: ConseilService */
-
-  /***/
-  function srcAppServicesConseilConseilServiceTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ConseilService", function () {
-      return ConseilService;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../constants */
-    "./src/app/constants.ts");
-    /* harmony import */
-
-
-    var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! rxjs */
-    "./node_modules/rxjs/_esm2015/index.js");
-    /* harmony import */
-
-
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! rxjs/operators */
-    "./node_modules/rxjs/_esm2015/operators/index.js");
-    /* harmony import */
-
-
-    var conseiljs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! conseiljs */
-    "./node_modules/conseiljs/dist/index-web.js");
-    /* harmony import */
-
-
-    var conseiljs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(conseiljs__WEBPACK_IMPORTED_MODULE_5__);
-
-    var ConseilService = /*#__PURE__*/function () {
-      function ConseilService() {
-        _classCallCheck(this, ConseilService);
-
-        this.CONSTANTS = new _constants__WEBPACK_IMPORTED_MODULE_2__["Constants"]();
-        this.conseilServer = this.CONSTANTS.NET.CSI;
-        this.network = this.CONSTANTS.NET.NETWORK;
-        this.platform = 'tezos';
-      }
-
-      _createClass(ConseilService, [{
-        key: "getContractAddresses",
-        value: function getContractAddresses(pkh) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
-            var entity, query, results, addresses, _iterator10, _step10, result;
-
-            return regeneratorRuntime.wrap(function _callee33$(_context33) {
-              while (1) {
-                switch (_context33.prev = _context33.next) {
-                  case 0:
-                    entity = 'operations';
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(query, 'originated_contracts');
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['origination'], false);
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'source', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [pkh], false);
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(query, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
-                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(query, 100);
-                    _context33.next = 10;
-                    return conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, query);
-
-                  case 10:
-                    results = _context33.sent;
-                    addresses = [];
-                    _iterator10 = _createForOfIteratorHelper(results);
-
-                    try {
-                      for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-                        result = _step10.value;
-                        addresses.push(result.originated_contracts);
-                      }
-                    } catch (err) {
-                      _iterator10.e(err);
-                    } finally {
-                      _iterator10.f();
-                    }
-
-                    return _context33.abrupt("return", addresses);
-
-                  case 15:
-                  case "end":
-                    return _context33.stop();
-                }
-              }
-            }, _callee33, this);
-          }));
-        }
-      }, {
-        key: "accountInfo",
-        value: function accountInfo(address) {
-          var entity = 'accounts';
-          var query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
-          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(query, 'block_level');
-          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'account_id', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [address], false);
-          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(query, 1);
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, query)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (result) {
-            if (result[0]) {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(result[0].block_level);
-            } else {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(0);
-            }
-          }));
-        }
-      }, {
-        key: "getOperations",
-        value: function getOperations(pkh) {
-          var _this26 = this;
-
-          var entity = 'operations';
-          var sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(sendQuery, 'kind', 'block_hash', 'operation_group_hash', 'timestamp', 'originated_contracts', 'source', 'destination', 'amount', 'delegate');
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].IN, ['transaction', 'origination', 'delegation'], false);
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'source', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [pkh], false);
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(sendQuery, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
-          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(sendQuery, 10);
-          var receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(receiveQuery, 'kind', 'block_hash', 'operation_group_hash', 'timestamp', 'source', 'destination', 'amount');
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].IN, ['transaction', 'origination'], false);
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'destination', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [pkh], false);
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(receiveQuery, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
-          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(receiveQuery, 10);
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, sendQuery)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (sendResult) {
-            sendResult = _this26.formatTx(sendResult);
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(_this26.conseilServer, _this26.platform, _this26.network, entity, receiveQuery)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (receiveResult) {
-              receiveResult = _this26.formatTx(receiveResult);
-              var transactions = sendResult.concat(receiveResult).sort(function (a, b) {
-                return b['timestamp'] - a['timestamp'];
-              });
-              console.log('ADDRESS GET ' + pkh);
-              console.log(transactions);
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(transactions);
-            }));
-          }));
-        }
-      }, {
-        key: "formatTx",
-        value: function formatTx(input) {
-          var output = [];
-
-          var _iterator11 = _createForOfIteratorHelper(input),
-              _step11;
-
-          try {
-            for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
-              var tx = _step11.value;
-
-              if (tx.kind !== 'transaction' || tx.amount > 0) {
-                var destination = tx.destination;
-
-                if (tx.kind === 'origination') {
-                  destination = tx.originated_contracts;
-                } else if (tx.kind === 'delegation') {
-                  destination = tx.delegate;
-                }
-
-                output.push({
-                  type: tx.kind,
-                  block: tx.block_hash,
-                  status: 1,
-                  amount: tx.amount,
-                  source: tx.source,
-                  destination: destination,
-                  hash: tx.operation_group_hash,
-                  timestamp: tx.timestamp
-                });
-              }
-            }
-          } catch (err) {
-            _iterator11.e(err);
-          } finally {
-            _iterator11.f();
-          }
-
-          return output;
-        }
-      }]);
-
-      return ConseilService;
-    }();
-
-    ConseilService.ɵfac = function ConseilService_Factory(t) {
-      return new (t || ConseilService)();
-    };
-
-    ConseilService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
-      token: ConseilService,
-      factory: ConseilService.ɵfac,
-      providedIn: 'root'
-    });
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](ConseilService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
-        args: [{
-          providedIn: 'root'
-        }]
-      }], function () {
-        return [];
-      }, null);
-    })();
-    /***/
-
-  },
-
-  /***/
   "./src/app/services/coordinator/coordinator.service.ts":
   /*!*************************************************************!*\
     !*** ./src/app/services/coordinator/coordinator.service.ts ***!
@@ -15436,26 +15220,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "startXTZ",
         value: function startXTZ() {
-          var _this27 = this;
+          var _this26 = this;
 
           if (!this.tzrateInterval) {
             console.log('Start scheduler XTZ');
             this.tzrateService.getTzrate();
             this.tzrateInterval = setInterval(function () {
-              return _this27.tzrateService.getTzrate();
+              return _this26.tzrateService.getTzrate();
             }, this.defaultDelayPrice);
           }
         }
       }, {
         key: "start",
         value: function start(pkh) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
-            var _this28 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            var _this27 = this;
 
             var scheduleData;
-            return regeneratorRuntime.wrap(function _callee34$(_context34) {
+            return regeneratorRuntime.wrap(function _callee33$(_context33) {
               while (1) {
-                switch (_context34.prev = _context34.next) {
+                switch (_context33.prev = _context33.next) {
                   case 0:
                     if (pkh && !this.scheduler.get(pkh)) {
                       this.accounts = this.walletService.wallet.getAccounts();
@@ -15464,7 +15248,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         pkh: pkh,
                         state: State.UpToDate,
                         interval: setInterval(function () {
-                          return _this28.update(pkh);
+                          return _this27.update(pkh);
                         }, this.defaultDelayActivity),
                         stateCounter: 0
                       };
@@ -15475,29 +15259,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context34.stop();
+                    return _context33.stop();
                 }
               }
-            }, _callee34, this);
+            }, _callee33, this);
           }));
         }
       }, {
         key: "boost",
         value: function boost(pkh) {
           var metadata = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-            var _this29 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+            var _this28 = this;
 
             var counter;
-            return regeneratorRuntime.wrap(function _callee35$(_context35) {
+            return regeneratorRuntime.wrap(function _callee34$(_context34) {
               while (1) {
-                switch (_context35.prev = _context35.next) {
+                switch (_context34.prev = _context34.next) {
                   case 0:
                     // Expect action
                     console.log('boost ' + pkh);
 
                     if (!this.walletService.addressExists(pkh)) {
-                      _context35.next = 7;
+                      _context34.next = 7;
                       break;
                     }
 
@@ -15506,11 +15290,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                     if (this.scheduler.get(pkh)) {
-                      _context35.next = 6;
+                      _context34.next = 6;
                       break;
                     }
 
-                    _context35.next = 6;
+                    _context34.next = 6;
                     return this.start(pkh);
 
                   case 6:
@@ -15520,39 +15304,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       counter = this.scheduler.get(pkh).stateCounter;
                       setTimeout(function () {
                         // Failsafe
-                        if (_this29.scheduler && _this29.scheduler.get(pkh).stateCounter === counter) {
+                        if (_this28.scheduler && _this28.scheduler.get(pkh).stateCounter === counter) {
                           console.log('Timeout from wait state');
 
-                          _this29.changeState(pkh, State.UpToDate);
+                          _this28.changeState(pkh, State.UpToDate);
                         }
                       }, 150000);
                     }
 
                   case 7:
                   case "end":
-                    return _context35.stop();
+                    return _context34.stop();
                 }
               }
-            }, _callee35, this);
+            }, _callee34, this);
           }));
         }
       }, {
         key: "update",
         value: function update(pkh) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
-            var _this30 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
+            var _this29 = this;
 
-            return regeneratorRuntime.wrap(function _callee36$(_context36) {
+            return regeneratorRuntime.wrap(function _callee35$(_context35) {
               while (1) {
-                switch (_context36.prev = _context36.next) {
+                switch (_context35.prev = _context35.next) {
                   case 0:
                     this.setDelay(pkh, this.defaultDelayActivity);
                     this.activityService.updateTransactions(pkh).subscribe(function (ans) {
-                      switch (_this30.scheduler.get(pkh) ? _this30.scheduler.get(pkh).state : -1) {
+                      switch (_this29.scheduler.get(pkh) ? _this29.scheduler.get(pkh).state : -1) {
                         case State.UpToDate:
                           {
                             if (!ans.upToDate) {
-                              _this30.changeState(pkh, State.Updating);
+                              _this29.changeState(pkh, State.Updating);
                             }
 
                             break;
@@ -15561,9 +15345,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         case State.Wait:
                           {
                             if (!ans.upToDate) {
-                              _this30.changeState(pkh, State.Updating);
+                              _this29.changeState(pkh, State.Updating);
                             } else {
-                              _this30.setDelay(pkh, _this30.shortDelayActivity);
+                              _this29.setDelay(pkh, _this29.shortDelayActivity);
                             }
 
                             break;
@@ -15572,9 +15356,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         case State.Updating:
                           {
                             if (ans.upToDate) {
-                              _this30.changeState(pkh, State.UpToDate);
+                              _this29.changeState(pkh, State.UpToDate);
                             } else {
-                              _this30.setDelay(pkh, _this30.shortDelayActivity);
+                              _this29.setDelay(pkh, _this29.shortDelayActivity);
                             }
 
                             break;
@@ -15587,7 +15371,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           }
                       }
 
-                      var acc = _this30.walletService.wallet.getAccount(pkh);
+                      var acc = _this29.walletService.wallet.getAccount(pkh);
 
                       if (acc && acc.activities.length) {
                         var latestActivity = acc.activities[0];
@@ -15603,23 +15387,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }, function (err) {
                       return console.log('Error in update(): ' + JSON.stringify(err));
                     }, function () {
-                      console.log("account[".concat(_this30.accounts.findIndex(function (a) {
+                      console.log("account[".concat(_this29.accounts.findIndex(function (a) {
                         return a.address === pkh;
-                      }), "][").concat(typeof _this30.scheduler.get(pkh).state !== 'undefined' ? _this30.scheduler.get(pkh).state : '*', "]: <<"));
+                      }), "][").concat(typeof _this29.scheduler.get(pkh).state !== 'undefined' ? _this29.scheduler.get(pkh).state : '*', "]: <<"));
                     });
 
                   case 2:
                   case "end":
-                    return _context36.stop();
+                    return _context35.stop();
                 }
               }
-            }, _callee36, this);
+            }, _callee35, this);
           }));
         }
       }, {
         key: "changeState",
         value: function changeState(pkh, newState) {
-          var _this31 = this;
+          var _this30 = this;
 
           var scheduleData = this.scheduler.get(pkh);
           scheduleData.state = newState;
@@ -15631,7 +15415,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (newState === State.Wait || newState === State.Updating) {
             clearInterval(scheduleData.interval);
             scheduleData.interval = setInterval(function () {
-              return _this31.update(pkh);
+              return _this30.update(pkh);
             }, this.shortDelayActivity);
           }
 
@@ -15641,7 +15425,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setDelay",
         value: function setDelay(pkh, time) {
-          var _this32 = this;
+          var _this31 = this;
 
           var scheduleData = this.scheduler.get(pkh);
 
@@ -15650,7 +15434,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           scheduleData.interval = setInterval(function () {
-            return _this32.update(pkh);
+            return _this31.update(pkh);
           }, time);
           this.scheduler.set(pkh, scheduleData);
         }
@@ -15671,10 +15455,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "stop",
         value: function stop(pkh) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
-            return regeneratorRuntime.wrap(function _callee37$(_context37) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+            return regeneratorRuntime.wrap(function _callee36$(_context36) {
               while (1) {
-                switch (_context37.prev = _context37.next) {
+                switch (_context36.prev = _context36.next) {
                   case 0:
                     console.log('Stop scheduler ' + this.accounts.findIndex(function (a) {
                       return a.address === pkh;
@@ -15685,26 +15469,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                   case "end":
-                    return _context37.stop();
+                    return _context36.stop();
                 }
               }
-            }, _callee37, this);
+            }, _callee36, this);
           }));
         }
       }, {
         key: "updateAccountData",
         value: function updateAccountData(pkh) {
-          var _this33 = this;
+          var _this32 = this;
 
           // Maybe also check for originations to account?
           console.log('update account data for ' + pkh);
           this.operationService.getAccount(pkh).subscribe(function (ans) {
             if (ans.success) {
-              _this33.balanceService.updateAccountBalance(_this33.walletService.wallet.getAccount(pkh), Number(ans.payload.balance));
+              _this32.balanceService.updateAccountBalance(_this32.walletService.wallet.getAccount(pkh), Number(ans.payload.balance));
 
-              var acc = _this33.walletService.wallet.getAccount(pkh);
+              var acc = _this32.walletService.wallet.getAccount(pkh);
 
-              _this33.delegateService.handleDelegateResponse(acc, ans.payload.delegate);
+              _this32.delegateService.handleDelegateResponse(acc, ans.payload.delegate);
             } else {
               console.log('updateAccountData -> getAccount failed ', ans.payload.msg);
             }
@@ -15717,12 +15501,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             console.log('Unconfirmed transactions:');
             console.log(metadata.transactions);
 
-            var _iterator12 = _createForOfIteratorHelper(metadata.transactions),
-                _step12;
+            var _iterator10 = _createForOfIteratorHelper(metadata.transactions),
+                _step10;
 
             try {
-              for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
-                var op = _step12.value;
+              for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+                var op = _step10.value;
                 var transaction = {
                   type: 'transaction',
                   status: 0,
@@ -15743,9 +15527,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               }
             } catch (err) {
-              _iterator12.e(err);
+              _iterator10.e(err);
             } finally {
-              _iterator12.f();
+              _iterator10.f();
             }
           } else if (metadata.delegate !== undefined) {
             var delegation = {
@@ -15858,29 +15642,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getDelegates",
         value: function getDelegates() {
           if (this.walletService.wallet && this.walletService.wallet.implicitAccounts) {
-            var _iterator13 = _createForOfIteratorHelper(this.walletService.wallet.getAccounts()),
-                _step13;
+            var _iterator11 = _createForOfIteratorHelper(this.walletService.wallet.getAccounts()),
+                _step11;
 
             try {
-              for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
-                var account = _step13.value;
+              for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+                var account = _step11.value;
                 this.getDelegate(account);
               }
             } catch (err) {
-              _iterator13.e(err);
+              _iterator11.e(err);
             } finally {
-              _iterator13.f();
+              _iterator11.f();
             }
           }
         }
       }, {
         key: "getDelegate",
         value: function getDelegate(account) {
-          var _this34 = this;
+          var _this33 = this;
 
           this.operationService.getDelegate(account.address).subscribe(function (data) {
             if (data.success) {
-              _this34.handleDelegateResponse(account, data.payload.delegate);
+              _this33.handleDelegateResponse(account, data.payload.delegate);
             }
           }, function (err) {
             return console.log(JSON.stringify(err));
@@ -16026,6 +15810,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           key: "encrypt",
           value: function encrypt(plaintext, password, version) {
             var salt = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+              return regeneratorRuntime.wrap(function _callee37$(_context37) {
+                while (1) {
+                  switch (_context37.prev = _context37.next) {
+                    case 0:
+                      if (!(version === 1)) {
+                        _context37.next = 4;
+                        break;
+                      }
+
+                      throw new Error('Encryption version no longer supported');
+
+                    case 4:
+                      if (!(version === 2)) {
+                        _context37.next = 8;
+                        break;
+                      }
+
+                      return _context37.abrupt("return", this.encrypt_v2(plaintext, password));
+
+                    case 8:
+                      if (!(version === 3)) {
+                        _context37.next = 12;
+                        break;
+                      }
+
+                      return _context37.abrupt("return", this.encrypt_v2(plaintext, password, salt));
+
+                    case 12:
+                      throw new Error('Unrecognized encryption format');
+
+                    case 13:
+                    case "end":
+                      return _context37.stop();
+                  }
+                }
+              }, _callee37, this);
+            }));
+          }
+        }, {
+          key: "decrypt",
+          value: function decrypt(chiphertext, password, salt, version) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
               return regeneratorRuntime.wrap(function _callee38$(_context38) {
                 while (1) {
@@ -16036,79 +15862,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         break;
                       }
 
-                      throw new Error('Encryption version no longer supported');
+                      return _context38.abrupt("return", this.decrypt_v1(chiphertext, password, salt));
 
                     case 4:
-                      if (!(version === 2)) {
+                      if (!(version === 2 || version === 3)) {
                         _context38.next = 8;
                         break;
                       }
 
-                      return _context38.abrupt("return", this.encrypt_v2(plaintext, password));
-
-                    case 8:
-                      if (!(version === 3)) {
-                        _context38.next = 12;
-                        break;
-                      }
-
-                      return _context38.abrupt("return", this.encrypt_v2(plaintext, password, salt));
-
-                    case 12:
-                      throw new Error('Unrecognized encryption format');
-
-                    case 13:
-                    case "end":
-                      return _context38.stop();
-                  }
-                }
-              }, _callee38, this);
-            }));
-          }
-        }, {
-          key: "decrypt",
-          value: function decrypt(chiphertext, password, salt, version) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
-              return regeneratorRuntime.wrap(function _callee39$(_context39) {
-                while (1) {
-                  switch (_context39.prev = _context39.next) {
-                    case 0:
-                      if (!(version === 1)) {
-                        _context39.next = 4;
-                        break;
-                      }
-
-                      return _context39.abrupt("return", this.decrypt_v1(chiphertext, password, salt));
-
-                    case 4:
-                      if (!(version === 2 || version === 3)) {
-                        _context39.next = 8;
-                        break;
-                      }
-
-                      return _context39.abrupt("return", this.decrypt_v2(chiphertext, password, salt));
+                      return _context38.abrupt("return", this.decrypt_v2(chiphertext, password, salt));
 
                     case 8:
                       throw new Error('Unrecognized encryption format');
 
                     case 9:
                     case "end":
-                      return _context39.stop();
+                      return _context38.stop();
                   }
                 }
-              }, _callee39, this);
+              }, _callee38, this);
             }));
           } // Version 1
 
         }, {
           key: "encrypt_v1",
           value: function encrypt_v1(plaintext, password, salt) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
-              return regeneratorRuntime.wrap(function _callee40$(_context40) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+              return regeneratorRuntime.wrap(function _callee39$(_context39) {
                 while (1) {
-                  switch (_context40.prev = _context40.next) {
+                  switch (_context39.prev = _context39.next) {
                     case 0:
-                      return _context40.abrupt("return", new Promise(function (resolve) {
+                      return _context39.abrupt("return", new Promise(function (resolve) {
                         try {
                           if (!password || !salt) {
                             throw new Error('Missing password or salt');
@@ -16132,21 +15916,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     case 1:
                     case "end":
-                      return _context40.stop();
+                      return _context39.stop();
                   }
                 }
-              }, _callee40);
+              }, _callee39);
             }));
           }
         }, {
           key: "decrypt_v1",
           value: function decrypt_v1(chiphertext, password, salt) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-              return regeneratorRuntime.wrap(function _callee41$(_context41) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+              return regeneratorRuntime.wrap(function _callee40$(_context40) {
                 while (1) {
-                  switch (_context41.prev = _context41.next) {
+                  switch (_context40.prev = _context40.next) {
                     case 0:
-                      return _context41.abrupt("return", new Promise(function (resolve) {
+                      return _context40.abrupt("return", new Promise(function (resolve) {
                         try {
                           if (!password || !salt) {
                             throw new Error('Missing password or salt');
@@ -16169,24 +15953,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     case 1:
                     case "end":
-                      return _context41.stop();
+                      return _context40.stop();
                   }
                 }
-              }, _callee41);
+              }, _callee40);
             }));
           } // Version 2
 
         }, {
           key: "encrypt_v2",
           value: function encrypt_v2(plaintext, password, salt) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
               var salty, key, cipher, byteStringBuffer, chiphertext;
-              return regeneratorRuntime.wrap(function _callee42$(_context42) {
+              return regeneratorRuntime.wrap(function _callee41$(_context41) {
                 while (1) {
-                  switch (_context42.prev = _context42.next) {
+                  switch (_context41.prev = _context41.next) {
                     case 0:
                       if (password) {
-                        _context42.next = 2;
+                        _context41.next = 2;
                         break;
                       }
 
@@ -16199,11 +15983,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         salty = crypto_browserify__WEBPACK_IMPORTED_MODULE_5__["randomBytes"](16);
                       }
 
-                      _context42.next = 5;
+                      _context41.next = 5;
                       return scryptsy__WEBPACK_IMPORTED_MODULE_4__["async"](password, salty, 65536, 8, 1, 32);
 
                     case 5:
-                      key = _context42.sent;
+                      key = _context41.sent;
                       cipher = node_forge__WEBPACK_IMPORTED_MODULE_6__["cipher"].createCipher('AES-GCM', key.toString('binary'));
                       cipher.start({
                         iv: salty
@@ -16212,32 +15996,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       cipher.update(byteStringBuffer);
                       cipher.finish();
                       chiphertext = cipher.output.toHex() + '==' + cipher.mode.tag.toHex();
-                      return _context42.abrupt("return", {
+                      return _context41.abrupt("return", {
                         chiphertext: chiphertext,
                         iv: salty.toString('hex')
                       });
 
                     case 13:
                     case "end":
-                      return _context42.stop();
+                      return _context41.stop();
                   }
                 }
-              }, _callee42);
+              }, _callee41);
             }));
           }
         }, {
           key: "decrypt_v2",
           value: function decrypt_v2(chipher, password, salt) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
               var parts, chiphertext, tag, key, decipher, pass;
-              return regeneratorRuntime.wrap(function _callee43$(_context43) {
+              return regeneratorRuntime.wrap(function _callee42$(_context42) {
                 while (1) {
-                  switch (_context43.prev = _context43.next) {
+                  switch (_context42.prev = _context42.next) {
                     case 0:
-                      _context43.prev = 0;
+                      _context42.prev = 0;
 
                       if (!(!password || !salt)) {
-                        _context43.next = 3;
+                        _context42.next = 3;
                         break;
                       }
 
@@ -16247,11 +16031,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       parts = chipher.split('==');
                       chiphertext = parts[0];
                       tag = parts[1];
-                      _context43.next = 8;
+                      _context42.next = 8;
                       return scryptsy__WEBPACK_IMPORTED_MODULE_4__["async"](password, new Buffer(salt, 'hex'), 65536, 8, 1, 32);
 
                     case 8:
-                      key = _context43.sent;
+                      key = _context42.sent;
                       decipher = node_forge__WEBPACK_IMPORTED_MODULE_6__["cipher"].createDecipher('AES-GCM', key.toString('binary'));
                       decipher.start({
                         iv: new Buffer(salt, 'hex'),
@@ -16261,30 +16045,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       pass = decipher.finish();
 
                       if (!pass) {
-                        _context43.next = 17;
+                        _context42.next = 17;
                         break;
                       }
 
-                      return _context43.abrupt("return", new Buffer(decipher.output.toHex(), 'hex'));
+                      return _context42.abrupt("return", new Buffer(decipher.output.toHex(), 'hex'));
 
                     case 17:
-                      return _context43.abrupt("return", null);
+                      return _context42.abrupt("return", null);
 
                     case 18:
-                      _context43.next = 23;
+                      _context42.next = 23;
                       break;
 
                     case 20:
-                      _context43.prev = 20;
-                      _context43.t0 = _context43["catch"](0);
-                      return _context43.abrupt("return", null);
+                      _context42.prev = 20;
+                      _context42.t0 = _context42["catch"](0);
+                      return _context42.abrupt("return", null);
 
                     case 23:
                     case "end":
-                      return _context43.stop();
+                      return _context42.stop();
                   }
                 }
-              }, _callee43, null, [[0, 20]]);
+              }, _callee42, null, [[0, 20]]);
             }));
           }
         }, {
@@ -16399,7 +16183,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         'Content-Type': 'application/json'
       }
     };
-    var hardGasLimit = 800000;
+    var hardGasLimit = 1040000;
     var hardStorageLimit = 60000;
 
     var EstimateService = /*#__PURE__*/function () {
@@ -16408,9 +16192,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.http = http;
         this.operationService = operationService;
+        this.costPerByte = '250';
+        this.revealGasLimit = 1000;
         this.queue = [];
         this.CONSTANTS = this.operationService.CONSTANTS;
-        this.revealGasLimit = 10000;
         this.nodeURL = this.CONSTANTS.NET.NODE_URL;
       }
 
@@ -16427,41 +16212,41 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "preLoadData",
         value: function preLoadData(pkh, pk) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
-            var _this35 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+            var _this34 = this;
 
-            return regeneratorRuntime.wrap(function _callee44$(_context44) {
+            return regeneratorRuntime.wrap(function _callee43$(_context43) {
               while (1) {
-                switch (_context44.prev = _context44.next) {
+                switch (_context43.prev = _context43.next) {
                   case 0:
                     this.pkh = pkh;
                     this.pk = pk;
-                    _context44.next = 4;
+                    _context43.next = 4;
                     return Promise.all([this.operationService.getHeader().toPromise(), this.getCounter(pkh), this.getManager(pkh)]).then(function (req) {
                       if (req[0] && req[1] && req[2] || req[2] === null) {
-                        _this35.init(req[0].hash, req[0].chain_id, req[1], req[2], pk, pkh);
+                        _this34.init(req[0].hash, req[0].chain_id, req[1], req[2], pk, pkh);
                       }
                     });
 
                   case 4:
                   case "end":
-                    return _context44.stop();
+                    return _context43.stop();
                 }
               }
-            }, _callee44, this);
+            }, _callee43, this);
           }));
         }
       }, {
         key: "estimate",
         value: function estimate(transactions, from, callback) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
-            var _this36 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
+            var _this35 = this;
 
             var _loop2;
 
-            return regeneratorRuntime.wrap(function _callee46$(_context47) {
+            return regeneratorRuntime.wrap(function _callee45$(_context46) {
               while (1) {
-                switch (_context47.prev = _context47.next) {
+                switch (_context46.prev = _context46.next) {
                   case 0:
                     this.queue.push({
                       transactions: transactions,
@@ -16470,20 +16255,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                     if (!(this.queue.length === 1)) {
-                      _context47.next = 7;
+                      _context46.next = 7;
                       break;
                     }
 
                     _loop2 = /*#__PURE__*/regeneratorRuntime.mark(function _loop2() {
                       var retry, i;
-                      return regeneratorRuntime.wrap(function _loop2$(_context46) {
+                      return regeneratorRuntime.wrap(function _loop2$(_context45) {
                         while (1) {
-                          switch (_context46.prev = _context46.next) {
+                          switch (_context45.prev = _context45.next) {
                             case 0:
-                              while (_this36.queue.length > 1) {
-                                _this36.queue[0].callback(null);
+                              while (_this35.queue.length > 1) {
+                                _this35.queue[0].callback(null);
 
-                                _this36.queue.shift();
+                                _this35.queue.shift();
                               }
 
                               retry = false;
@@ -16491,31 +16276,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                             case 3:
                               if (!(i < 1 || retry && i < 2)) {
-                                _context46.next = 9;
+                                _context45.next = 9;
                                 break;
                               }
 
-                              _context46.next = 6;
-                              return _this36._estimate(_this36.queue[0].transactions, _this36.queue[0].from).then(function (res) {
-                                _this36.queue[0].callback(res);
+                              _context45.next = 6;
+                              return _this35._estimate(_this35.queue[0].transactions, _this35.queue[0].from).then(function (res) {
+                                _this35.queue[0].callback(res);
                               })["catch"](function (error) {
-                                return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this36, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
-                                  return regeneratorRuntime.wrap(function _callee45$(_context45) {
+                                return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this35, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
+                                  return regeneratorRuntime.wrap(function _callee44$(_context44) {
                                     while (1) {
-                                      switch (_context45.prev = _context45.next) {
+                                      switch (_context44.prev = _context44.next) {
                                         case 0:
                                           if (!(error.message && error.message === 'An operation assumed a contract counter in the past' && !retry)) {
-                                            _context45.next = 7;
+                                            _context44.next = 7;
                                             break;
                                           }
 
                                           console.log('Update counter');
-                                          _context45.next = 4;
+                                          _context44.next = 4;
                                           return this.preLoadData(this.pkh, this.pk);
 
                                         case 4:
                                           retry = true;
-                                          _context45.next = 8;
+                                          _context44.next = 8;
                                           break;
 
                                         case 7:
@@ -16525,24 +16310,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                                         case 8:
                                         case "end":
-                                          return _context45.stop();
+                                          return _context44.stop();
                                       }
                                     }
-                                  }, _callee45, this);
+                                  }, _callee44, this);
                                 }));
                               });
 
                             case 6:
                               i++;
-                              _context46.next = 3;
+                              _context45.next = 3;
                               break;
 
                             case 9:
-                              _this36.queue.shift();
+                              _this35.queue.shift();
 
                             case 10:
                             case "end":
-                              return _context46.stop();
+                              return _context45.stop();
                           }
                         }
                       }, _loop2);
@@ -16550,44 +16335,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                     if (!(this.queue.length > 0)) {
-                      _context47.next = 7;
+                      _context46.next = 7;
                       break;
                     }
 
-                    return _context47.delegateYield(_loop2(), "t0", 5);
+                    return _context46.delegateYield(_loop2(), "t0", 5);
 
                   case 5:
-                    _context47.next = 3;
+                    _context46.next = 3;
                     break;
 
                   case 7:
                   case "end":
-                    return _context47.stop();
+                    return _context46.stop();
                 }
               }
-            }, _callee46, this);
+            }, _callee45, this);
           }));
         }
       }, {
         key: "_estimate",
         value: function _estimate(transactions, from) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
-            var _this37 = this;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
+            var _this36 = this;
 
-            var extraGas, simulation, _iterator14, _step14, tx, op, result, reveal, limits, _iterator15, _step15, content, _this$getOpUsage, gasUsage, storageUsage;
+            var extraGas, simulation, _iterator12, _step12, tx, op, result, reveal, limits, _iterator13, _step13, content, _this$getOpUsage, gasUsage, storageUsage;
 
-            return regeneratorRuntime.wrap(function _callee47$(_context48) {
+            return regeneratorRuntime.wrap(function _callee46$(_context47) {
               while (1) {
-                switch (_context48.prev = _context48.next) {
+                switch (_context47.prev = _context47.next) {
                   case 0:
                     extraGas = 80;
 
                     if (this.hash) {
-                      _context48.next = 3;
+                      _context47.next = 3;
                       break;
                     }
 
-                    return _context48.abrupt("return", null);
+                    return _context47.abrupt("return", null);
 
                   case 3:
                     simulation = {
@@ -16595,11 +16380,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       gasLimit: hardGasLimit,
                       storageLimit: hardStorageLimit
                     };
-                    _iterator14 = _createForOfIteratorHelper(transactions);
+                    _iterator12 = _createForOfIteratorHelper(transactions);
 
                     try {
-                      for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
-                        tx = _step14.value;
+                      for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
+                        tx = _step12.value;
 
                         if (!tx.amount) {
                           tx.amount = 0;
@@ -16613,58 +16398,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         tx.storageLimit = simulation.storageLimit;
                       }
                     } catch (err) {
-                      _iterator14.e(err);
+                      _iterator12.e(err);
                     } finally {
-                      _iterator14.f();
+                      _iterator12.f();
                     }
 
                     if (!(this.hash && this.counter && (this.manager || this.manager === null))) {
-                      _context48.next = 47;
+                      _context47.next = 47;
                       break;
                     }
 
                     op = this.operationService.createTransactionObject(this.hash, this.counter, this.manager, transactions, this.pkh, this.pk, from, simulation.fee);
-                    _context48.next = 10;
+                    _context47.next = 10;
                     return this.simulate(op).toPromise()["catch"](function (e) {
                       console.warn(e);
                       return null;
                     });
 
                   case 10:
-                    result = _context48.sent;
+                    result = _context47.sent;
 
                     if (!(result && result.contents)) {
-                      _context48.next = 44;
+                      _context47.next = 44;
                       break;
                     }
 
                     reveal = false;
                     limits = [];
-                    _iterator15 = _createForOfIteratorHelper(result.contents);
-                    _context48.prev = 15;
+                    _iterator13 = _createForOfIteratorHelper(result.contents);
+                    _context47.prev = 15;
 
-                    _iterator15.s();
+                    _iterator13.s();
 
                   case 17:
-                    if ((_step15 = _iterator15.n()).done) {
-                      _context48.next = 31;
+                    if ((_step13 = _iterator13.n()).done) {
+                      _context47.next = 31;
                       break;
                     }
 
-                    content = _step15.value;
+                    content = _step13.value;
 
                     if (!(content.kind === 'reveal')) {
-                      _context48.next = 23;
+                      _context47.next = 23;
                       break;
                     }
 
                     reveal = true;
-                    _context48.next = 29;
+                    _context47.next = 29;
                     break;
 
                   case 23:
                     if (!(content.kind === 'transaction' && content.metadata.operation_result.status === 'applied')) {
-                      _context48.next = 28;
+                      _context47.next = 28;
                       break;
                     }
 
@@ -16673,46 +16458,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       gasLimit: gasUsage + extraGas,
                       storageLimit: storageUsage
                     });
-                    _context48.next = 29;
+                    _context47.next = 29;
                     break;
 
                   case 28:
-                    return _context48.abrupt("return", null);
+                    return _context47.abrupt("return", null);
 
                   case 29:
-                    _context48.next = 17;
+                    _context47.next = 17;
                     break;
 
                   case 31:
-                    _context48.next = 36;
+                    _context47.next = 36;
                     break;
 
                   case 33:
-                    _context48.prev = 33;
-                    _context48.t0 = _context48["catch"](15);
+                    _context47.prev = 33;
+                    _context47.t0 = _context47["catch"](15);
 
-                    _iterator15.e(_context48.t0);
+                    _iterator13.e(_context47.t0);
 
                   case 36:
-                    _context48.prev = 36;
+                    _context47.prev = 36;
 
-                    _iterator15.f();
+                    _iterator13.f();
 
-                    return _context48.finish(36);
+                    return _context47.finish(36);
 
                   case 39:
-                    _context48.next = 41;
+                    _context47.next = 41;
                     return this.operationService.localForge(op).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (fop) {
                       var bytes = fop.length / 2 + 64;
 
-                      var gas = _this37.averageGasLimit(limits);
+                      var gas = _this36.averageGasLimit(limits);
 
-                      var storage = _this37.averageStorageLimit(limits);
+                      var storage = _this36.averageStorageLimit(limits);
 
                       var dtp = {
                         customLimits: limits,
-                        fee: _this37.recommendFee(limits, reveal, bytes),
-                        burn: _this37.burnFee(limits),
+                        fee: _this36.recommendFee(limits, reveal, bytes),
+                        burn: _this36.burnFee(limits),
                         gas: gas,
                         storage: storage,
                         reveal: reveal
@@ -16722,11 +16507,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     })).toPromise();
 
                   case 41:
-                    return _context48.abrupt("return", _context48.sent);
+                    return _context47.abrupt("return", _context47.sent);
 
                   case 44:
                     if (!(typeof result.success === 'boolean' && result.success === false)) {
-                      _context48.next = 47;
+                      _context47.next = 47;
                       break;
                     }
 
@@ -16734,14 +16519,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw new Error(result.payload.msg);
 
                   case 47:
-                    return _context48.abrupt("return", null);
+                    return _context47.abrupt("return", null);
 
                   case 48:
                   case "end":
-                    return _context48.stop();
+                    return _context47.stop();
                 }
               }
-            }, _callee47, this, [[15, 33, 36, 39]]);
+            }, _callee46, this, [[15, 33, 36, 39]]);
           }));
         }
       }, {
@@ -16760,15 +16545,76 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           if (content.metadata.operation_result.balance_updates) {
-            var _iterator16 = _createForOfIteratorHelper(content.metadata.operation_result.balance_updates),
+            var _iterator14 = _createForOfIteratorHelper(content.metadata.operation_result.balance_updates),
+                _step14;
+
+            try {
+              for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
+                var balanceUpdate = _step14.value;
+
+                if (balanceUpdate.contract === this.pkh) {
+                  burn = burn.minus(balanceUpdate.change);
+                }
+              }
+            } catch (err) {
+              _iterator14.e(err);
+            } finally {
+              _iterator14.f();
+            }
+          }
+
+          if (content.metadata.balance_updates) {
+            var _iterator15 = _createForOfIteratorHelper(content.metadata.balance_updates),
+                _step15;
+
+            try {
+              for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+                var _balanceUpdate = _step15.value;
+
+                if (_balanceUpdate.contract === this.pkh) {
+                  burn = burn.minus(_balanceUpdate.change);
+                }
+              }
+            } catch (err) {
+              _iterator15.e(err);
+            } finally {
+              _iterator15.f();
+            }
+          }
+
+          gasUsage += content.metadata.operation_result.consumed_gas ? Number(content.metadata.operation_result.consumed_gas) : 0;
+
+          if (content.metadata.internal_operation_results) {
+            var _iterator16 = _createForOfIteratorHelper(content.metadata.internal_operation_results),
                 _step16;
 
             try {
               for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
-                var balanceUpdate = _step16.value;
+                var internalResult = _step16.value;
 
-                if (balanceUpdate.contract === this.pkh) {
-                  burn = burn.minus(balanceUpdate.change);
+                if (internalResult.result) {
+                  if (internalResult.result.consumed_gas) {
+                    gasUsage += internalResult.result && internalResult.result.consumed_gas ? Number(internalResult.result.consumed_gas) : 0;
+                  }
+
+                  if (internalResult.result.balance_updates) {
+                    var _iterator17 = _createForOfIteratorHelper(internalResult.result.balance_updates),
+                        _step17;
+
+                    try {
+                      for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+                        var _balanceUpdate2 = _step17.value;
+
+                        if (_balanceUpdate2.contract === this.pkh && _balanceUpdate2.change.slice(0, 1) === '-') {
+                          burn = burn.minus(_balanceUpdate2.change);
+                        }
+                      }
+                    } catch (err) {
+                      _iterator17.e(err);
+                    } finally {
+                      _iterator17.f();
+                    }
+                  }
                 }
               }
             } catch (err) {
@@ -16778,68 +16624,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }
 
-          if (content.metadata.balance_updates) {
-            var _iterator17 = _createForOfIteratorHelper(content.metadata.balance_updates),
-                _step17;
-
-            try {
-              for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
-                var _balanceUpdate = _step17.value;
-
-                if (_balanceUpdate.contract === this.pkh) {
-                  burn = burn.minus(_balanceUpdate.change);
-                }
-              }
-            } catch (err) {
-              _iterator17.e(err);
-            } finally {
-              _iterator17.f();
-            }
-          }
-
-          gasUsage += content.metadata.operation_result.consumed_gas ? Number(content.metadata.operation_result.consumed_gas) : 0;
-
-          if (content.metadata.internal_operation_results) {
-            var _iterator18 = _createForOfIteratorHelper(content.metadata.internal_operation_results),
-                _step18;
-
-            try {
-              for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
-                var internalResult = _step18.value;
-
-                if (internalResult.result) {
-                  if (internalResult.result.consumed_gas) {
-                    gasUsage += internalResult.result && internalResult.result.consumed_gas ? Number(internalResult.result.consumed_gas) : 0;
-                  }
-
-                  if (internalResult.result.balance_updates) {
-                    var _iterator19 = _createForOfIteratorHelper(internalResult.result.balance_updates),
-                        _step19;
-
-                    try {
-                      for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
-                        var _balanceUpdate2 = _step19.value;
-
-                        if (_balanceUpdate2.contract === this.pkh && _balanceUpdate2.change.slice(0, 1) === '-') {
-                          burn = burn.minus(_balanceUpdate2.change);
-                        }
-                      }
-                    } catch (err) {
-                      _iterator19.e(err);
-                    } finally {
-                      _iterator19.f();
-                    }
-                  }
-                }
-              }
-            } catch (err) {
-              _iterator18.e(err);
-            } finally {
-              _iterator18.f();
-            }
-          }
-
-          var storageUsage = Math.round(burn / 1000);
+          var storageUsage = Math.round(burn / Number(this.costPerByte));
 
           if (gasUsage < 0 || gasUsage > hardGasLimit || storageUsage < 0 || storageUsage > hardStorageLimit) {
             throw new Error('InvalidUsageCalculation');
@@ -16868,19 +16653,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             numberOfOperations++;
           }
 
-          var _iterator20 = _createForOfIteratorHelper(limits),
-              _step20;
+          var _iterator18 = _createForOfIteratorHelper(limits),
+              _step18;
 
           try {
-            for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
-              var data = _step20.value;
+            for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+              var data = _step18.value;
               gasUnits += data.gasLimit;
               numberOfOperations++;
             }
           } catch (err) {
-            _iterator20.e(err);
+            _iterator18.e(err);
           } finally {
-            _iterator20.f();
+            _iterator18.f();
           }
 
           bytes += 10 * numberOfOperations; // add 10 extra bytes for variation in amount & fee
@@ -16892,18 +16677,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function averageGasLimit(limits) {
           var totalGasLimit = 0;
 
-          var _iterator21 = _createForOfIteratorHelper(limits),
-              _step21;
+          var _iterator19 = _createForOfIteratorHelper(limits),
+              _step19;
 
           try {
-            for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
-              var data = _step21.value;
+            for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+              var data = _step19.value;
               totalGasLimit += data.gasLimit;
             }
           } catch (err) {
-            _iterator21.e(err);
+            _iterator19.e(err);
           } finally {
-            _iterator21.f();
+            _iterator19.f();
           }
 
           return Math.ceil(totalGasLimit / limits.length);
@@ -16913,18 +16698,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function averageStorageLimit(limits) {
           var totalStorageLimit = 0;
 
-          var _iterator22 = _createForOfIteratorHelper(limits),
-              _step22;
+          var _iterator20 = _createForOfIteratorHelper(limits),
+              _step20;
 
           try {
-            for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
-              var data = _step22.value;
+            for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+              var data = _step20.value;
               totalStorageLimit += data.storageLimit;
             }
           } catch (err) {
-            _iterator22.e(err);
+            _iterator20.e(err);
           } finally {
-            _iterator22.f();
+            _iterator20.f();
           }
 
           return Math.ceil(totalStorageLimit / limits.length);
@@ -16934,26 +16719,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function burnFee(limits) {
           var totalStorageLimit = 0;
 
-          var _iterator23 = _createForOfIteratorHelper(limits),
-              _step23;
+          var _iterator21 = _createForOfIteratorHelper(limits),
+              _step21;
 
           try {
-            for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
-              var data = _step23.value;
+            for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+              var data = _step21.value;
               totalStorageLimit += data.storageLimit;
             }
           } catch (err) {
-            _iterator23.e(err);
+            _iterator21.e(err);
           } finally {
-            _iterator23.f();
+            _iterator21.f();
           }
 
-          return totalStorageLimit * 0.001;
+          return Number(big_js__WEBPACK_IMPORTED_MODULE_6___default()(totalStorageLimit).times(this.costPerByte).div('1000000'));
         }
       }, {
         key: "simulate",
         value: function simulate(op) {
-          var _this38 = this;
+          var _this37 = this;
 
           op.signature = 'edsigtXomBKi5CTRf5cjATJWSyaRvhfYNHqSUGrn4SdbYRcGwQrUGjzEfQDTuqHhuA8b2d8NarZjz8TRf65WkpQmo423BtomS8Q';
           return this.http.post(this.nodeURL + '/chains/main/blocks/head/helpers/scripts/run_operation', {
@@ -16962,22 +16747,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (res) {
             console.log(JSON.stringify(res));
 
-            _this38.operationService.checkApplied([res]);
+            _this37.operationService.checkApplied([res]);
 
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(res);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (err) {
-            return _this38.operationService.errHandler(err);
+            return _this37.operationService.errHandler(err);
           }));
         }
       }, {
         key: "getCounter",
         value: function getCounter(pkh) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
+            return regeneratorRuntime.wrap(function _callee47$(_context48) {
+              while (1) {
+                switch (_context48.prev = _context48.next) {
+                  case 0:
+                    return _context48.abrupt("return", fetch(this.nodeURL + '/chains/main/blocks/head/context/contracts/' + pkh + '/counter', {}).then(function (response) {
+                      return response.json();
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context48.stop();
+                }
+              }
+            }, _callee47, this);
+          }));
+        }
+      }, {
+        key: "getManager",
+        value: function getManager(pkh) {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
             return regeneratorRuntime.wrap(function _callee48$(_context49) {
               while (1) {
                 switch (_context49.prev = _context49.next) {
                   case 0:
-                    return _context49.abrupt("return", fetch(this.nodeURL + '/chains/main/blocks/head/context/contracts/' + pkh + '/counter', {}).then(function (response) {
+                    return _context49.abrupt("return", fetch(this.nodeURL + '/chains/main/blocks/head/context/contracts/' + pkh + '/manager_key', {}).then(function (response) {
                       return response.json();
                     }));
 
@@ -16987,26 +16792,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               }
             }, _callee48, this);
-          }));
-        }
-      }, {
-        key: "getManager",
-        value: function getManager(pkh) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
-            return regeneratorRuntime.wrap(function _callee49$(_context50) {
-              while (1) {
-                switch (_context50.prev = _context50.next) {
-                  case 0:
-                    return _context50.abrupt("return", fetch(this.nodeURL + '/chains/main/blocks/head/context/contracts/' + pkh + '/manager_key', {}).then(function (response) {
-                      return response.json();
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context50.stop();
-                }
-              }
-            }, _callee49, this);
           }));
         }
       }]);
@@ -17192,45 +16977,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../conseil/conseil.service */
-    "./src/app/services/conseil/conseil.service.ts");
-    /* harmony import */
-
-
-    var _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../wallet/wallet */
     "./src/app/services/wallet/wallet.ts");
     /* harmony import */
 
 
-    var _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! @tezos-core-tools/crypto-utils */
     "./node_modules/@tezos-core-tools/crypto-utils/dist/main.js");
     /* harmony import */
 
 
-    var _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__);
+    var _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__);
     /* harmony import */
 
 
-    var _encryption_encryption_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _encryption_encryption_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../encryption/encryption.service */
     "./src/app/services/encryption/encryption.service.ts");
     /* harmony import */
 
 
-    var _torus_torus_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _torus_torus_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../torus/torus.service */
     "./src/app/services/torus/torus.service.ts");
+    /* harmony import */
+
+
+    var _indexer_indexer_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../indexer/indexer.service */
+    "./src/app/services/indexer/indexer.service.ts");
 
     var ImportService = /*#__PURE__*/function () {
-      function ImportService(walletService, coordinatorService, conseilService, encryptionService, torusService) {
+      function ImportService(walletService, coordinatorService, indexerService, encryptionService, torusService) {
         _classCallCheck(this, ImportService);
 
         this.walletService = walletService;
         this.coordinatorService = coordinatorService;
-        this.conseilService = conseilService;
+        this.indexerService = indexerService;
         this.encryptionService = encryptionService;
         this.torusService = torusService;
       }
@@ -17253,82 +17038,82 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "importWalletFromJson",
         value: function importWalletFromJson(json, pwd) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
             var seed, walletData;
-            return regeneratorRuntime.wrap(function _callee50$(_context51) {
+            return regeneratorRuntime.wrap(function _callee49$(_context50) {
               while (1) {
-                switch (_context51.prev = _context51.next) {
+                switch (_context50.prev = _context50.next) {
                   case 0:
-                    _context51.prev = 0;
+                    _context50.prev = 0;
                     walletData = JSON.parse(json);
 
                     if (!(walletData.walletType === 4 && walletData.version === 3)) {
-                      _context51.next = 8;
+                      _context50.next = 8;
                       break;
                     }
 
-                    _context51.next = 5;
+                    _context50.next = 5;
                     return this.encryptionService.decrypt(walletData.encryptedSeed, pwd, walletData.iv, 3);
 
                   case 5:
-                    seed = _context51.sent;
-                    _context51.next = 21;
+                    seed = _context50.sent;
+                    _context50.next = 21;
                     break;
 
                   case 8:
                     if (!(walletData.walletType === 0)) {
-                      _context51.next = 21;
+                      _context50.next = 21;
                       break;
                     }
 
                     if (!(walletData.version === 1)) {
-                      _context51.next = 17;
+                      _context50.next = 17;
                       break;
                     }
 
                     console.log('v1');
-                    _context51.next = 13;
+                    _context50.next = 13;
                     return this.encryptionService.decrypt(walletData.encryptedSeed, pwd, walletData.pkh.slice(3, 19), 1);
 
                   case 13:
-                    seed = _context51.sent;
+                    seed = _context50.sent;
 
-                    if (_tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__["utils"].seedToKeyPair(seed).pkh !== walletData.pkh) {
+                    if (_tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__["utils"].seedToKeyPair(seed).pkh !== walletData.pkh) {
                       seed = '';
                     }
 
-                    _context51.next = 21;
+                    _context50.next = 21;
                     break;
 
                   case 17:
                     if (!(walletData.version === 2 || walletData.version === 3)) {
-                      _context51.next = 21;
+                      _context50.next = 21;
                       break;
                     }
 
-                    _context51.next = 20;
+                    _context50.next = 20;
                     return this.encryptionService.decrypt(walletData.encryptedSeed, pwd, walletData.iv, walletData.version);
 
                   case 20:
-                    seed = _context51.sent;
+                    seed = _context50.sent;
 
                   case 21:
-                    _context51.next = 27;
+                    _context50.next = 27;
                     break;
 
                   case 23:
-                    _context51.prev = 23;
-                    _context51.t0 = _context51["catch"](0);
-                    console.error(_context51.t0);
+                    _context50.prev = 23;
+                    _context50.t0 = _context50["catch"](0);
+                    console.error(_context50.t0);
                     throw new Error('Failed to decrypt keystore file');
 
                   case 27:
                     if (!seed) {
-                      _context51.next = 31;
+                      _context50.next = 31;
                       break;
                     }
 
-                    return _context51.abrupt("return", this.importWalletFromObject(walletData, seed).then(function (ans) {
+                    return _context50.abrupt("return", this.importWalletFromObject(walletData, seed).then(function (ans) {
                       return ans;
                     }, function (e) {
                       console.error(e);
@@ -17340,73 +17125,73 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 32:
                   case "end":
-                    return _context51.stop();
+                    return _context50.stop();
                 }
               }
-            }, _callee50, this, [[0, 23]]);
+            }, _callee49, this, [[0, 23]]);
           }));
         }
       }, {
         key: "importWalletFromObject",
         value: function importWalletFromObject(data, seed) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
             var keys, index, counter;
-            return regeneratorRuntime.wrap(function _callee51$(_context52) {
+            return regeneratorRuntime.wrap(function _callee50$(_context51) {
               while (1) {
-                switch (_context52.prev = _context52.next) {
+                switch (_context51.prev = _context51.next) {
                   case 0:
                     this.coordinatorService.stopAll();
 
                     if (!(data.walletType === 4 && data.version === 3)) {
-                      _context52.next = 5;
+                      _context51.next = 5;
                       break;
                     }
 
                     // HD
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["HdWallet"](data.iv, data.encryptedSeed, data.encryptedEntropy);
-                    _context52.next = 22;
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["HdWallet"](data.iv, data.encryptedSeed, data.encryptedEntropy);
+                    _context51.next = 22;
                     break;
 
                   case 5:
                     if (!(data.walletType === 0)) {
-                      _context52.next = 21;
+                      _context51.next = 21;
                       break;
                     }
 
                     if (!(data.version === 3)) {
-                      _context52.next = 10;
+                      _context51.next = 10;
                       break;
                     }
 
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["LegacyWalletV3"](data.iv, data.encryptedSeed, data.encryptedEntropy);
-                    _context52.next = 19;
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["LegacyWalletV3"](data.iv, data.encryptedSeed, data.encryptedEntropy);
+                    _context51.next = 19;
                     break;
 
                   case 10:
                     if (!(data.version === 2)) {
-                      _context52.next = 14;
+                      _context51.next = 14;
                       break;
                     }
 
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["LegacyWalletV2"](data.iv, data.encryptedSeed);
-                    _context52.next = 19;
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["LegacyWalletV2"](data.iv, data.encryptedSeed);
+                    _context51.next = 19;
                     break;
 
                   case 14:
                     if (!(data.version === 1)) {
-                      _context52.next = 18;
+                      _context51.next = 18;
                       break;
                     }
 
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["LegacyWalletV1"](data.pkh.slice(3, 19), data.encryptedSeed);
-                    _context52.next = 19;
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["LegacyWalletV1"](data.pkh.slice(3, 19), data.encryptedSeed);
+                    _context51.next = 19;
                     break;
 
                   case 18:
                     throw new Error('Unsupported wallet file');
 
                   case 19:
-                    _context52.next = 22;
+                    _context51.next = 22;
                     break;
 
                   case 21:
@@ -17414,22 +17199,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 22:
                     if (!(seed.length === 32)) {
-                      _context52.next = 26;
+                      _context51.next = 26;
                       break;
                     }
 
-                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__["utils"].seedToKeyPair(seed);
-                    _context52.next = 31;
+                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__["utils"].seedToKeyPair(seed);
+                    _context51.next = 31;
                     break;
 
                   case 26:
                     if (!(seed.length === 64)) {
-                      _context52.next = 30;
+                      _context51.next = 30;
                       break;
                     }
 
-                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__["hd"].keyPairFromAccountIndex(seed, 0);
-                    _context52.next = 31;
+                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__["hd"].keyPairFromAccountIndex(seed, 0);
+                    _context51.next = 31;
                     break;
 
                   case 30:
@@ -17438,8 +17223,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 31:
                     this.walletService.initStorage();
 
-                    if (!(this.walletService.wallet instanceof _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["HdWallet"])) {
-                      _context52.next = 49;
+                    if (!(this.walletService.wallet instanceof _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["HdWallet"])) {
+                      _context51.next = 49;
                       break;
                     }
 
@@ -17448,44 +17233,78 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 35:
                     if (!counter) {
-                      _context52.next = 46;
+                      _context51.next = 46;
                       break;
                     }
 
-                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_6__["hd"].keyPairFromAccountIndex(seed, index);
-                    _context52.next = 39;
-                    return this.conseilService.accountInfo(keys.pkh).toPromise();
+                    keys = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_5__["hd"].keyPairFromAccountIndex(seed, index);
+                    _context51.next = 39;
+                    return this.indexerService.accountInfo(keys.pkh);
 
                   case 39:
-                    counter = _context52.sent;
+                    counter = _context51.sent;
 
                     if (!(counter || index === 0)) {
-                      _context52.next = 44;
+                      _context51.next = 44;
                       break;
                     }
 
                     this.walletService.addImplicitAccount(keys.pk, index++);
-                    _context52.next = 44;
+                    _context51.next = 44;
                     return this.findContracts(keys.pkh);
 
                   case 44:
-                    _context52.next = 35;
+                    _context51.next = 35;
                     break;
 
                   case 46:
                     this.walletService.wallet.index = index;
-                    _context52.next = 52;
+                    _context51.next = 52;
                     break;
 
                   case 49:
                     this.walletService.addImplicitAccount(keys.pk);
-                    _context52.next = 52;
-                    return this.findContracts(keys.pkh, true);
+                    _context51.next = 52;
+                    return this.findContracts(keys.pkh);
 
                   case 52:
-                    return _context52.abrupt("return", true);
+                    return _context51.abrupt("return", true);
 
                   case 53:
+                  case "end":
+                    return _context51.stop();
+                }
+              }
+            }, _callee50, this);
+          }));
+        }
+      }, {
+        key: "importWalletFromPk",
+        value: function importWalletFromPk(pk, derivationPath) {
+          var verifierDetails = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+            return regeneratorRuntime.wrap(function _callee51$(_context52) {
+              while (1) {
+                switch (_context52.prev = _context52.next) {
+                  case 0:
+                    this.coordinatorService.stopAll();
+
+                    if (!derivationPath) {
+                      _context52.next = 5;
+                      break;
+                    }
+
+                    return _context52.abrupt("return", this.ledgerImport(pk, derivationPath));
+
+                  case 5:
+                    if (!verifierDetails) {
+                      _context52.next = 7;
+                      break;
+                    }
+
+                    return _context52.abrupt("return", this.torusImport(pk, verifierDetails));
+
+                  case 7:
                   case "end":
                     return _context52.stop();
                 }
@@ -17494,42 +17313,41 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "importWalletFromPk",
-        value: function importWalletFromPk(pk, derivationPath) {
-          var verifierDetails = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+        key: "ledgerImport",
+        value: function ledgerImport(pk, derivationPath) {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
             return regeneratorRuntime.wrap(function _callee52$(_context53) {
               while (1) {
                 switch (_context53.prev = _context53.next) {
                   case 0:
-                    this.coordinatorService.stopAll();
+                    _context53.prev = 0;
+                    this.walletService.initStorage();
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["LedgerWallet"]();
+                    this.walletService.addImplicitAccount(pk, derivationPath);
+                    _context53.next = 6;
+                    return this.findContracts(this.walletService.wallet.implicitAccounts[0].pkh);
 
-                    if (!derivationPath) {
-                      _context53.next = 5;
-                      break;
-                    }
+                  case 6:
+                    return _context53.abrupt("return", true);
 
-                    return _context53.abrupt("return", this.ledgerImport(pk, derivationPath));
+                  case 9:
+                    _context53.prev = 9;
+                    _context53.t0 = _context53["catch"](0);
+                    console.warn(_context53.t0);
+                    this.walletService.clearWallet();
+                    return _context53.abrupt("return", false);
 
-                  case 5:
-                    if (!verifierDetails) {
-                      _context53.next = 7;
-                      break;
-                    }
-
-                    return _context53.abrupt("return", this.torusImport(pk, verifierDetails));
-
-                  case 7:
+                  case 14:
                   case "end":
                     return _context53.stop();
                 }
               }
-            }, _callee52, this);
+            }, _callee52, this, [[0, 9]]);
           }));
         }
       }, {
-        key: "ledgerImport",
-        value: function ledgerImport(pk, derivationPath) {
+        key: "torusImport",
+        value: function torusImport(pk, verifierDetails) {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
             return regeneratorRuntime.wrap(function _callee53$(_context54) {
               while (1) {
@@ -17537,84 +17355,90 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 0:
                     _context54.prev = 0;
                     this.walletService.initStorage();
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["LedgerWallet"]();
-                    this.walletService.addImplicitAccount(pk, derivationPath);
-                    _context54.next = 6;
-                    return this.findContracts(this.walletService.wallet.implicitAccounts[0].pkh);
-
-                  case 6:
-                    return _context54.abrupt("return", true);
-
-                  case 9:
-                    _context54.prev = 9;
-                    _context54.t0 = _context54["catch"](0);
-                    console.warn(_context54.t0);
-                    this.walletService.clearWallet();
-                    return _context54.abrupt("return", false);
-
-                  case 14:
-                  case "end":
-                    return _context54.stop();
-                }
-              }
-            }, _callee53, this, [[0, 9]]);
-          }));
-        }
-      }, {
-        key: "torusImport",
-        value: function torusImport(pk, verifierDetails) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
-            return regeneratorRuntime.wrap(function _callee54$(_context55) {
-              while (1) {
-                switch (_context55.prev = _context55.next) {
-                  case 0:
-                    _context55.prev = 0;
-                    this.walletService.initStorage();
-                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["TorusWallet"](verifierDetails.verifier, verifierDetails.id, verifierDetails.name);
+                    this.walletService.wallet = new _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["TorusWallet"](verifierDetails.verifier, verifierDetails.id, verifierDetails.name);
 
                     if (verifierDetails.verifier === 'twitter') {
                       this.updateTwitterName(verifierDetails.id);
                     }
 
                     this.walletService.addImplicitAccount(pk);
-                    return _context55.abrupt("return", true);
+                    return _context54.abrupt("return", true);
 
                   case 8:
-                    _context55.prev = 8;
-                    _context55.t0 = _context55["catch"](0);
-                    console.warn(_context55.t0);
+                    _context54.prev = 8;
+                    _context54.t0 = _context54["catch"](0);
+                    console.warn(_context54.t0);
                     this.walletService.clearWallet();
-                    return _context55.abrupt("return", false);
+                    return _context54.abrupt("return", false);
 
                   case 13:
                   case "end":
-                    return _context55.stop();
+                    return _context54.stop();
                 }
               }
-            }, _callee54, this, [[0, 8]]);
+            }, _callee53, this, [[0, 8]]);
           }));
         }
       }, {
         key: "updateTwitterName",
         value: function updateTwitterName(verifierId) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
             var twitterId, _yield$this$torusServ3, username;
+
+            return regeneratorRuntime.wrap(function _callee54$(_context55) {
+              while (1) {
+                switch (_context55.prev = _context55.next) {
+                  case 0:
+                    twitterId = verifierId.split('|')[1];
+                    _context55.next = 3;
+                    return this.torusService.twitterLookup(undefined, twitterId);
+
+                  case 3:
+                    _yield$this$torusServ3 = _context55.sent;
+                    username = _yield$this$torusServ3.username;
+
+                    if (username && this.walletService.wallet instanceof _wallet_wallet__WEBPACK_IMPORTED_MODULE_4__["TorusWallet"]) {
+                      this.walletService.wallet.name = '@' + username;
+                    }
+
+                  case 6:
+                  case "end":
+                    return _context55.stop();
+                }
+              }
+            }, _callee54, this);
+          }));
+        }
+      }, {
+        key: "findContracts",
+        value: function findContracts(pkh) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+            var addresses, _iterator22, _step22, KT;
 
             return regeneratorRuntime.wrap(function _callee55$(_context56) {
               while (1) {
                 switch (_context56.prev = _context56.next) {
                   case 0:
-                    twitterId = verifierId.split('|')[1];
-                    _context56.next = 3;
-                    return this.torusService.twitterLookup(undefined, twitterId);
+                    _context56.next = 2;
+                    return this.indexerService.getContractAddresses(pkh);
 
-                  case 3:
-                    _yield$this$torusServ3 = _context56.sent;
-                    username = _yield$this$torusServ3.username;
+                  case 2:
+                    addresses = _context56.sent;
+                    _iterator22 = _createForOfIteratorHelper(addresses);
 
-                    if (username && this.walletService.wallet instanceof _wallet_wallet__WEBPACK_IMPORTED_MODULE_5__["TorusWallet"]) {
-                      this.walletService.wallet.name = '@' + username;
+                    try {
+                      for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+                        KT = _step22.value;
+                        console.log('Found KT: ' + KT);
+                        this.walletService.addOriginatedAccount(KT, pkh);
+                      }
+                    } catch (err) {
+                      _iterator22.e(err);
+                    } finally {
+                      _iterator22.f();
                     }
+
+                    this.walletService.storeWallet();
 
                   case 6:
                   case "end":
@@ -17624,95 +17448,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee55, this);
           }));
         }
-      }, {
-        key: "findContracts",
-        value: function findContracts(pkh) {
-          var recursiveScan = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-          var address = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : pkh;
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
-            var addresses, _iterator24, _step24, _KT, _iterator25, _step25, KT;
-
-            return regeneratorRuntime.wrap(function _callee56$(_context57) {
-              while (1) {
-                switch (_context57.prev = _context57.next) {
-                  case 0:
-                    _context57.next = 2;
-                    return this.conseilService.getContractAddresses(address);
-
-                  case 2:
-                    addresses = _context57.sent;
-                    _iterator24 = _createForOfIteratorHelper(addresses);
-
-                    try {
-                      for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
-                        _KT = _step24.value;
-                        console.log('Found KT: ' + _KT);
-                        this.walletService.addOriginatedAccount(_KT, pkh);
-                      }
-                    } catch (err) {
-                      _iterator24.e(err);
-                    } finally {
-                      _iterator24.f();
-                    }
-
-                    this.walletService.storeWallet();
-
-                    if (!(recursiveScan && addresses.length)) {
-                      _context57.next = 24;
-                      break;
-                    }
-
-                    _iterator25 = _createForOfIteratorHelper(addresses);
-                    _context57.prev = 8;
-
-                    _iterator25.s();
-
-                  case 10:
-                    if ((_step25 = _iterator25.n()).done) {
-                      _context57.next = 16;
-                      break;
-                    }
-
-                    KT = _step25.value;
-                    _context57.next = 14;
-                    return this.findContracts(pkh, true, KT);
-
-                  case 14:
-                    _context57.next = 10;
-                    break;
-
-                  case 16:
-                    _context57.next = 21;
-                    break;
-
-                  case 18:
-                    _context57.prev = 18;
-                    _context57.t0 = _context57["catch"](8);
-
-                    _iterator25.e(_context57.t0);
-
-                  case 21:
-                    _context57.prev = 21;
-
-                    _iterator25.f();
-
-                    return _context57.finish(21);
-
-                  case 24:
-                  case "end":
-                    return _context57.stop();
-                }
-              }
-            }, _callee56, this, [[8, 18, 21, 24]]);
-          }));
-        }
       }]);
 
       return ImportService;
     }();
 
     ImportService.ɵfac = function ImportService_Factory(t) {
-      return new (t || ImportService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_wallet_wallet_service__WEBPACK_IMPORTED_MODULE_2__["WalletService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_coordinator_coordinator_service__WEBPACK_IMPORTED_MODULE_3__["CoordinatorService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_conseil_conseil_service__WEBPACK_IMPORTED_MODULE_4__["ConseilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_encryption_encryption_service__WEBPACK_IMPORTED_MODULE_7__["EncryptionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_torus_torus_service__WEBPACK_IMPORTED_MODULE_8__["TorusService"]));
+      return new (t || ImportService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_wallet_wallet_service__WEBPACK_IMPORTED_MODULE_2__["WalletService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_coordinator_coordinator_service__WEBPACK_IMPORTED_MODULE_3__["CoordinatorService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_indexer_indexer_service__WEBPACK_IMPORTED_MODULE_8__["IndexerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_encryption_encryption_service__WEBPACK_IMPORTED_MODULE_6__["EncryptionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_torus_torus_service__WEBPACK_IMPORTED_MODULE_7__["TorusService"]));
     };
 
     ImportService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
@@ -17730,12 +17472,613 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
           type: _coordinator_coordinator_service__WEBPACK_IMPORTED_MODULE_3__["CoordinatorService"]
         }, {
-          type: _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_4__["ConseilService"]
+          type: _indexer_indexer_service__WEBPACK_IMPORTED_MODULE_8__["IndexerService"]
         }, {
-          type: _encryption_encryption_service__WEBPACK_IMPORTED_MODULE_7__["EncryptionService"]
+          type: _encryption_encryption_service__WEBPACK_IMPORTED_MODULE_6__["EncryptionService"]
         }, {
-          type: _torus_torus_service__WEBPACK_IMPORTED_MODULE_8__["TorusService"]
+          type: _torus_torus_service__WEBPACK_IMPORTED_MODULE_7__["TorusService"]
         }];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/services/indexer/conseil/conseil.service.ts":
+  /*!*************************************************************!*\
+    !*** ./src/app/services/indexer/conseil/conseil.service.ts ***!
+    \*************************************************************/
+
+  /*! exports provided: ConseilService */
+
+  /***/
+  function srcAppServicesIndexerConseilConseilServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ConseilService", function () {
+      return ConseilService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../../constants */
+    "./src/app/constants.ts");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
+    /* harmony import */
+
+
+    var conseiljs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! conseiljs */
+    "./node_modules/conseiljs/dist/index-web.js");
+    /* harmony import */
+
+
+    var conseiljs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(conseiljs__WEBPACK_IMPORTED_MODULE_5__);
+
+    var ConseilService = /*#__PURE__*/function () {
+      function ConseilService() {
+        _classCallCheck(this, ConseilService);
+
+        this.CONSTANTS = new _constants__WEBPACK_IMPORTED_MODULE_2__["Constants"]();
+        this.conseilServer = this.CONSTANTS.NET.CSI;
+        this.network = this.CONSTANTS.NET.NETWORK;
+        this.platform = 'tezos';
+      }
+
+      _createClass(ConseilService, [{
+        key: "getContractAddresses",
+        value: function getContractAddresses(pkh) {
+          var currentAddress = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : pkh;
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+            var entity, query, results, addresses, _iterator23, _step23, result, _i, _addresses, address, childAddresses;
+
+            return regeneratorRuntime.wrap(function _callee56$(_context57) {
+              while (1) {
+                switch (_context57.prev = _context57.next) {
+                  case 0:
+                    entity = 'operations';
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(query, 'originated_contracts');
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['origination'], false);
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'source', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [currentAddress], false);
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(query, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
+                    query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(query, 100);
+                    _context57.next = 10;
+                    return conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, query);
+
+                  case 10:
+                    results = _context57.sent;
+                    addresses = [];
+                    _iterator23 = _createForOfIteratorHelper(results);
+
+                    try {
+                      for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
+                        result = _step23.value;
+                        addresses.push(result.originated_contracts);
+                      }
+                    } catch (err) {
+                      _iterator23.e(err);
+                    } finally {
+                      _iterator23.f();
+                    }
+
+                    _i = 0, _addresses = addresses;
+
+                  case 15:
+                    if (!(_i < _addresses.length)) {
+                      _context57.next = 24;
+                      break;
+                    }
+
+                    address = _addresses[_i];
+                    _context57.next = 19;
+                    return this.getContractAddresses(pkh, address);
+
+                  case 19:
+                    childAddresses = _context57.sent;
+                    addresses = addresses.concat(childAddresses);
+
+                  case 21:
+                    _i++;
+                    _context57.next = 15;
+                    break;
+
+                  case 24:
+                    return _context57.abrupt("return", addresses);
+
+                  case 25:
+                  case "end":
+                    return _context57.stop();
+                }
+              }
+            }, _callee56, this);
+          }));
+        }
+      }, {
+        key: "accountInfo",
+        value: function accountInfo(address) {
+          var entity = 'accounts';
+          var query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
+          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(query, 'block_level');
+          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(query, 'account_id', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [address], false);
+          query = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(query, 1);
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, query)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (result) {
+            if (result[0]) {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(result[0].block_level);
+            } else {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(0);
+            }
+          })).toPromise();
+        }
+      }, {
+        key: "getOperations",
+        value: function getOperations(pkh) {
+          var _this38 = this;
+
+          var entity = 'operations';
+          var sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(sendQuery, 'kind', 'block_hash', 'operation_group_hash', 'timestamp', 'originated_contracts', 'source', 'destination', 'amount', 'delegate');
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].IN, ['transaction', 'origination', 'delegation'], false);
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'source', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [pkh], false);
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(sendQuery, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(sendQuery, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
+          sendQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(sendQuery, 10);
+          var receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].blankQuery();
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addFields(receiveQuery, 'kind', 'block_hash', 'operation_group_hash', 'timestamp', 'source', 'destination', 'amount');
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'kind', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].IN, ['transaction', 'origination'], false);
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'destination', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, [pkh], false);
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addPredicate(receiveQuery, 'status', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilOperator"].EQ, ['applied'], false);
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].addOrdering(receiveQuery, 'block_level', conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilSortDirection"].DESC);
+          receiveQuery = conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilQueryBuilder"].setLimit(receiveQuery, 10);
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(this.conseilServer, this.platform, this.network, entity, sendQuery)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (sendResult) {
+            sendResult = _this38.formatTx(sendResult);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(conseiljs__WEBPACK_IMPORTED_MODULE_5__["ConseilDataClient"].executeEntityQuery(_this38.conseilServer, _this38.platform, _this38.network, entity, receiveQuery)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (receiveResult) {
+              receiveResult = _this38.formatTx(receiveResult);
+              var transactions = sendResult.concat(receiveResult).sort(function (a, b) {
+                return b['timestamp'] - a['timestamp'];
+              });
+              console.log('ADDRESS GET ' + pkh);
+              console.log(transactions);
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(transactions);
+            }));
+          })).toPromise();
+        }
+      }, {
+        key: "formatTx",
+        value: function formatTx(input) {
+          var output = [];
+
+          var _iterator24 = _createForOfIteratorHelper(input),
+              _step24;
+
+          try {
+            for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
+              var tx = _step24.value;
+
+              if (tx.kind !== 'transaction' || tx.amount > 0) {
+                var destination = tx.destination;
+
+                if (tx.kind === 'origination') {
+                  destination = tx.originated_contracts;
+                } else if (tx.kind === 'delegation') {
+                  destination = tx.delegate;
+                }
+
+                output.push({
+                  type: tx.kind,
+                  block: tx.block_hash,
+                  status: 1,
+                  amount: tx.amount,
+                  source: tx.source,
+                  destination: destination,
+                  hash: tx.operation_group_hash,
+                  timestamp: tx.timestamp
+                });
+              }
+            }
+          } catch (err) {
+            _iterator24.e(err);
+          } finally {
+            _iterator24.f();
+          }
+
+          return output;
+        }
+      }]);
+
+      return ConseilService;
+    }();
+
+    ConseilService.ɵfac = function ConseilService_Factory(t) {
+      return new (t || ConseilService)();
+    };
+
+    ConseilService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
+      token: ConseilService,
+      factory: ConseilService.ɵfac,
+      providedIn: 'root'
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](ConseilService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
+        args: [{
+          providedIn: 'root'
+        }]
+      }], function () {
+        return [];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/services/indexer/indexer.service.ts":
+  /*!*****************************************************!*\
+    !*** ./src/app/services/indexer/indexer.service.ts ***!
+    \*****************************************************/
+
+  /*! exports provided: IndexerService */
+
+  /***/
+  function srcAppServicesIndexerIndexerServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "IndexerService", function () {
+      return IndexerService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./conseil/conseil.service */
+    "./src/app/services/indexer/conseil/conseil.service.ts");
+    /* harmony import */
+
+
+    var _tzkt_tzkt_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./tzkt/tzkt.service */
+    "./src/app/services/indexer/tzkt/tzkt.service.ts");
+    /* harmony import */
+
+
+    var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../constants */
+    "./src/app/constants.ts");
+
+    var IndexerService = /*#__PURE__*/function () {
+      function IndexerService() {
+        _classCallCheck(this, IndexerService);
+
+        var constants = new _constants__WEBPACK_IMPORTED_MODULE_4__["Constants"]();
+        this.selectedIndexerService = constants.NET.CSI ? new _conseil_conseil_service__WEBPACK_IMPORTED_MODULE_2__["ConseilService"]() : new _tzkt_tzkt_service__WEBPACK_IMPORTED_MODULE_3__["TzktService"]();
+      }
+
+      _createClass(IndexerService, [{
+        key: "getContractAddresses",
+        value: function getContractAddresses(address) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
+            return regeneratorRuntime.wrap(function _callee57$(_context58) {
+              while (1) {
+                switch (_context58.prev = _context58.next) {
+                  case 0:
+                    return _context58.abrupt("return", this.selectedIndexerService.getContractAddresses(address));
+
+                  case 1:
+                  case "end":
+                    return _context58.stop();
+                }
+              }
+            }, _callee57, this);
+          }));
+        }
+      }, {
+        key: "accountInfo",
+        value: function accountInfo(address) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+            return regeneratorRuntime.wrap(function _callee58$(_context59) {
+              while (1) {
+                switch (_context59.prev = _context59.next) {
+                  case 0:
+                    return _context59.abrupt("return", this.selectedIndexerService.accountInfo(address));
+
+                  case 1:
+                  case "end":
+                    return _context59.stop();
+                }
+              }
+            }, _callee58, this);
+          }));
+        }
+      }, {
+        key: "getOperations",
+        value: function getOperations(address) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+            return regeneratorRuntime.wrap(function _callee59$(_context60) {
+              while (1) {
+                switch (_context60.prev = _context60.next) {
+                  case 0:
+                    return _context60.abrupt("return", this.selectedIndexerService.getOperations(address));
+
+                  case 1:
+                  case "end":
+                    return _context60.stop();
+                }
+              }
+            }, _callee59, this);
+          }));
+        }
+      }]);
+
+      return IndexerService;
+    }();
+
+    IndexerService.ɵfac = function IndexerService_Factory(t) {
+      return new (t || IndexerService)();
+    };
+
+    IndexerService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
+      token: IndexerService,
+      factory: IndexerService.ɵfac,
+      providedIn: 'root'
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](IndexerService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
+        args: [{
+          providedIn: 'root'
+        }]
+      }], function () {
+        return [];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/services/indexer/tzkt/tzkt.service.ts":
+  /*!*******************************************************!*\
+    !*** ./src/app/services/indexer/tzkt/tzkt.service.ts ***!
+    \*******************************************************/
+
+  /*! exports provided: TzktService */
+
+  /***/
+  function srcAppServicesIndexerTzktTzktServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "TzktService", function () {
+      return TzktService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../../constants */
+    "./src/app/constants.ts");
+
+    var TzktService = /*#__PURE__*/function () {
+      function TzktService() {
+        _classCallCheck(this, TzktService);
+
+        this.network = '';
+        this.CONSTANTS = new _constants__WEBPACK_IMPORTED_MODULE_2__["Constants"]();
+        this.network = this.CONSTANTS.NET.network !== 'mainnet' ? '.' + this.CONSTANTS.NET.NETWORK.slice(0, -3) : '';
+      }
+
+      _createClass(TzktService, [{
+        key: "getContractAddresses",
+        value: function getContractAddresses(pkh) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+            return regeneratorRuntime.wrap(function _callee60$(_context61) {
+              while (1) {
+                switch (_context61.prev = _context61.next) {
+                  case 0:
+                    return _context61.abrupt("return", fetch("https://api".concat(this.network, ".tzkt.io/v1/operations/originations?contractManager=").concat(pkh)).then(function (response) {
+                      return response.json();
+                    }).then(function (data) {
+                      return data.map(function (op) {
+                        return op.originatedContract.kind === 'delegator_contract' ? op.originatedContract.address : '';
+                      }).filter(function (address) {
+                        return address.length;
+                      });
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context61.stop();
+                }
+              }
+            }, _callee60, this);
+          }));
+        }
+      }, {
+        key: "accountInfo",
+        value: function accountInfo(address) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+            return regeneratorRuntime.wrap(function _callee61$(_context62) {
+              while (1) {
+                switch (_context62.prev = _context62.next) {
+                  case 0:
+                    return _context62.abrupt("return", fetch("https://api".concat(this.network, ".tzkt.io/v1/accounts/").concat(address)).then(function (response) {
+                      return response.json();
+                    }).then(function (data) {
+                      if (data.lastActivity) {
+                        return data.lastActivity;
+                      } else {
+                        return 0;
+                      }
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context62.stop();
+                }
+              }
+            }, _callee61, this);
+          }));
+        }
+      }, {
+        key: "getOperations",
+        value: function getOperations(address) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+            var ops;
+            return regeneratorRuntime.wrap(function _callee62$(_context63) {
+              while (1) {
+                switch (_context63.prev = _context63.next) {
+                  case 0:
+                    _context63.next = 2;
+                    return fetch("https://api".concat(this.network, ".tzkt.io/v1/accounts/").concat(address, "/operations?limit=10&type=delegation,origination,transaction")).then(function (response) {
+                      return response.json();
+                    }).then(function (data) {
+                      return data.map(function (op) {
+                        if (!op.hasInternals) {
+                          var destination = '';
+                          var amount = '0';
+
+                          switch (op.type) {
+                            case 'transaction':
+                              destination = op.target.address;
+                              amount = op.amount.toString();
+                              break;
+
+                            case 'delegation':
+                              destination = op.newDelegate ? op.newDelegate.address : '';
+                              amount = '0';
+                              break;
+
+                            case 'origination':
+                              destination = op.originatedContract.address;
+
+                              if (op.contractBalance) {
+                                amount = op.contractBalance.toString();
+                              }
+
+                              break;
+
+                            default:
+                              console.log("Ignoring kind ".concat(op.type));
+                          }
+
+                          return {
+                            type: op.type,
+                            block: op.block,
+                            status: 1,
+                            amount: amount,
+                            source: op.sender.address,
+                            destination: destination,
+                            hash: op.hash,
+                            timestamp: new Date(op.timestamp).getTime()
+                          };
+                        }
+                      }).filter(function (obj) {
+                        return obj;
+                      });
+                    });
+
+                  case 2:
+                    ops = _context63.sent;
+                    return _context63.abrupt("return", ops);
+
+                  case 4:
+                  case "end":
+                    return _context63.stop();
+                }
+              }
+            }, _callee62, this);
+          }));
+        }
+      }]);
+
+      return TzktService;
+    }();
+
+    TzktService.ɵfac = function TzktService_Factory(t) {
+      return new (t || TzktService)();
+    };
+
+    TzktService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
+      token: TzktService,
+      factory: TzktService.ɵfac,
+      providedIn: 'root'
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](TzktService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
+        args: [{
+          providedIn: 'root'
+        }]
+      }], function () {
+        return [];
       }, null);
     })();
     /***/
@@ -18085,54 +18428,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(LedgerService, [{
         key: "setTransport",
         value: function setTransport() {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
-            return regeneratorRuntime.wrap(function _callee57$(_context58) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
+            return regeneratorRuntime.wrap(function _callee63$(_context64) {
               while (1) {
-                switch (_context58.prev = _context58.next) {
+                switch (_context64.prev = _context64.next) {
                   case 0:
                     if (this.transport) {
-                      _context58.next = 12;
+                      _context64.next = 12;
                       break;
                     }
 
                     console.log('Trying to use U2F for transport...');
-                    _context58.prev = 2;
-                    _context58.next = 5;
+                    _context64.prev = 2;
+                    _context64.next = 5;
                     return _ledgerhq_hw_transport_u2f__WEBPACK_IMPORTED_MODULE_3__["default"].create();
 
                   case 5:
-                    this.transport = _context58.sent;
+                    this.transport = _context64.sent;
                     console.log('Transport is now set to use U2F!');
-                    _context58.next = 12;
+                    _context64.next = 12;
                     break;
 
                   case 9:
-                    _context58.prev = 9;
-                    _context58.t0 = _context58["catch"](2);
+                    _context64.prev = 9;
+                    _context64.t0 = _context64["catch"](2);
                     console.log('Couldn\'t use U2F for transport!');
 
                   case 12:
                   case "end":
-                    return _context58.stop();
+                    return _context64.stop();
                 }
               }
-            }, _callee57, this, [[2, 9]]);
+            }, _callee63, this, [[2, 9]]);
           }));
         }
       }, {
         key: "transportCheck",
         value: function transportCheck() {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-            return regeneratorRuntime.wrap(function _callee58$(_context59) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
+            return regeneratorRuntime.wrap(function _callee64$(_context65) {
               while (1) {
-                switch (_context59.prev = _context59.next) {
+                switch (_context65.prev = _context65.next) {
                   case 0:
                     if (this.transport) {
-                      _context59.next = 3;
+                      _context65.next = 3;
                       break;
                     }
 
-                    _context59.next = 3;
+                    _context65.next = 3;
                     return this.setTransport();
 
                   case 3:
@@ -18142,30 +18485,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                   case "end":
-                    return _context59.stop();
+                    return _context65.stop();
                 }
               }
-            }, _callee58, this);
+            }, _callee64, this);
           }));
         }
       }, {
         key: "getPublicAddress",
         value: function getPublicAddress(path) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
             var _this39 = this;
 
             var xtz, result, pk;
-            return regeneratorRuntime.wrap(function _callee59$(_context60) {
+            return regeneratorRuntime.wrap(function _callee65$(_context66) {
               while (1) {
-                switch (_context60.prev = _context60.next) {
+                switch (_context66.prev = _context66.next) {
                   case 0:
-                    _context60.next = 2;
+                    _context66.next = 2;
                     return this.transportCheck();
 
                   case 2:
                     xtz = new _obsidiansystems_hw_app_xtz__WEBPACK_IMPORTED_MODULE_4___default.a(this.transport);
                     console.log(path);
-                    _context60.next = 6;
+                    _context66.next = 6;
                     return xtz.getAddress(path, true)["catch"](function (e) {
                       if (e.message) {
                         _this39.messageService.addError(e.message);
@@ -18177,30 +18520,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 6:
-                    result = _context60.sent;
+                    result = _context66.sent;
                     pk = this.operationService.hex2pk(result.publicKey);
-                    return _context60.abrupt("return", pk);
+                    return _context66.abrupt("return", pk);
 
                   case 9:
                   case "end":
-                    return _context60.stop();
+                    return _context66.stop();
                 }
               }
-            }, _callee59, this);
+            }, _callee65, this);
           }));
         }
       }, {
         key: "signOperation",
         value: function signOperation(op, path) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
             var _this40 = this;
 
             var xtz, toSign, result;
-            return regeneratorRuntime.wrap(function _callee60$(_context61) {
+            return regeneratorRuntime.wrap(function _callee66$(_context67) {
               while (1) {
-                switch (_context61.prev = _context61.next) {
+                switch (_context67.prev = _context67.next) {
                   case 0:
-                    _context61.next = 2;
+                    _context67.next = 2;
                     return this.transportCheck();
 
                   case 2:
@@ -18209,7 +18552,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     toSign = '03' + op;
 
                     if (!(toSign.length > 512)) {
-                      _context61.next = 8;
+                      _context67.next = 8;
                       break;
                     }
 
@@ -18217,31 +18560,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw new Error('LedgerSignError');
 
                   case 8:
-                    _context61.next = 10;
+                    _context67.next = 10;
                     return xtz.signOperation(path, toSign)["catch"](function (e) {
                       _this40.messageService.addError(e, 0);
                     });
 
                   case 10:
-                    result = _context61.sent;
+                    result = _context67.sent;
                     console.log(JSON.stringify(result));
 
                     if (!(result && result.signature)) {
-                      _context61.next = 14;
+                      _context67.next = 14;
                       break;
                     }
 
-                    return _context61.abrupt("return", result.signature);
+                    return _context67.abrupt("return", result.signature);
 
                   case 14:
-                    return _context61.abrupt("return", null);
+                    return _context67.abrupt("return", null);
 
                   case 15:
                   case "end":
-                    return _context61.stop();
+                    return _context67.stop();
                 }
               }
-            }, _callee60, this);
+            }, _callee66, this);
           }));
         }
       }]);
@@ -18415,14 +18758,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "check",
         value: function check(address) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
             var _this41 = this;
 
             var _this$index2, x;
 
-            return regeneratorRuntime.wrap(function _callee62$(_context63) {
+            return regeneratorRuntime.wrap(function _callee68$(_context69) {
               while (1) {
-                switch (_context63.prev = _context63.next) {
+                switch (_context69.prev = _context69.next) {
                   case 0:
                     this.initCheck();
 
@@ -18432,57 +18775,57 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       if (!this.pendingLookups[address] && x === -1) {
                         this.pendingLookups[address] = true;
                         this.operationService.torusKeyLookup(address).subscribe(function (ans) {
-                          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this41, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
-                            var keys, verifierMap, _i, _keys, key, verifierId, verifierArray, twitterId, _yield$this$torusServ4, username;
+                          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this41, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
+                            var keys, verifierMap, _i2, _keys, key, verifierId, verifierArray, twitterId, _yield$this$torusServ4, username;
 
-                            return regeneratorRuntime.wrap(function _callee61$(_context62) {
+                            return regeneratorRuntime.wrap(function _callee67$(_context68) {
                               while (1) {
-                                switch (_context62.prev = _context62.next) {
+                                switch (_context68.prev = _context68.next) {
                                   case 0:
                                     if (!ans) {
-                                      _context62.next = 35;
+                                      _context68.next = 35;
                                       break;
                                     }
 
                                     if (!(ans.result && ans.result.Verifiers)) {
-                                      _context62.next = 34;
+                                      _context68.next = 34;
                                       break;
                                     }
 
                                     keys = Object.keys(ans.result.Verifiers);
                                     verifierMap = this.torusService.verifierMap;
-                                    _i = 0, _keys = keys;
+                                    _i2 = 0, _keys = keys;
 
                                   case 5:
-                                    if (!(_i < _keys.length)) {
-                                      _context62.next = 31;
+                                    if (!(_i2 < _keys.length)) {
+                                      _context68.next = 31;
                                       break;
                                     }
 
-                                    key = _keys[_i];
+                                    key = _keys[_i2];
 
                                     if (!(key === verifierMap['google'].verifier)) {
-                                      _context62.next = 11;
+                                      _context68.next = 11;
                                       break;
                                     }
 
                                     this.add(address, ans.result.Verifiers[verifierMap['google'].verifier][0], LookupType.Google);
-                                    _context62.next = 28;
+                                    _context68.next = 28;
                                     break;
 
                                   case 11:
                                     if (!(key === verifierMap['reddit'].verifier)) {
-                                      _context62.next = 15;
+                                      _context68.next = 15;
                                       break;
                                     }
 
                                     this.add(address, ans.result.Verifiers[verifierMap['reddit'].verifier][0], LookupType.Reddit);
-                                    _context62.next = 28;
+                                    _context68.next = 28;
                                     break;
 
                                   case 15:
                                     if (!(key === verifierMap['twitter'].verifier)) {
-                                      _context62.next = 27;
+                                      _context68.next = 27;
                                       break;
                                     }
 
@@ -18490,16 +18833,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                     verifierArray = verifierId.split('|');
 
                                     if (!(verifierArray[0] === 'twitter' && this.inputValidationService.twitterId(verifierArray[1]))) {
-                                      _context62.next = 25;
+                                      _context68.next = 25;
                                       break;
                                     }
 
                                     twitterId = verifierArray[1];
-                                    _context62.next = 22;
+                                    _context68.next = 22;
                                     return this.torusService.twitterLookup(undefined, twitterId);
 
                                   case 22:
-                                    _yield$this$torusServ4 = _context62.sent;
+                                    _yield$this$torusServ4 = _context68.sent;
                                     username = _yield$this$torusServ4.username;
 
                                     if (username) {
@@ -18507,20 +18850,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                     }
 
                                   case 25:
-                                    _context62.next = 28;
+                                    _context68.next = 28;
                                     break;
 
                                   case 27:
                                     console.log('Unhandled verifier result', ans);
 
                                   case 28:
-                                    _i++;
-                                    _context62.next = 5;
+                                    _i2++;
+                                    _context68.next = 5;
                                     break;
 
                                   case 31:
                                     this.pendingLookups[address] = false;
-                                    _context62.next = 35;
+                                    _context68.next = 35;
                                     break;
 
                                   case 34:
@@ -18530,10 +18873,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                                   case 35:
                                   case "end":
-                                    return _context62.stop();
+                                    return _context68.stop();
                                 }
                               }
-                            }, _callee61, this);
+                            }, _callee67, this);
                           }));
                         });
                       }
@@ -18541,10 +18884,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 2:
                   case "end":
-                    return _context63.stop();
+                    return _context69.stop();
                 }
               }
-            }, _callee62, this);
+            }, _callee68, this);
           }));
         }
       }, {
@@ -18553,21 +18896,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var record = this.records[address];
 
           if (record) {
-            var _iterator26 = _createForOfIteratorHelper(record),
-                _step26;
+            var _iterator25 = _createForOfIteratorHelper(record),
+                _step25;
 
             try {
-              for (_iterator26.s(); !(_step26 = _iterator26.n()).done;) {
-                var entry = _step26.value;
+              for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+                var entry = _step25.value;
 
                 if (entry.lookupType > 1) {
                   return true;
                 }
               }
             } catch (err) {
-              _iterator26.e(err);
+              _iterator25.e(err);
             } finally {
-              _iterator26.f();
+              _iterator25.f();
             }
           }
 
@@ -18821,39 +19164,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "startSpinner",
         value: function startSpinner() {
           var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
-            return regeneratorRuntime.wrap(function _callee63$(_context64) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
+            return regeneratorRuntime.wrap(function _callee69$(_context70) {
               while (1) {
-                switch (_context64.prev = _context64.next) {
+                switch (_context70.prev = _context70.next) {
                   case 0:
                     this.spinnerText = text;
                     this.spinnerOn = true;
 
                   case 2:
                   case "end":
-                    return _context64.stop();
+                    return _context70.stop();
                 }
               }
-            }, _callee63, this);
+            }, _callee69, this);
           }));
         }
       }, {
         key: "stopSpinner",
         value: function stopSpinner() {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
-            return regeneratorRuntime.wrap(function _callee64$(_context65) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
+            return regeneratorRuntime.wrap(function _callee70$(_context71) {
               while (1) {
-                switch (_context65.prev = _context65.next) {
+                switch (_context71.prev = _context71.next) {
                   case 0:
                     this.spinnerText = '';
                     this.spinnerOn = false;
 
                   case 2:
                   case "end":
-                    return _context65.stop();
+                    return _context71.stop();
                 }
               }
-            }, _callee64, this);
+            }, _callee70, this);
           }));
         }
       }]);
@@ -19154,7 +19497,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     source: keys.pkh,
                     fee: '0',
                     counter: counter.toString(),
-                    gas_limit: '10000',
+                    gas_limit: '1000',
                     storage_limit: '0',
                     public_key: keys.pk
                   };
@@ -19210,7 +19553,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               source: pkh,
               fee: '0',
               counter: (++counter).toString(),
-              gas_limit: '10000',
+              gas_limit: '1000',
               storage_limit: '0',
               public_key: pk
             });
@@ -19294,7 +19637,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     source: from,
                     fee: _this45.microTez.times(fee).toString(),
                     counter: (++counter).toString(),
-                    gas_limit: '10000',
+                    gas_limit: '1000',
                     storage_limit: '0'
                   };
 
@@ -19307,7 +19650,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     source: keys.pkh,
                     fee: _this45.microTez.times(fee).toString(),
                     counter: (++counter).toString(),
-                    gas_limit: '26283',
+                    gas_limit: '4380',
                     storage_limit: '0',
                     amount: '0',
                     destination: from,
@@ -19327,7 +19670,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     source: keys.pkh,
                     fee: '0',
                     counter: counter.toString(),
-                    gas_limit: '10000',
+                    gas_limit: '1000',
                     storage_limit: '0',
                     public_key: keys.pk
                   };
@@ -19803,33 +20146,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "decompress",
         value: function decompress(pk) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee71() {
             var decodedPk, hexPk, secp256k1, compressed, uncompressed, xy;
-            return regeneratorRuntime.wrap(function _callee65$(_context66) {
+            return regeneratorRuntime.wrap(function _callee71$(_context72) {
               while (1) {
-                switch (_context66.prev = _context66.next) {
+                switch (_context72.prev = _context72.next) {
                   case 0:
                     decodedPk = this.b58cdecode(pk, this.prefix.sppk);
                     hexPk = this.buf2hex(decodedPk);
-                    _context66.next = 4;
+                    _context72.next = 4;
                     return Object(_bitauth_libauth__WEBPACK_IMPORTED_MODULE_15__["instantiateSecp256k1"])();
 
                   case 4:
-                    secp256k1 = _context66.sent;
+                    secp256k1 = _context72.sent;
                     compressed = Object(_bitauth_libauth__WEBPACK_IMPORTED_MODULE_15__["hexToBin"])(hexPk);
                     uncompressed = secp256k1.uncompressPublicKey(compressed);
                     xy = Object(_bitauth_libauth__WEBPACK_IMPORTED_MODULE_15__["binToHex"])(uncompressed).slice(2);
-                    return _context66.abrupt("return", {
+                    return _context72.abrupt("return", {
                       X: xy.slice(0, 64),
                       Y: xy.slice(64, 128)
                     });
 
                   case 9:
                   case "end":
-                    return _context66.stop();
+                    return _context72.stop();
                 }
               }
-            }, _callee65, this);
+            }, _callee71, this);
           }));
         }
       }, {
@@ -20741,56 +21084,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(TorusService, [{
         key: "initTorus",
         value: function initTorus() {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee72() {
             var torusdirectsdk;
-            return regeneratorRuntime.wrap(function _callee66$(_context67) {
+            return regeneratorRuntime.wrap(function _callee72$(_context73) {
               while (1) {
-                switch (_context67.prev = _context67.next) {
+                switch (_context73.prev = _context73.next) {
                   case 0:
                     if (this.torus) {
-                      _context67.next = 11;
+                      _context73.next = 11;
                       break;
                     }
 
-                    _context67.prev = 1;
+                    _context73.prev = 1;
                     torusdirectsdk = new _toruslabs_torus_direct_web_sdk__WEBPACK_IMPORTED_MODULE_2___default.a({
                       baseUrl: "".concat(location.origin, "/serviceworker"),
                       enableLogging: !(this.proxy.network === 'mainnet'),
                       proxyContractAddress: this.proxy.address,
                       network: this.proxy.network === 'mainnet' ? this.proxy.network : 'testnet'
                     });
-                    _context67.next = 5;
+                    _context73.next = 5;
                     return torusdirectsdk.init({
                       skipSw: false
                     });
 
                   case 5:
                     this.torus = torusdirectsdk;
-                    _context67.next = 11;
+                    _context73.next = 11;
                     break;
 
                   case 8:
-                    _context67.prev = 8;
-                    _context67.t0 = _context67["catch"](1);
-                    console.error(_context67.t0, 'oninit caught');
+                    _context73.prev = 8;
+                    _context73.t0 = _context73["catch"](1);
+                    console.error(_context73.t0, 'oninit caught');
 
                   case 11:
                   case "end":
-                    return _context67.stop();
+                    return _context73.stop();
                 }
               }
-            }, _callee66, this, [[1, 8]]);
+            }, _callee72, this, [[1, 8]]);
           }));
         }
       }, {
         key: "lookupPkh",
         value: function lookupPkh(selectedVerifier, verifierId) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee73() {
             var fetchNodeDetails, torus, verifier, _yield$fetchNodeDetai, torusNodeEndpoints, torusNodePub, torusIndexes, sanitizedVerifierId, twitterId, username, _yield$this$twitterLo, id, pk, pkh;
 
-            return regeneratorRuntime.wrap(function _callee67$(_context68) {
+            return regeneratorRuntime.wrap(function _callee73$(_context74) {
               while (1) {
-                switch (_context68.prev = _context68.next) {
+                switch (_context74.prev = _context74.next) {
                   case 0:
                     fetchNodeDetails = new _toruslabs_fetch_node_details__WEBPACK_IMPORTED_MODULE_3___default.a({
                       network: this.proxy.network,
@@ -20800,15 +21143,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     verifier = this.verifierMap[selectedVerifier].verifier;
 
                     if (this.nodeDetails) {
-                      _context68.next = 11;
+                      _context74.next = 11;
                       break;
                     }
 
-                    _context68.next = 6;
+                    _context74.next = 6;
                     return fetchNodeDetails.getNodeDetails();
 
                   case 6:
-                    _yield$fetchNodeDetai = _context68.sent;
+                    _yield$fetchNodeDetai = _context74.sent;
                     torusNodeEndpoints = _yield$fetchNodeDetai.torusNodeEndpoints;
                     torusNodePub = _yield$fetchNodeDetai.torusNodePub;
                     torusIndexes = _yield$fetchNodeDetai.torusIndexes;
@@ -20827,67 +21170,67 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     twitterId = '';
 
                     if (!(selectedVerifier === 'twitter')) {
-                      _context68.next = 26;
+                      _context74.next = 26;
                       break;
                     }
 
                     username = sanitizedVerifierId.replace('@', '');
-                    _context68.next = 18;
+                    _context74.next = 18;
                     return this.twitterLookup(username);
 
                   case 18:
-                    _yield$this$twitterLo = _context68.sent;
+                    _yield$this$twitterLo = _context74.sent;
                     id = _yield$this$twitterLo.id;
 
                     if (!this.inputValidationService.twitterId(id)) {
-                      _context68.next = 25;
+                      _context74.next = 25;
                       break;
                     }
 
                     sanitizedVerifierId = "twitter|".concat(id);
                     twitterId = id;
-                    _context68.next = 26;
+                    _context74.next = 26;
                     break;
 
                   case 25:
                     throw new Error('Twitter handle not found');
 
                   case 26:
-                    _context68.next = 28;
+                    _context74.next = 28;
                     return torus.getPublicAddress(this.nodeDetails.torusNodeEndpoints, this.nodeDetails.torusNodePub, {
                       verifier: verifier,
                       verifierId: sanitizedVerifierId
                     }, true);
 
                   case 28:
-                    pk = _context68.sent;
+                    pk = _context74.sent;
                     pkh = this.operationService.spPointsToPkh(pk.X, pk.Y);
-                    return _context68.abrupt("return", {
+                    return _context74.abrupt("return", {
                       pkh: pkh,
                       twitterId: twitterId
                     });
 
                   case 31:
                   case "end":
-                    return _context68.stop();
+                    return _context74.stop();
                 }
               }
-            }, _callee67, this);
+            }, _callee73, this);
           }));
         }
       }, {
         key: "twitterLookup",
         value: function twitterLookup(username, id) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee74() {
             var req;
-            return regeneratorRuntime.wrap(function _callee68$(_context69) {
+            return regeneratorRuntime.wrap(function _callee74$(_context75) {
               while (1) {
-                switch (_context69.prev = _context69.next) {
+                switch (_context75.prev = _context75.next) {
                   case 0:
                     req = {};
 
                     if (!(id && username || !id && !username)) {
-                      _context69.next = 6;
+                      _context75.next = 6;
                       break;
                     }
 
@@ -20909,7 +21252,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                   case 7:
-                    _context69.next = 9;
+                    _context75.next = 9;
                     return fetch("https://api.tezos.help/twitter-lookup/", {
                       method: 'POST',
                       headers: {
@@ -20922,28 +21265,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 9:
-                    return _context69.abrupt("return", _context69.sent);
+                    return _context75.abrupt("return", _context75.sent);
 
                   case 10:
                   case "end":
-                    return _context69.stop();
+                    return _context75.stop();
                 }
               }
-            }, _callee68);
+            }, _callee74);
           }));
         }
       }, {
         key: "loginTorus",
         value: function loginTorus(selectedVerifier) {
           var verifierId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee75() {
             var jwtParams, _this$verifierMap$sel, typeOfLogin, clientId, verifier, loginDetails, keyPair;
 
-            return regeneratorRuntime.wrap(function _callee69$(_context70) {
+            return regeneratorRuntime.wrap(function _callee75$(_context76) {
               while (1) {
-                switch (_context70.prev = _context70.next) {
+                switch (_context76.prev = _context76.next) {
                   case 0:
-                    _context70.prev = 0;
+                    _context76.prev = 0;
                     jwtParams = this._loginToConnectionMap()[selectedVerifier] || {};
 
                     if (verifierId && selectedVerifier === GOOGLE) {
@@ -20952,7 +21295,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                     _this$verifierMap$sel = this.verifierMap[selectedVerifier], typeOfLogin = _this$verifierMap$sel.typeOfLogin, clientId = _this$verifierMap$sel.clientId, verifier = _this$verifierMap$sel.verifier;
-                    _context70.next = 6;
+                    _context76.next = 6;
                     return this.torus.triggerLogin({
                       verifier: verifier,
                       typeOfLogin: typeOfLogin,
@@ -20961,55 +21304,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 6:
-                    loginDetails = _context70.sent;
+                    loginDetails = _context76.sent;
                     keyPair = this.operationService.spPrivKeyToKeyPair(loginDetails.privateKey);
                     console.log('DirectAuth KeyPair', keyPair);
-                    return _context70.abrupt("return", {
+                    return _context76.abrupt("return", {
                       keyPair: keyPair,
                       userInfo: loginDetails.userInfo
                     });
 
                   case 12:
-                    _context70.prev = 12;
-                    _context70.t0 = _context70["catch"](0);
-                    console.error(_context70.t0, 'login caught');
-                    return _context70.abrupt("return", {
+                    _context76.prev = 12;
+                    _context76.t0 = _context76["catch"](0);
+                    console.error(_context76.t0, 'login caught');
+                    return _context76.abrupt("return", {
                       keyPair: null,
                       userInfo: null
                     });
 
                   case 16:
                   case "end":
-                    return _context70.stop();
+                    return _context76.stop();
                 }
               }
-            }, _callee69, this, [[0, 12]]);
+            }, _callee75, this, [[0, 12]]);
           }));
         }
       }, {
         key: "getTorusKeyPair",
         value: function getTorusKeyPair(selectedVerifier, verifierId) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee76() {
             var _yield$this$loginToru, keyPair;
 
-            return regeneratorRuntime.wrap(function _callee70$(_context71) {
+            return regeneratorRuntime.wrap(function _callee76$(_context77) {
               while (1) {
-                switch (_context71.prev = _context71.next) {
+                switch (_context77.prev = _context77.next) {
                   case 0:
-                    _context71.next = 2;
+                    _context77.next = 2;
                     return this.loginTorus(selectedVerifier, verifierId);
 
                   case 2:
-                    _yield$this$loginToru = _context71.sent;
+                    _yield$this$loginToru = _context77.sent;
                     keyPair = _yield$this$loginToru.keyPair;
-                    return _context71.abrupt("return", keyPair);
+                    return _context77.abrupt("return", keyPair);
 
                   case 5:
                   case "end":
-                    return _context71.stop();
+                    return _context77.stop();
                 }
               }
-            }, _callee70, this);
+            }, _callee76, this);
           }));
         }
       }]);
@@ -21125,12 +21468,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var tot = 0;
           var change = false;
 
-          var _iterator27 = _createForOfIteratorHelper(accounts),
-              _step27;
+          var _iterator26 = _createForOfIteratorHelper(accounts),
+              _step26;
 
           try {
-            for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
-              var account = _step27.value;
+            for (_iterator26.s(); !(_step26 = _iterator26.n()).done;) {
+              var account = _step26.value;
 
               if (account.balanceXTZ !== null) {
                 account.balanceUSD = Number(account.balanceXTZ / 1000000 * this.walletService.wallet.XTZrate);
@@ -21139,9 +21482,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             }
           } catch (err) {
-            _iterator27.e(err);
+            _iterator26.e(err);
           } finally {
-            _iterator27.f();
+            _iterator26.f();
           }
 
           if (change) {
@@ -21278,11 +21621,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           value: function createEncryptedWallet(mnemonic, password) {
             var passphrase = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
             var hdSeed = arguments.length > 3 ? arguments[3] : undefined;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee71() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee77() {
               var seed, entropy, keyPair, encrypted, encryptedSeed, iv, iv2, encryptedEntropy;
-              return regeneratorRuntime.wrap(function _callee71$(_context72) {
+              return regeneratorRuntime.wrap(function _callee77$(_context78) {
                 while (1) {
-                  switch (_context72.prev = _context72.next) {
+                  switch (_context78.prev = _context78.next) {
                     case 0:
                       seed = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["utils"].mnemonicToSeed(mnemonic, passphrase, hdSeed);
                       entropy = Buffer.from(_tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["utils"].mnemonicToEntropy(mnemonic));
@@ -21293,20 +21636,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         keyPair = _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["hd"].keyPairFromAccountIndex(seed, 0);
                       }
 
-                      _context72.next = 5;
+                      _context78.next = 5;
                       return this.encryptionService.encrypt(seed, password, 3);
 
                     case 5:
-                      encrypted = _context72.sent;
+                      encrypted = _context78.sent;
                       encryptedSeed = encrypted.chiphertext;
                       iv = encrypted.iv;
                       iv2 = this.encryptionService.bumpIV(iv, 1);
-                      _context72.next = 11;
+                      _context78.next = 11;
                       return this.encryptionService.encrypt(entropy, password, 3, iv2);
 
                     case 11:
-                      encryptedEntropy = _context72.sent.chiphertext;
-                      return _context72.abrupt("return", {
+                      encryptedEntropy = _context78.sent.chiphertext;
+                      return _context78.abrupt("return", {
                         data: this.exportKeyStoreInit(hdSeed ? _interfaces__WEBPACK_IMPORTED_MODULE_2__["WalletType"].HdWallet : _interfaces__WEBPACK_IMPORTED_MODULE_2__["WalletType"].FullWallet, encryptedSeed, encryptedEntropy, iv),
                         pkh: keyPair.pkh,
                         pk: keyPair.pk,
@@ -21315,68 +21658,68 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     case 13:
                     case "end":
-                      return _context72.stop();
+                      return _context78.stop();
                   }
                 }
-              }, _callee71, this);
+              }, _callee77, this);
             }));
           }
         }, {
           key: "getKeys",
           value: function getKeys(pwd, pkh) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee72() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee78() {
               var seed, keyPair, _keyPair, account, _keyPair2;
 
-              return regeneratorRuntime.wrap(function _callee72$(_context73) {
+              return regeneratorRuntime.wrap(function _callee78$(_context79) {
                 while (1) {
-                  switch (_context73.prev = _context73.next) {
+                  switch (_context79.prev = _context79.next) {
                     case 0:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LegacyWalletV1"])) {
-                        _context73.next = 8;
+                        _context79.next = 8;
                         break;
                       }
 
                       console.log('v1');
-                      _context73.next = 4;
+                      _context79.next = 4;
                       return this.encryptionService.decrypt(this.wallet.encryptedSeed, pwd, this.wallet.salt, 1);
 
                     case 4:
-                      seed = _context73.sent;
+                      seed = _context79.sent;
                       console.log('done');
-                      _context73.next = 41;
+                      _context79.next = 41;
                       break;
 
                     case 8:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LegacyWalletV2"])) {
-                        _context73.next = 14;
+                        _context79.next = 14;
                         break;
                       }
 
-                      _context73.next = 11;
+                      _context79.next = 11;
                       return this.encryptionService.decrypt(this.wallet.encryptedSeed, pwd, this.wallet.IV, 2);
 
                     case 11:
-                      seed = _context73.sent;
-                      _context73.next = 41;
+                      seed = _context79.sent;
+                      _context79.next = 41;
                       break;
 
                     case 14:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LegacyWalletV3"] || this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["HdWallet"])) {
-                        _context73.next = 20;
+                        _context79.next = 20;
                         break;
                       }
 
-                      _context73.next = 17;
+                      _context79.next = 17;
                       return this.encryptionService.decrypt(this.wallet.encryptedSeed, pwd, this.wallet.IV, 3);
 
                     case 17:
-                      seed = _context73.sent;
-                      _context73.next = 41;
+                      seed = _context79.sent;
+                      _context79.next = 41;
                       break;
 
                     case 20:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LedgerWallet"])) {
-                        _context73.next = 26;
+                        _context79.next = 26;
                         break;
                       }
 
@@ -21386,54 +21729,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         pk: this.wallet.implicitAccounts[0].pk,
                         pkh: this.wallet.implicitAccounts[0].pkh
                       };
-                      return _context73.abrupt("return", keyPair);
+                      return _context79.abrupt("return", keyPair);
 
                     case 26:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["TorusWallet"])) {
-                        _context73.next = 40;
+                        _context79.next = 40;
                         break;
                       }
 
                       console.log('torus id ' + this.wallet.id);
-                      _context73.next = 30;
+                      _context79.next = 30;
                       return this.torusService.getTorusKeyPair(this.wallet.verifier, this.wallet.id);
 
                     case 30:
-                      _keyPair = _context73.sent;
+                      _keyPair = _context79.sent;
                       console.log(_keyPair);
 
                       if (!this.wallet.getImplicitAccount(_keyPair.pkh)) {
-                        _context73.next = 36;
+                        _context79.next = 36;
                         break;
                       }
 
-                      return _context73.abrupt("return", _keyPair);
+                      return _context79.abrupt("return", _keyPair);
 
                     case 36:
                       throw new Error('Signed with wrong account');
 
                     case 37:
-                      return _context73.abrupt("return", null);
+                      return _context79.abrupt("return", null);
 
                     case 40:
-                      return _context73.abrupt("return", null);
+                      return _context79.abrupt("return", null);
 
                     case 41:
                       if (seed) {
-                        _context73.next = 43;
+                        _context79.next = 43;
                         break;
                       }
 
-                      return _context73.abrupt("return", null);
+                      return _context79.abrupt("return", null);
 
                     case 43:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["HdWallet"])) {
-                        _context73.next = 52;
+                        _context79.next = 52;
                         break;
                       }
 
                       if (pkh) {
-                        _context73.next = 46;
+                        _context79.next = 46;
                         break;
                       }
 
@@ -21443,88 +21786,88 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       account = this.wallet.getImplicitAccount(pkh);
 
                       if (account.derivationPath) {
-                        _context73.next = 49;
+                        _context79.next = 49;
                         break;
                       }
 
                       throw new Error('No derivationPath found');
 
                     case 49:
-                      return _context73.abrupt("return", _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["hd"].seedToKeyPair(seed, account.derivationPath));
+                      return _context79.abrupt("return", _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["hd"].seedToKeyPair(seed, account.derivationPath));
 
                     case 52:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LegacyWalletV1"])) {
-                        _context73.next = 61;
+                        _context79.next = 61;
                         break;
                       }
 
                       _keyPair2 = this.operationService.seed2keyPair(seed);
 
                       if (!(!_keyPair2.pkh || !pkh || _keyPair2.pkh !== pkh)) {
-                        _context73.next = 58;
+                        _context79.next = 58;
                         break;
                       }
 
-                      return _context73.abrupt("return", null);
+                      return _context79.abrupt("return", null);
 
                     case 58:
-                      return _context73.abrupt("return", _keyPair2);
+                      return _context79.abrupt("return", _keyPair2);
 
                     case 59:
-                      _context73.next = 62;
+                      _context79.next = 62;
                       break;
 
                     case 61:
-                      return _context73.abrupt("return", this.operationService.seed2keyPair(seed));
+                      return _context79.abrupt("return", this.operationService.seed2keyPair(seed));
 
                     case 62:
                     case "end":
-                      return _context73.stop();
+                      return _context79.stop();
                   }
                 }
-              }, _callee72, this);
+              }, _callee78, this);
             }));
           }
         }, {
           key: "revealMnemonicPhrase",
           value: function revealMnemonicPhrase(pwd) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee73() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee79() {
               var iv, entropy;
-              return regeneratorRuntime.wrap(function _callee73$(_context74) {
+              return regeneratorRuntime.wrap(function _callee79$(_context80) {
                 while (1) {
-                  switch (_context74.prev = _context74.next) {
+                  switch (_context80.prev = _context80.next) {
                     case 0:
                       if (!(this.wallet && (this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["HdWallet"] || this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["LegacyWalletV3"]))) {
-                        _context74.next = 10;
+                        _context80.next = 10;
                         break;
                       }
 
                       iv = this.encryptionService.bumpIV(this.wallet.IV, 1);
-                      _context74.next = 4;
+                      _context80.next = 4;
                       return this.encryptionService.decrypt(this.wallet.encryptedEntropy, pwd, iv, 3);
 
                     case 4:
-                      entropy = _context74.sent;
+                      entropy = _context80.sent;
 
                       if (!entropy) {
-                        _context74.next = 9;
+                        _context80.next = 9;
                         break;
                       }
 
-                      return _context74.abrupt("return", _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["utils"].entropyToMnemonic(entropy));
+                      return _context80.abrupt("return", _tezos_core_tools_crypto_utils__WEBPACK_IMPORTED_MODULE_7__["utils"].entropyToMnemonic(entropy));
 
                     case 9:
                       console.log('Invalid password');
 
                     case 10:
-                      return _context74.abrupt("return", '');
+                      return _context80.abrupt("return", '');
 
                     case 11:
                     case "end":
-                      return _context74.stop();
+                      return _context80.stop();
                   }
                 }
-              }, _callee73, this);
+              }, _callee79, this);
             }));
           }
         }, {
@@ -21575,25 +21918,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
           key: "incrementAccountIndex",
           value: function incrementAccountIndex(password) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee74() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee80() {
               var seed, keyPair;
-              return regeneratorRuntime.wrap(function _callee74$(_context75) {
+              return regeneratorRuntime.wrap(function _callee80$(_context81) {
                 while (1) {
-                  switch (_context75.prev = _context75.next) {
+                  switch (_context81.prev = _context81.next) {
                     case 0:
                       if (!(this.wallet instanceof _wallet__WEBPACK_IMPORTED_MODULE_3__["HdWallet"])) {
-                        _context75.next = 13;
+                        _context81.next = 13;
                         break;
                       }
 
-                      _context75.next = 3;
+                      _context81.next = 3;
                       return this.encryptionService.decrypt(this.wallet.encryptedSeed, password, this.wallet.IV, 3);
 
                     case 3:
-                      seed = _context75.sent;
+                      seed = _context81.sent;
 
                       if (!seed) {
-                        _context75.next = 12;
+                        _context81.next = 12;
                         break;
                       }
 
@@ -21601,17 +21944,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       this.addImplicitAccount(keyPair.pk, this.wallet.index);
                       this.wallet.index++;
                       this.storeWallet();
-                      return _context75.abrupt("return", keyPair.pkh);
+                      return _context81.abrupt("return", keyPair.pkh);
 
                     case 12:
-                      return _context75.abrupt("return", '');
+                      return _context81.abrupt("return", '');
 
                     case 13:
                     case "end":
-                      return _context75.stop();
+                      return _context81.stop();
                   }
                 }
-              }, _callee74, this);
+              }, _callee80, this);
             }));
           }
           /*
@@ -21800,12 +22143,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               this.wallet.lookups = wd.lookups;
             }
 
-            var _iterator28 = _createForOfIteratorHelper(wd.implicitAccounts),
-                _step28;
+            var _iterator27 = _createForOfIteratorHelper(wd.implicitAccounts),
+                _step27;
 
             try {
-              for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
-                var implicit = _step28.value;
+              for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
+                var implicit = _step27.value;
                 var impAcc = new _wallet__WEBPACK_IMPORTED_MODULE_3__["ImplicitAccount"](implicit.pkh, implicit.pk, implicit.derivationPath ? implicit.derivationPath : null);
                 impAcc.balanceUSD = implicit.balanceUSD;
                 impAcc.balanceXTZ = implicit.balanceXTZ;
@@ -21813,12 +22156,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 impAcc.activitiesCounter = implicit.activitiesCounter;
                 impAcc.activities = implicit.activities;
 
-                var _iterator29 = _createForOfIteratorHelper(implicit.originatedAccounts),
-                    _step29;
+                var _iterator28 = _createForOfIteratorHelper(implicit.originatedAccounts),
+                    _step28;
 
                 try {
-                  for (_iterator29.s(); !(_step29 = _iterator29.n()).done;) {
-                    var originated = _step29.value;
+                  for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
+                    var originated = _step28.value;
                     var origAcc = new _wallet__WEBPACK_IMPORTED_MODULE_3__["OriginatedAccount"](originated.address, impAcc.pkh, impAcc.pk);
                     origAcc.balanceUSD = originated.balanceUSD;
                     origAcc.balanceXTZ = originated.balanceXTZ;
@@ -21828,17 +22171,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     impAcc.originatedAccounts.push(origAcc);
                   }
                 } catch (err) {
-                  _iterator29.e(err);
+                  _iterator28.e(err);
                 } finally {
-                  _iterator29.f();
+                  _iterator28.f();
                 }
 
                 this.wallet.implicitAccounts.push(impAcc);
               }
             } catch (err) {
-              _iterator28.e(err);
+              _iterator27.e(err);
             } finally {
-              _iterator28.f();
+              _iterator27.f();
             }
           }
         }]);
@@ -21980,34 +22323,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var accounts = [];
 
           if (this.implicitAccounts.length) {
-            var _iterator30 = _createForOfIteratorHelper(this.implicitAccounts),
-                _step30;
+            var _iterator29 = _createForOfIteratorHelper(this.implicitAccounts),
+                _step29;
 
             try {
-              for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
-                var implicitAccount = _step30.value;
+              for (_iterator29.s(); !(_step29 = _iterator29.n()).done;) {
+                var implicitAccount = _step29.value;
                 accounts.push(implicitAccount);
 
                 if (implicitAccount.originatedAccounts.length) {
-                  var _iterator31 = _createForOfIteratorHelper(implicitAccount.originatedAccounts),
-                      _step31;
+                  var _iterator30 = _createForOfIteratorHelper(implicitAccount.originatedAccounts),
+                      _step30;
 
                   try {
-                    for (_iterator31.s(); !(_step31 = _iterator31.n()).done;) {
-                      var originatedAccount = _step31.value;
+                    for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
+                      var originatedAccount = _step30.value;
                       accounts.push(originatedAccount);
                     }
                   } catch (err) {
-                    _iterator31.e(err);
+                    _iterator30.e(err);
                   } finally {
-                    _iterator31.f();
+                    _iterator30.f();
                   }
                 }
               }
             } catch (err) {
-              _iterator30.e(err);
+              _iterator29.e(err);
             } finally {
-              _iterator30.f();
+              _iterator29.f();
             }
           }
 
@@ -22022,40 +22365,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getAccount",
         value: function getAccount(address) {
           if (this.implicitAccounts.length) {
-            var _iterator32 = _createForOfIteratorHelper(this.implicitAccounts),
-                _step32;
+            var _iterator31 = _createForOfIteratorHelper(this.implicitAccounts),
+                _step31;
 
             try {
-              for (_iterator32.s(); !(_step32 = _iterator32.n()).done;) {
-                var implicitAccount = _step32.value;
+              for (_iterator31.s(); !(_step31 = _iterator31.n()).done;) {
+                var implicitAccount = _step31.value;
 
                 if (implicitAccount.address === address) {
                   return implicitAccount;
                 }
 
                 if (implicitAccount.originatedAccounts.length) {
-                  var _iterator33 = _createForOfIteratorHelper(implicitAccount.originatedAccounts),
-                      _step33;
+                  var _iterator32 = _createForOfIteratorHelper(implicitAccount.originatedAccounts),
+                      _step32;
 
                   try {
-                    for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
-                      var originatedAccount = _step33.value;
+                    for (_iterator32.s(); !(_step32 = _iterator32.n()).done;) {
+                      var originatedAccount = _step32.value;
 
                       if (originatedAccount.address === address) {
                         return originatedAccount;
                       }
                     }
                   } catch (err) {
-                    _iterator33.e(err);
+                    _iterator32.e(err);
                   } finally {
-                    _iterator33.f();
+                    _iterator32.f();
                   }
                 }
               }
             } catch (err) {
-              _iterator32.e(err);
+              _iterator31.e(err);
             } finally {
-              _iterator32.f();
+              _iterator31.f();
             }
           }
 
@@ -22065,21 +22408,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getImplicitAccount",
         value: function getImplicitAccount(pkh) {
           if (this.implicitAccounts.length) {
-            var _iterator34 = _createForOfIteratorHelper(this.implicitAccounts),
-                _step34;
+            var _iterator33 = _createForOfIteratorHelper(this.implicitAccounts),
+                _step33;
 
             try {
-              for (_iterator34.s(); !(_step34 = _iterator34.n()).done;) {
-                var implicitAccount = _step34.value;
+              for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
+                var implicitAccount = _step33.value;
 
                 if (implicitAccount.pkh === pkh) {
                   return implicitAccount;
                 }
               }
             } catch (err) {
-              _iterator34.e(err);
+              _iterator33.e(err);
             } finally {
-              _iterator34.f();
+              _iterator33.f();
             }
           }
 
