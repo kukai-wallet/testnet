@@ -581,7 +581,7 @@ module.exports = exported;
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** multi ./node_modules/bootstrap/dist/css/bootstrap.min.css ./node_modules/font-awesome/css/font-awesome.css ./node_modules/simple-line-icons/css/simple-line-icons.css ./src/scss/style.scss ***!
   \***************************************************************************************************************************************************************************************************/
@@ -596,5 +596,5 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\scss\style
 
 /***/ })
 
-},[[21,"runtime"]]]);
+},[[22,"runtime"]]]);
 //# sourceMappingURL=styles-es2015.js.map
