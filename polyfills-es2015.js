@@ -3121,7 +3121,7 @@ window.__Zone_enable_cross_context_check = true;
 
 /***/ }),
 
-/***/ 21:
+/***/ 20:
 /*!********************************!*\
   !*** multi ./src/polyfills.ts ***!
   \********************************/
@@ -3133,5 +3133,5 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\polyfills.
 
 /***/ })
 
-},[[21,"runtime"]]]);
+},[[20,"runtime"]]]);
 //# sourceMappingURL=polyfills-es2015.js.map
