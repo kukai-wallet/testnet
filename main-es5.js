@@ -29140,9 +29140,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   /***/
   10:
-  /*!**********************!*\
-    !*** util (ignored) ***!
-    \**********************/
+  /*!************************!*\
+    !*** buffer (ignored) ***!
+    \************************/
 
   /*! no static exports found */
 
@@ -29155,6 +29155,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   /***/
   11:
+  /*!************************!*\
+    !*** buffer (ignored) ***!
+    \************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _(module, exports) {
+    /* (ignored) */
+
+    /***/
+  },
+
+  /***/
+  12:
   /*!**********************!*\
     !*** util (ignored) ***!
     \**********************/
@@ -29169,25 +29184,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  12:
-  /*!************************!*\
-    !*** crypto (ignored) ***!
-    \************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _(module, exports) {
-    /* (ignored) */
-
-    /***/
-  },
-
-  /***/
   13:
-  /*!************************!*\
-    !*** buffer (ignored) ***!
-    \************************/
+  /*!**********************!*\
+    !*** util (ignored) ***!
+    \**********************/
 
   /*! no static exports found */
 
@@ -29200,66 +29200,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   /***/
   14:
-  /*!************************!*\
-    !*** buffer (ignored) ***!
-    \************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _(module, exports) {
-    /* (ignored) */
-
-    /***/
-  },
-
-  /***/
-  15:
-  /*!************************!*\
-    !*** buffer (ignored) ***!
-    \************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _(module, exports) {
-    /* (ignored) */
-
-    /***/
-  },
-
-  /***/
-  16:
-  /*!************************!*\
-    !*** buffer (ignored) ***!
-    \************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _(module, exports) {
-    /* (ignored) */
-
-    /***/
-  },
-
-  /***/
-  17:
-  /*!************************!*\
-    !*** buffer (ignored) ***!
-    \************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _(module, exports) {
-    /* (ignored) */
-
-    /***/
-  },
-
-  /***/
-  18:
   /*!********************!*\
     !*** fs (ignored) ***!
     \********************/
