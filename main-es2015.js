@@ -16032,9 +16032,9 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\main.ts */
 /***/ }),
 
 /***/ 10:
-/*!**********************!*\
-  !*** util (ignored) ***!
-  \**********************/
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -16043,6 +16043,17 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\main.ts */
 /***/ }),
 
 /***/ 11:
+/*!************************!*\
+  !*** buffer (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 12:
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
@@ -16053,21 +16064,10 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\main.ts */
 
 /***/ }),
 
-/***/ 12:
-/*!************************!*\
-  !*** crypto (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
 /***/ 13:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -16076,50 +16076,6 @@ module.exports = __webpack_require__(/*! C:\Users\klas_\Git\kukai\src\main.ts */
 /***/ }),
 
 /***/ 14:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 15:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 16:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 17:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 18:
 /*!********************!*\
   !*** fs (ignored) ***!
   \********************/
