@@ -3951,7 +3951,9 @@ function MnemonicImportComponent_div_1_ng_container_11_Template(rf, ctx) { if (r
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
     const ctx_r31 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("accept", ".tez", ctx_r31.firefox ? ", application/json" : "", "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("loaded", ctx_r31.walletJson);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r31.walletJson);
@@ -4122,7 +4124,7 @@ function MnemonicImportComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, MnemonicImportComponent_div_1_ng_container_11_Template, 15, 6, "ng-container", 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, MnemonicImportComponent_div_1_ng_container_11_Template, 15, 7, "ng-container", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](12, MnemonicImportComponent_div_1_ng_container_12_Template, 19, 10, "ng-container", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -4245,8 +4247,20 @@ class MnemonicImportComponent {
         this.pwdStrength = '';
         this.Downloaded = false;
         this.fileName = '';
+        this.firefox = false;
     }
     ngOnInit() {
+        this.checkBrowser();
+    }
+    checkBrowser() {
+        try {
+            if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                this.firefox = true;
+            }
+        }
+        catch (e) {
+            console.warn(e);
+        }
     }
     retrieve() {
         if (this.mnemonic) {
@@ -4514,7 +4528,7 @@ class MnemonicImportComponent {
 MnemonicImportComponent.ɵfac = function MnemonicImportComponent_Factory(t) { return new (t || MnemonicImportComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_import_import_service__WEBPACK_IMPORTED_MODULE_4__["ImportService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_message_message_service__WEBPACK_IMPORTED_MODULE_5__["MessageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_wallet_wallet_service__WEBPACK_IMPORTED_MODULE_6__["WalletService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_export_export_service__WEBPACK_IMPORTED_MODULE_7__["ExportService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_input_validation_input_validation_service__WEBPACK_IMPORTED_MODULE_8__["InputValidationService"])); };
 MnemonicImportComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: MnemonicImportComponent, selectors: [["app-mnemonic-import-wallet"]], hostVars: 2, hostBindings: function MnemonicImportComponent_HostBindings(rf, ctx) { if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("tacos", ctx.showTacos);
-    } }, decls: 4, vars: 3, consts: [[1, "kukai-card"], [4, "ngIf"], [1, "import-options"], [3, "click"], [1, "grey-card", "menu"], [1, "description", "bold", 2, "font-size", "1rem"], ["type", "file", "accept", ".tez", "id", "file", "name", "file", 1, "input-file", 3, "change"], ["for", "file", 1, "input-file"], ["class", "authenticate", 4, "ngIf"], [1, "buttons"], ["routerLink", "/"], [1, "button", "back"], [1, "button", "next", 3, "click"], [1, "authenticate"], ["type", "password", "autocomplete", "current-password", "id", "pwd", "placeholder", "Password", 1, "text", 3, "ngModel", "keydown.enter", "ngModelChange"], ["class", "description faucet", 4, "ngIf"], ["autocomplete", "off", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["type", "text", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["class", "radios", 4, "ngIf"], [1, "description", "faucet"], ["routerLink", "/activate"], ["type", "password", "name", "passphrase", "autocomplete", "one-time-code", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["type", "password", "name", "tge-password", "autocomplete", "one-time-code", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], [1, "radios"], ["type", "radio", "name", "walletType", "value", "legacy", "checked", "", 3, "change"], ["type", "radio", "name", "walletType", "value", "hd", 3, "change"], [1, "grey-card"], [1, "description", "bold", "blue"], [1, "description", 2, "margin-top", "1.25rem"], ["type", "password", "autocomplete", "new-password", 1, "text", 2, "margin-top", "2.5rem", 3, "placeholder", "ngModel", "ngModelChange", "keyup"], [1, "grey", 2, "margin-top", "0.5rem"], ["type", "password", "autocomplete", "new-password", 1, "text", 2, "margin-top", "1.5rem", 3, "placeholder", "ngModel", "ngModelChange"], [1, "buttons", 2, "margin-top", "3rem"], [2, "background-color", "#5963FF"], [1, "description", "bold"], [1, "description"], [1, "whitebox", "final"], [1, "description", "bold", "pkh"]], template: function MnemonicImportComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 4, vars: 3, consts: [[1, "kukai-card"], [4, "ngIf"], [1, "import-options"], [3, "click"], [1, "grey-card", "menu"], [1, "description", "bold", 2, "font-size", "1rem"], ["type", "file", "id", "file", "name", "file", 1, "input-file", 3, "accept", "change"], ["for", "file", 1, "input-file"], ["class", "authenticate", 4, "ngIf"], [1, "buttons"], ["routerLink", "/"], [1, "button", "back"], [1, "button", "next", 3, "click"], [1, "authenticate"], ["type", "password", "autocomplete", "current-password", "id", "pwd", "placeholder", "Password", 1, "text", 3, "ngModel", "keydown.enter", "ngModelChange"], ["class", "description faucet", 4, "ngIf"], ["autocomplete", "off", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["type", "text", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["class", "radios", 4, "ngIf"], [1, "description", "faucet"], ["routerLink", "/activate"], ["type", "password", "name", "passphrase", "autocomplete", "one-time-code", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], ["type", "password", "name", "tge-password", "autocomplete", "one-time-code", 1, "text", 3, "ngModel", "placeholder", "ngModelChange"], [1, "radios"], ["type", "radio", "name", "walletType", "value", "legacy", "checked", "", 3, "change"], ["type", "radio", "name", "walletType", "value", "hd", 3, "change"], [1, "grey-card"], [1, "description", "bold", "blue"], [1, "description", 2, "margin-top", "1.25rem"], ["type", "password", "autocomplete", "new-password", 1, "text", 2, "margin-top", "2.5rem", 3, "placeholder", "ngModel", "ngModelChange", "keyup"], [1, "grey", 2, "margin-top", "0.5rem"], ["type", "password", "autocomplete", "new-password", 1, "text", 2, "margin-top", "1.5rem", 3, "placeholder", "ngModel", "ngModelChange"], [1, "buttons", 2, "margin-top", "3rem"], [2, "background-color", "#5963FF"], [1, "description", "bold"], [1, "description"], [1, "whitebox", "final"], [1, "description", "bold", "pkh"]], template: function MnemonicImportComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, MnemonicImportComponent_div_1_Template, 13, 8, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, MnemonicImportComponent_div_2_Template, 21, 14, "div", 1);
@@ -11817,7 +11831,8 @@ class TzktService {
             return fetch(`https://api.${_environments_environment__WEBPACK_IMPORTED_MODULE_2__["CONSTANTS"].NETWORK}.tzkt.io/v1/operations/originations?contractManager=${pkh}`)
                 .then(response => response.json())
                 .then(data => data.map((op) => {
-                return op.originatedContract.kind === 'delegator_contract' ? op.originatedContract.address : '';
+                var _a;
+                return ((op === null || op === void 0 ? void 0 : op.status) === 'applied' && ((_a = op === null || op === void 0 ? void 0 : op.originatedContract) === null || _a === void 0 ? void 0 : _a.kind) === 'delegator_contract') ? op.originatedContract.address : '';
             }).filter((address) => address.length));
         });
     }
@@ -15975,7 +15990,7 @@ const CONSTANTS = {
     }
 };
 const TRUSTED_TOKEN_CONTRACTS = [
-    'KT1LyJV9JdcDCp5zDfw6MxpoShXYrBMG3dfK'
+    'KT1LyJV9JdcDCp5zDfw6MxpoShXYrBMG3dfK', 'KT1RfMoskMhR1hDFJTVN6gGMwQLDSTmLeDsc'
 ];
 
 
