@@ -14005,13 +14005,17 @@ class OperationService {
         };
     }
     parseTokenTransfer(op) {
+        var _a, _b;
         const opJson = JSON.stringify(op.parameters);
-        const addresses = opJson.match(/\{\"string\":\"[^\"]*/g).map(s => {
+        const addresses = (_a = opJson.match(/\{\"string\":\"[^\"]*/g)) === null || _a === void 0 ? void 0 : _a.map(s => {
             return s.slice(11);
         });
-        const amounts = opJson.match(/\{\"int\":\"[^\"]*/g).map(i => {
+        const amounts = (_b = opJson.match(/\{\"int\":\"[^\"]*/g)) === null || _b === void 0 ? void 0 : _b.map(i => {
             return i.slice(8);
         });
+        if (!addresses || !amounts) {
+            return null;
+        }
         if (addresses.length === 2) {
             if (amounts.length === 1) {
                 const fa12ref = this.getFA12Transaction(addresses[0], addresses[1], amounts[0]);

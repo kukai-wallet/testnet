@@ -25941,13 +25941,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "parseTokenTransfer",
         value: function parseTokenTransfer(op) {
+          var _a, _b;
+
           var opJson = JSON.stringify(op.parameters);
-          var addresses = opJson.match(/\{\"string\":\"[^\"]*/g).map(function (s) {
+          var addresses = (_a = opJson.match(/\{\"string\":\"[^\"]*/g)) === null || _a === void 0 ? void 0 : _a.map(function (s) {
             return s.slice(11);
           });
-          var amounts = opJson.match(/\{\"int\":\"[^\"]*/g).map(function (i) {
+          var amounts = (_b = opJson.match(/\{\"int\":\"[^\"]*/g)) === null || _b === void 0 ? void 0 : _b.map(function (i) {
             return i.slice(8);
           });
+
+          if (!addresses || !amounts) {
+            return null;
+          }
 
           if (addresses.length === 2) {
             if (amounts.length === 1) {
