@@ -18842,7 +18842,7 @@
 
             if (entrypoint && destination) {
               switch ("".concat(destination, ":").concat(entrypoint)) {
-                case 'KT1Eq9HFPir5kMYE7eKmw7myG1BwDmwys1Rh:reward':
+                case 'KT1Szwqme712TkQ7LdP1hBqKjdUUBjxoB8bR:reward':
                   return {
                     gasUsage: 35920,
                     storageUsage: 67
