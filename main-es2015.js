@@ -7389,8 +7389,16 @@ class SendComponent {
             event.preventDefault();
             return false;
         }
-        else if (charCode === 46 && this[input].length === 0) {
-            this[input] = '0' + this[input];
+        else if (charCode === 46) {
+            const meta = this.tokenTransfer ? this.tokenService.getAsset(this.tokenTransfer) : null;
+            if (this[input].includes('.') ||
+                (input === 'amount' && (meta === null || meta === void 0 ? void 0 : meta.decimals) === 0)) {
+                event.preventDefault();
+                return false;
+            }
+            else if (this[input].length === 0) {
+                this[input] = '0' + this[input];
+            }
         }
         return true;
     }
@@ -15524,7 +15532,7 @@ function SignExprComponent_div_0_span_12_Template(rf, ctx) { if (rf & 1) {
 function SignExprComponent_div_0_input_14_Template(rf, ctx) { if (rf & 1) {
     const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "input", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function SignExprComponent_div_0_input_14_Template_input_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r7.password = $event; })("input", function SignExprComponent_div_0_input_14_Template_input_input_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r9.pwdValid = ""; })("change", function SignExprComponent_div_0_input_14_Template_input_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r10.pwdValid = ""; })("keydown.enter", function SignExprComponent_div_0_input_14_Template_input_keydown_enter_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r11.sign(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function SignExprComponent_div_0_input_14_Template_input_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r7.password = $event; })("input", function SignExprComponent_div_0_input_14_Template_input_input_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r9.pwdInvalid = ""; })("change", function SignExprComponent_div_0_input_14_Template_input_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r10.pwdInvalid = ""; })("keydown.enter", function SignExprComponent_div_0_input_14_Template_input_keydown_enter_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8); const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r11.sign(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
@@ -15612,7 +15620,7 @@ class SignExprComponent {
             else {
                 const pwd = this.password;
                 this.password = '';
-                this.messageService.startSpinner(`Signing ${this.isMessage ? 'message' : 'payload'}...`);
+                yield this.messageService.startSpinner(`Signing ${this.isMessage ? 'message' : 'payload'}...`);
                 let keys;
                 try {
                     keys = yield this.walletService.getKeys(pwd, this.activeAccount.pkh);

@@ -12098,8 +12098,15 @@
             if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
               event.preventDefault();
               return false;
-            } else if (charCode === 46 && this[input].length === 0) {
-              this[input] = '0' + this[input];
+            } else if (charCode === 46) {
+              var meta = this.tokenTransfer ? this.tokenService.getAsset(this.tokenTransfer) : null;
+
+              if (this[input].includes('.') || input === 'amount' && (meta === null || meta === void 0 ? void 0 : meta.decimals) === 0) {
+                event.preventDefault();
+                return false;
+              } else if (this[input].length === 0) {
+                this[input] = '0' + this[input];
+              }
             }
 
             return true;
@@ -28104,13 +28111,13 @@
 
             var ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
 
-            return ctx_r9.pwdValid = "";
+            return ctx_r9.pwdInvalid = "";
           })("change", function SignExprComponent_div_0_input_14_Template_input_change_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8);
 
             var ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
 
-            return ctx_r10.pwdValid = "";
+            return ctx_r10.pwdInvalid = "";
           })("keydown.enter", function SignExprComponent_div_0_input_14_Template_input_keydown_enter_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r8);
 
@@ -28287,29 +28294,32 @@
                       }
 
                       this.requestLedgerSignature();
-                      _context120.next = 18;
+                      _context120.next = 19;
                       break;
 
                     case 4:
                       pwd = this.password;
                       this.password = '';
-                      this.messageService.startSpinner("Signing ".concat(this.isMessage ? 'message' : 'payload', "..."));
-                      _context120.prev = 7;
-                      _context120.next = 10;
+                      _context120.next = 8;
+                      return this.messageService.startSpinner("Signing ".concat(this.isMessage ? 'message' : 'payload', "..."));
+
+                    case 8:
+                      _context120.prev = 8;
+                      _context120.next = 11;
                       return this.walletService.getKeys(pwd, this.activeAccount.pkh);
 
-                    case 10:
+                    case 11:
                       keys = _context120.sent;
-                      _context120.next = 17;
+                      _context120.next = 18;
                       break;
 
-                    case 13:
-                      _context120.prev = 13;
-                      _context120.t0 = _context120["catch"](7);
+                    case 14:
+                      _context120.prev = 14;
+                      _context120.t0 = _context120["catch"](8);
                       console.warn(_context120.t0);
                       this.messageService.stopSpinner();
 
-                    case 17:
+                    case 18:
                       if (keys) {
                         this.pwdInvalid = '';
 
@@ -28332,12 +28342,12 @@
                         }
                       }
 
-                    case 18:
+                    case 19:
                     case "end":
                       return _context120.stop();
                   }
                 }
-              }, _callee119, this, [[7, 13]]);
+              }, _callee119, this, [[8, 14]]);
             }));
           }
         }, {
