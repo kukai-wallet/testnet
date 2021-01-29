@@ -7444,7 +7444,7 @@
 
           this.indexerService = indexerService;
           this.AUTO_DISCOVER = true;
-          this.version = '1.0.1';
+          this.version = '1.0.2';
           this.contracts = {};
           this.exploredIds = {};
           this.storeKey = 'tokenMetadata';
@@ -17936,9 +17936,11 @@
             key: "uriToUrl",
             value: function uriToUrl(uri) {
               if (uri && uri.length > 7) {
-                if (uri.slice(0, 7) === 'ipfs://') {
+                if (uri.startsWith('ipfs://')) {
                   return "https://cloudflare-ipfs.com/ipfs/".concat(uri.slice(7));
-                } else if (uri.slice(0, 8) === 'https://') {
+                } else if (uri.startsWith('https://')) {
+                  return uri;
+                } else if (!_environments_environment__WEBPACK_IMPORTED_MODULE_2__["CONSTANTS"].MAINNET && (uri.startsWith('http://localhost') || uri.startsWith('http://127.0.0.1'))) {
                   return uri;
                 } else {
                   console.warn('wrong prefix', uri);
