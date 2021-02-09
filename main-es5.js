@@ -7289,6 +7289,7 @@
                 decimals: 6,
                 description: 'USDtz is a Tezos on-chain stablecoin pegged to the value of the United States Dollar.',
                 displayUrl: '../../../assets/img/tokens/usdtz.png',
+                thumbnailUrl: '../../../assets/img/tokens/usdtz.png',
                 symbolPreference: true
               }
             }
@@ -7303,6 +7304,7 @@
                 decimals: 0,
                 description: 'This certificate verifies that the holder of its private key attended, contributed and completed the Tezos Israel and Madfish Solution Workshop on December 7th to the 9th, 2020. The certificate holder utilized skills in smart contract development and tokenization to build, test and deploy a token on the Tezos blockchain.',
                 displayUrl: '../../../assets/img/tokens/mfil.jfif',
+                thumbnailUrl: '../../../assets/img/tokens/mfil.jfif',
                 nonTransferable: true,
                 booleanAmount: true
               }
@@ -7318,6 +7320,7 @@
                 decimals: 18,
                 description: 'Kolibri is a Tezos based stablecoin built on Collateralized Debt Positions (CDPs) known as Ovens.',
                 displayUrl: '../../../assets/img/tokens/kusd.png',
+                thumbnailUrl: '../../../assets/img/tokens/kusd.png',
                 symbolPreference: true
               }
             }
@@ -7448,7 +7451,7 @@
 
           this.indexerService = indexerService;
           this.AUTO_DISCOVER = true;
-          this.version = '1.0.0';
+          this.version = '1.0.1';
           this.contracts = {};
           this.exploredIds = {};
           this.storeKey = 'tokenMetadata';
@@ -7558,7 +7561,7 @@
           key: "searchMetadata",
           value: function searchMetadata(contractAddress, id) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
-              var tokenId, metadata, contract, displayUrl, token;
+              var tokenId, metadata, contract, defaultImg, displayUrl, thumbnailUrl, token;
               return regeneratorRuntime.wrap(function _callee23$(_context23) {
                 while (1) {
                   switch (_context23.prev = _context23.next) {
@@ -7583,13 +7586,25 @@
                           category: metadata.tokenCategory ? metadata.tokenCategory : '',
                           tokens: {}
                         };
-                        displayUrl = metadata.displayUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress) ? metadata.displayUri : '../../../assets/img/tokens/unknown-token.png';
+                        defaultImg = '../../../assets/img/tokens/unknown-token.png';
+                        displayUrl = metadata.displayUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress) ? metadata.displayUri : defaultImg;
+                        thumbnailUrl = metadata.thumbnailUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress) ? metadata.thumbnailUri : defaultImg;
+
+                        if (displayUrl === defaultImg && thumbnailUrl !== defaultImg) {
+                          displayUrl = thumbnailUrl;
+                        }
+
+                        if (displayUrl !== defaultImg && thumbnailUrl === defaultImg) {
+                          thumbnailUrl = displayUrl;
+                        }
+
                         token = {
                           name: metadata.name ? metadata.name : '',
                           symbol: metadata.symbol ? metadata.symbol : '',
                           decimals: Number(metadata.decimals),
                           description: metadata.description ? metadata.description : '',
                           displayUrl: displayUrl,
+                          thumbnailUrl: thumbnailUrl,
                           nonTransferable: (metadata === null || metadata === void 0 ? void 0 : metadata.nonTransferable) ? metadata.nonTransferable : false,
                           booleanAmount: (metadata === null || metadata === void 0 ? void 0 : metadata.booleanAmount) ? metadata.booleanAmount : false
                         };
@@ -7653,6 +7668,7 @@
               id: id,
               decimals: 0,
               displayUrl: '../../../assets/img/tokens/unknown-token.png',
+              thumbnailUrl: '../../../assets/img/tokens/unknown-token.png',
               name: '[Unknown token]',
               symbol: '',
               description: '',
@@ -8773,7 +8789,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r18.tokenService.getAsset(ctx_r18.tokenTransfer).displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r18.tokenService.getAsset(ctx_r18.tokenTransfer).thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
         }
       }
 
@@ -9583,7 +9599,7 @@
         if (rf & 2) {
           var ctx_r77 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r77.tokenService.getAsset(ctx_r77.tokenTransfer).displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r77.tokenService.getAsset(ctx_r77.tokenTransfer).thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
         }
       }
 
@@ -17309,6 +17325,9 @@
                             key: 'displayUri',
                             type: 'string'
                           }, {
+                            key: 'thumbnailUri',
+                            type: 'string'
+                          }, {
                             key: 'nonTransferable',
                             type: 'boolean'
                           }, {
@@ -17350,6 +17369,10 @@
 
                                 if (metadata.displayUri) {
                                   metadata.displayUri = _this36.uriToUrl(metadata.displayUri);
+                                }
+
+                                if (metadata.thumbnailUri) {
+                                  metadata.thumbnailUri = _this36.uriToUrl(metadata.thumbnailUri);
                                 }
 
                                 return metadata;
@@ -18226,7 +18249,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx_r0.token.displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx_r0.token.thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
@@ -18330,7 +18353,7 @@
           if (rf & 2) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx.token.displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx.token.thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 

@@ -4851,6 +4851,7 @@ const CONSTANTS = {
                     decimals: 6,
                     description: 'USDtz is a Tezos on-chain stablecoin pegged to the value of the United States Dollar.',
                     displayUrl: '../../../assets/img/tokens/usdtz.png',
+                    thumbnailUrl: '../../../assets/img/tokens/usdtz.png',
                     symbolPreference: true
                 }
             }
@@ -4865,6 +4866,7 @@ const CONSTANTS = {
                     decimals: 0,
                     description: 'This certificate verifies that the holder of its private key attended, contributed and completed the Tezos Israel and Madfish Solution Workshop on December 7th to the 9th, 2020. The certificate holder utilized skills in smart contract development and tokenization to build, test and deploy a token on the Tezos blockchain.',
                     displayUrl: '../../../assets/img/tokens/mfil.jfif',
+                    thumbnailUrl: '../../../assets/img/tokens/mfil.jfif',
                     nonTransferable: true,
                     booleanAmount: true
                 }
@@ -4880,6 +4882,7 @@ const CONSTANTS = {
                     decimals: 18,
                     description: 'Kolibri is a Tezos based stablecoin built on Collateralized Debt Positions (CDPs) known as Ovens.',
                     displayUrl: '../../../assets/img/tokens/kusd.png',
+                    thumbnailUrl: '../../../assets/img/tokens/kusd.png',
                     symbolPreference: true
                 }
             }
@@ -4958,7 +4961,7 @@ class TokenService {
     constructor(indexerService) {
         this.indexerService = indexerService;
         this.AUTO_DISCOVER = true;
-        this.version = '1.0.0';
+        this.version = '1.0.1';
         this.contracts = {};
         this.exploredIds = {};
         this.storeKey = 'tokenMetadata';
@@ -5034,13 +5037,22 @@ class TokenService {
                         category: metadata.tokenCategory ? metadata.tokenCategory : '',
                         tokens: {}
                     };
-                    const displayUrl = (metadata.displayUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress)) ? metadata.displayUri : '../../../assets/img/tokens/unknown-token.png';
+                    const defaultImg = '../../../assets/img/tokens/unknown-token.png';
+                    let displayUrl = (metadata.displayUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress)) ? metadata.displayUri : defaultImg;
+                    let thumbnailUrl = (metadata.thumbnailUri && _environments_environment__WEBPACK_IMPORTED_MODULE_2__["TRUSTED_TOKEN_CONTRACTS"].includes(contractAddress)) ? metadata.thumbnailUri : defaultImg;
+                    if (displayUrl === defaultImg && thumbnailUrl !== defaultImg) {
+                        displayUrl = thumbnailUrl;
+                    }
+                    if (displayUrl !== defaultImg && thumbnailUrl === defaultImg) {
+                        thumbnailUrl = displayUrl;
+                    }
                     const token = {
                         name: metadata.name ? metadata.name : '',
                         symbol: metadata.symbol ? metadata.symbol : '',
                         decimals: Number(metadata.decimals),
                         description: metadata.description ? metadata.description : '',
                         displayUrl,
+                        thumbnailUrl,
                         nonTransferable: (metadata === null || metadata === void 0 ? void 0 : metadata.nonTransferable) ? metadata.nonTransferable : false,
                         booleanAmount: (metadata === null || metadata === void 0 ? void 0 : metadata.booleanAmount) ? metadata.booleanAmount : false
                     };
@@ -5086,6 +5098,7 @@ class TokenService {
             id,
             decimals: 0,
             displayUrl: '../../../assets/img/tokens/unknown-token.png',
+            thumbnailUrl: '../../../assets/img/tokens/unknown-token.png',
             name: '[Unknown token]',
             symbol: '',
             description: '',
@@ -5623,7 +5636,7 @@ function SendComponent_div_1_div_8_ng_container_3_Template(rf, ctx) { if (rf & 1
 } if (rf & 2) {
     const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r18.tokenService.getAsset(ctx_r18.tokenTransfer).displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r18.tokenService.getAsset(ctx_r18.tokenTransfer).thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
 } }
 function SendComponent_div_1_div_8_span_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "span");
@@ -5971,7 +5984,7 @@ function SendComponent_div_1_div_9_ng_template_11_Template(rf, ctx) { if (rf & 1
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "img", 72);
 } if (rf & 2) {
     const ctx_r77 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r77.tokenService.getAsset(ctx_r77.tokenTransfer).displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("src", ctx_r77.tokenService.getAsset(ctx_r77.tokenTransfer).thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
 } }
 function SendComponent_div_1_div_9_ng_container_13_span_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span", 76);
@@ -10648,6 +10661,7 @@ class TzktService {
                     { key: 'symbol', type: 'string' },
                     { key: 'description', type: 'string' },
                     { key: 'displayUri', type: 'string' },
+                    { key: 'thumbnailUri', type: 'string' },
                     { key: 'nonTransferable', type: 'boolean' },
                     { key: 'symbolPreference', type: 'boolean' },
                     { key: 'booleanAmount', type: 'boolean' }
@@ -10663,6 +10677,9 @@ class TzktService {
                         }
                         if (metadata.displayUri) {
                             metadata.displayUri = this.uriToUrl(metadata.displayUri);
+                        }
+                        if (metadata.thumbnailUri) {
+                            metadata.thumbnailUri = this.uriToUrl(metadata.thumbnailUri);
                         }
                         return metadata;
                     }
@@ -11024,7 +11041,7 @@ function TokenComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.token.symbol);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx_r0.token.displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx_r0.token.thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.getDescription());
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -11076,7 +11093,7 @@ TokenComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCom
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, TokenComponent_div_5_Template, 27, 5, "div", 3);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx.token.displayUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", ctx.token.thumbnailUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.listDisplayText());
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
