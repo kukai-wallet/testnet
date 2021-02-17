@@ -19472,7 +19472,7 @@
                 case 'KT1TWb6cE56q2L8yTeNNchXqDSXacrNqyVNZ:reward':
                   return {
                     gasUsage: 59920,
-                    storageUsage: 80
+                    storageUsage: 150
                   };
               }
             }

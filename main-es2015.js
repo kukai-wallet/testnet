@@ -11576,7 +11576,7 @@ class EstimateService {
         if (entrypoint && destination) {
             switch (`${destination}:${entrypoint}`) {
                 case 'KT1TWb6cE56q2L8yTeNNchXqDSXacrNqyVNZ:reward':
-                    return { gasUsage: 59920, storageUsage: 80 };
+                    return { gasUsage: 59920, storageUsage: 150 };
             }
         }
         return null;
