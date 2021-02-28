@@ -7392,7 +7392,7 @@
           }
         }
       };
-      var TRUSTED_TOKEN_CONTRACTS = ['KT1LyJV9JdcDCp5zDfw6MxpoShXYrBMG3dfK', 'KT1RfMoskMhR1hDFJTVN6gGMwQLDSTmLeDsc', 'KT1Szwqme712TkQ7LdP1hBqKjdUUBjxoB8bR', 'KT1PS2jZVzNMW54UsnqBqwwkArXnAZ29jiTF'];
+      var TRUSTED_TOKEN_CONTRACTS = ['KT1LyJV9JdcDCp5zDfw6MxpoShXYrBMG3dfK', 'KT1RfMoskMhR1hDFJTVN6gGMwQLDSTmLeDsc', 'KT1Szwqme712TkQ7LdP1hBqKjdUUBjxoB8bR', 'KT1PS2jZVzNMW54UsnqBqwwkArXnAZ29jiTF', 'KT1PBL66suJeW2nBbWXgR9ex9gu7TFCmSgQg'];
       /***/
     },
 
